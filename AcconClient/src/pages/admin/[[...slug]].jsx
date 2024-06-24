@@ -1,19 +1,11 @@
 import React from 'react';
+import AdminNavBar from "@/Components/Admin/AdminNavBar";
 
 const Index = ({slug}) => {
     console.log("slug", slug);
-    if(slug == undefined){
-        return (
-            <div>
-                <h1>Admin</h1>
-            </div>
-        );
-    }
-    return (
-        <div>
-
-        </div>
-    );
+    return <>
+        <AdminNavBar/>
+    </>
 };
 
 export default Index;
