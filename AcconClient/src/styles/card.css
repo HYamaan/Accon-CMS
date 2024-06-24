@@ -1,0 +1,48 @@
+
+
+.services-item{
+    border: 1px solid #ddd;
+    margin-top: 30px;
+}
+.services-photo {
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    height: 225px;
+    width: 100%;
+}
+.services-text{
+    border-top:5px solid #F8BE2E !important;
+    background: #13233B !important;
+    color: #fff;
+    padding: 15px;
+    height: 195px;
+    max-height: 195px;
+    min-height: 195px;
+    text-wrap: normal;
+    overflow: hidden;
+    position: relative;
+}
+.services-text h3 {
+    font-size:24px;
+    color: #f8be2e;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+.services-text p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.services-button{
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+}
+.clear-three:nth-child(3n + 1){
+    clear: both;
+}

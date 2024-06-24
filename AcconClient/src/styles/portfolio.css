@@ -1,0 +1,114 @@
+.single-service-area{
+    padding-bottom: 60px;
+    padding-top:30px;
+}
+.sub-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+.sub-img img{
+    margin-top: 30px;
+    width: auto;
+    height: 82.4px !important;
+}
+
+.slick-dots .slick-thumb li{
+padding-right: 2rem;
+}
+
+.single-service-text{
+    padding-top: 30px;
+}
+.single-service-text h4{
+    font-size: 18px;
+}
+
+
+table.project-desc h4 {
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+}
+
+.single-service-text h4{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.client-comment {
+    display: flex;
+    flex-direction: column;
+    font-style: italic;
+    background: #eee;
+    padding: 30px;
+    position: relative;
+    border-radius: 10px;
+    font-family: "Lato" , sans-serif;
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+.client-comment p{
+    margin:1rem;
+}
+.client-comment .quote-right{
+    align-self: flex-end;
+}
+.portfolio-carousel .carousel-slider{
+   max-height: 380px !important;
+}
+.portfolio-carousel .carousel-slider img{
+    object-fit: contain;
+}
+.sidebar {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 30px;
+}
+.sidebar-item:first-child {
+    margin-top: 0;
+}
+.sidebar-item h3 {
+    position: relative;
+    padding-bottom: 12px;
+    margin: 0;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+.sidebar-item h3:before {
+    position: absolute;
+    content: '';
+    width: 60px;
+    height: 3px;
+    left: 0;
+    bottom: 0;
+    background: #f8be2e;
+}
+.sidebar-item ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.sidebar-item li {
+    position: relative;
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .5rem;
+    cursor: pointer;
+}
+
+.sidebar-item li a{
+    font-weight: 500;
+    font-size: 14px;
+    transition: all .3s ease;
+    text-transform: capitalize !important;
+}
+.sidebar-item li:hover a{
+    color: #f8be2e;
+}
