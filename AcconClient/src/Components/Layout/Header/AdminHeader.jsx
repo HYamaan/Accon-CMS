@@ -1,21 +1,25 @@
 import {useRouter} from 'next/router';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {LazyLoadImage} from 'react-lazy-load-image-component';
 import {IoMenu} from "react-icons/io5";
+import {useDispatch, useSelector} from "react-redux";
+import {setAdminMenuLogoClicked, setMenuLogoClicked} from "@/redux/features/AdminMenuSlice";
 
 const AdminHeader = () => {
-    const [logoHidden, setLogoHidden] = useState(false);
+    const selectorLogo = useSelector(state => state.adminMenu.adminLogoClicked);
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const toggleLogo = () => {
-        setLogoHidden(!logoHidden);
+        dispatch(setAdminMenuLogoClicked(!selectorLogo));
+        dispatch(setMenuLogoClicked(!selectorLogo));
     };
     const getMainPage = async () => {
         await router.push("/");
     }
 
     return <header className='main-header'>
-        <div className={`main-header__logo ${logoHidden ? 'hidden' : ''}`}>
+        <div className={`main-header__logo ${selectorLogo ? 'hidden' : ''}`}>
             <LazyLoadImage
                 src={"/logo_admin.png"}
                 alt="logo_admin"
