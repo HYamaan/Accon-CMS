@@ -71,6 +71,7 @@
     font-weight: 700;
     text-transform: uppercase;
     transition: all 0.7s;
+    outline: hidden;
 }
 
 .primary-button:hover,
@@ -90,6 +91,7 @@
     font-weight: 700;
     text-transform: uppercase;
     transition: all 0.7s;
+    outline: hidden;
 }
 
 
