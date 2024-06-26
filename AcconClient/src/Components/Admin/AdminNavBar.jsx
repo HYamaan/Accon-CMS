@@ -215,7 +215,9 @@ const AdminNavBar = () => {
                     </div>
                 </div>
             </div>
-            <div onMouseLeave={handleMouseLeave}>
+            <div
+                onClick={()=>handleClickRoute("page")}
+                onMouseLeave={handleMouseLeave}>
                 <RiPagesLine onMouseEnter={handleMouseEnter}/>
                 <h3>Page</h3>
             </div>
@@ -242,12 +244,12 @@ const AdminNavBar = () => {
                     </div>
                 </div>
             </div>
-            <div
-                onClick={()=>handleClickRoute("comment")}
-                onMouseLeave={handleMouseLeave} className="main-sidebar-item">
-                <FaComment onMouseEnter={handleMouseEnter}/>
-                <h3>Comment</h3>
-            </div>
+            {/*<div*/}
+            {/*    onClick={()=>handleClickRoute("comment")}*/}
+            {/*    onMouseLeave={handleMouseLeave} className="main-sidebar-item">*/}
+            {/*    <FaComment onMouseEnter={handleMouseEnter}/>*/}
+            {/*    <h3>Comment</h3>*/}
+            {/*</div>*/}
             <div
                 onClick={()=>handleClickRoute("language")}
                 onMouseLeave={handleMouseLeave} className="main-sidebar-item">

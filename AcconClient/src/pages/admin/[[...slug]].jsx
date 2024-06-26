@@ -10,6 +10,7 @@ import MainPhoto from "@/Components/Admin/Faq/MainPhoto";
 import TestimonialMainPhoto from "@/Components/Admin/Testimonial/TestimonialMainPhoto";
 import WhyChooseUsMainPhoto from "@/Components/Admin/WhyChooseUs/WhyChooseUsMainPhoto";
 import WhyChooseUsBackgroundPhoto from "@/Components/Admin/WhyChooseUs/WhyChooseUsBackgroundPhoto";
+import Page from "@/Components/Admin/Pages/Page";
 
 const ViewSlider = dynamic(() =>
     import('@/Components/Admin/Slider/ViewSlider'), {
@@ -85,6 +86,7 @@ const Index = ({combinedSlug,slug}) => {
                 {combinedSlug === "why-choose-us" && <ViewWhyChoouseUs/>}
                 {combinedSlug === "why-choose-us/main-photo" && <WhyChooseUsMainPhoto/>}
                 {combinedSlug === "why-choose-us/background-item" && <WhyChooseUsBackgroundPhoto/>}
+                {(combinedSlug === "page" || (slug && slug[0]==="page")) && <Page combinedSlug={combinedSlug} slug={slug}/>}
                 {combinedSlug === "news" && <ViewNews/>}
                 {combinedSlug === "news-category" && <ViewNewsCategory/>}
                 {combinedSlug === "language" && <Language/>}
