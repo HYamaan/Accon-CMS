@@ -105,6 +105,17 @@ a {
   }
 }
 
+th,tr{
+  border-width: 1px;
+  border-color: #f4f4f4;
+}
+@media (max-width: 768px){
+  th,tr {
+    border-color: #f4f4f4 !important;
+    border-width: 2px !important;
+  }
+
+}
 
 .ul.nav-menu li, .team-carousel.owl-carousel .owl-nav .owl-prev, .team-carousel.owl-carousel .owl-nav .owl-next, .blog-carousel.owl-carousel .owl-nav .owl-prev, .blog-carousel.owl-carousel .owl-nav .owl-next, .brand-carousel.owl-carousel .owl-nav .owl-prev, .brand-carousel.owl-carousel .owl-nav .owl-next {
   color: #13233B !important;
