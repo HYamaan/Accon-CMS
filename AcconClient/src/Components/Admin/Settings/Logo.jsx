@@ -43,8 +43,6 @@ const Logo = () => {
                     </button>
                 </div>
             </div>
-
-
         </div>
         <div className="tab-content">
             <h3 className="panel-website-icon">

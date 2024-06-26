@@ -72,7 +72,7 @@ const ViewTeamMember = () => {
                                         {!isMobile && <FaSortAmountDown/>}
                                     </div>
                                 </Th>
-                                <Th>
+                                <Th className="w-25">
                                     <div className="slider-table-head">
                                         <span>Action</span>
                                     </div>

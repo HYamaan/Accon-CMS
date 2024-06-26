@@ -4,7 +4,7 @@ import OneFileUpload from "@/Components/Ui/OneFileUpload";
 import UploadLogoComponent from "@/Components/Ui/UploadLogoComponent";
 
 const FavIcon = () => {
-    const [logoFile, setLogoFile] = useState(null);
+    const [logoFile, setLogoFile] = useState("/favicon.png");
     const title = "Favicon";
     return <>
     <UploadLogoComponent logoFile={logoFile} setLogoFile={setLogoFile} title={title}/>

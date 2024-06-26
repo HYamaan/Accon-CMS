@@ -4,7 +4,7 @@ import {FaArrowAltCircleRight, FaPlus, FaSortAmountDown} from "react-icons/fa";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {Table, Tbody, Td, Th, Thead, Tr} from "react-super-responsive-table";
 
-const ViewWhyChooseUs = () => {
+const ViewNews = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     return <>
@@ -12,7 +12,7 @@ const ViewWhyChooseUs = () => {
             <div className="view-border-header">
                 <div className="board-header">
                     <FaArrowAltCircleRight/>
-                    <h2>View Partners</h2>
+                    <h2>View Service</h2>
                 </div>
                 <div className="view-border-header__add-view">
                     <FaPlus />
@@ -36,8 +36,8 @@ const ViewWhyChooseUs = () => {
                                 <span>Sort:</span>
                                 <select name="slider-show-entries" id="slider-show-entries">
                                     <option value="SL">SL</option>
-                                    <option value="Title">Title</option>
-                                    <option value="Content">Content</option>
+                                    <option value="Heading">Heading</option>
+                                    <option value="Title">Category</option>
                                 </select>
                             </div>
                         }
@@ -57,18 +57,23 @@ const ViewWhyChooseUs = () => {
                                 </Th>
                                 <Th>
                                     <div className="slider-table-head">
-                                        <span>Icon</span>
+                                        <span>Photo</span>
                                     </div>
                                 </Th>
                                 <Th>
                                     <div className="slider-table-head">
-                                        <span>Title</span>
+                                        <span>Banner</span>
+                                    </div>
+                                </Th>
+                                <Th>
+                                    <div className="slider-table-head">
+                                        <span>Heading</span>
                                         {!isMobile && <FaSortAmountDown/>}
                                     </div>
                                 </Th>
-                                <Th className="table-body-col-header-45">
+                                <Th>
                                     <div className="slider-table-head">
-                                        <span>Content</span>
+                                        <span>Category</span>
                                         {!isMobile && <FaSortAmountDown/>}
                                     </div>
                                 </Th>
@@ -88,19 +93,26 @@ const ViewWhyChooseUs = () => {
                                 </Td>
                                 <Td>
                                     <LazyLoadImage
-                                        src={"/why-choose-1.png"}
-                                        alt={"why-choose-1.png"}
+                                        src={"/slider-1.jpg"}
+                                        alt={"slider-1.jpg"}
                                         className="slider-table-image"
                                     />
                                 </Td>
                                 <Td>
+                                    <LazyLoadImage
+                                        src={"/banner_service.jpg"}
+                                        alt={"banner_service.jpg"}
+                                        className="slider-table-banner-image"
+                                    />
+                                </Td>
+                                <Td >
                                     <div className="slider-table-body ">
-                                        Brute altera causae ne sed cum no
+                                        HELPING BUILD A BETTER FUTURE
                                     </div>
                                 </Td>
-                                <Td>
+                                <Td >
                                     <div className="slider-table-body ">
-                                        Lorem ipsum dolor sit amet, an labores explicari qui, eu nostrum copiosae argumentum has. Latine propriae quo no, unum ridens expetenda id sit, at usu eius eligendi singulis.Sea ocurreret principes ne.
+                                        News Category 6
                                     </div>
                                 </Td>
                                 <Td>
@@ -130,4 +142,4 @@ const ViewWhyChooseUs = () => {
     </>
 };
 
-export default ViewWhyChooseUs;
+export default ViewNews;

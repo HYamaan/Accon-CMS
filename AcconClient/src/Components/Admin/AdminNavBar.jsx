@@ -36,26 +36,38 @@ const AdminNavBar = () => {
         }));
     };
 
-
+    const handleClickRoute = (route) => {
+        router.push(`/admin/${route}`);
+    }
     return (
         <aside className={`main-sidebar ${logoClick ? "hidden" : ""}`}>
-            <div onMouseLeave={handleMouseLeave} className="main-sidebar-item">
+            <div
+                onClick={()=>handleClickRoute("")}
+                onMouseLeave={handleMouseLeave} className="main-sidebar-item">
                 <MdDashboard onMouseEnter={handleMouseEnter}/>
                 <h3>Dashboard</h3>
             </div>
-            <div onMouseLeave={handleMouseLeave} className="main-sidebar-item">
+            <div
+                onClick={()=>handleClickRoute("settings")}
+                onMouseLeave={handleMouseLeave} className="main-sidebar-item">
                 <MdSettings onMouseEnter={handleMouseEnter}/>
                 <h3>Settings</h3>
             </div>
-            <div onMouseLeave={handleMouseLeave} className="main-sidebar-item">
+            <div
+                onClick={()=>handleClickRoute("menu")}
+                onMouseLeave={handleMouseLeave} className="main-sidebar-item">
                 <BsMenuButtonWide onMouseEnter={handleMouseEnter}/>
                 <h3>Menu</h3>
             </div>
-            <div onMouseLeave={handleMouseLeave} className="main-sidebar-item">
+            <div
+                onClick={()=>handleClickRoute("slider")}
+                onMouseLeave={handleMouseLeave} className="main-sidebar-item">
                 <GrGallery onMouseEnter={handleMouseEnter}/>
                 <h3>Slider</h3>
             </div>
-            <div onMouseLeave={handleMouseLeave} className="main-sidebar-item">
+            <div
+                onClick={()=>handleClickRoute("service")}
+                onMouseLeave={handleMouseLeave} className="main-sidebar-item">
                 <MdHomeRepairService onMouseEnter={handleMouseEnter}/>
                 <h3>Service</h3>
             </div>
@@ -68,11 +80,15 @@ const AdminNavBar = () => {
                     {openSections.faq ? <FaAngleDown/> : <FaAngleRight/>}
                 </div>
                 <div className={`has-sub-pages-content ${openSections.faq ? 'open' : ''}`}>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("faq")}
+                    >
                         <FaRegDotCircle/>
                         <h4>FAQ</h4>
                     </div>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("faq/main-photo")}
+                    >
                         <FaRegDotCircle/>
                         <h4>Main Photo</h4>
                     </div>
@@ -87,7 +103,9 @@ const AdminNavBar = () => {
                     {openSections.photoGallery ? <FaAngleDown/> : <FaAngleRight/>}
                 </div>
                 <div className={`has-sub-pages-content ${openSections.photoGallery ? 'open' : ''}`}>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("photo-gallery")}
+                    >
                         <FaRegDotCircle/>
                         <h4>Photo</h4>
                     </div>
@@ -95,18 +113,22 @@ const AdminNavBar = () => {
             </div>
             <div onMouseLeave={handleMouseLeave} className="has-sub-pages main-sidebar-item">
                 <div className="has-sub-pages-header" onClick={() => toggleSection('portfolio')}>
-                    <div>
+                    <div  >
                         <IoMenu onMouseEnter={handleMouseEnter}/>
                         <h3>Portfolio</h3>
                     </div>
                     {openSections.portfolio ? <FaAngleDown/> : <FaAngleRight/>}
                 </div>
                 <div className={`has-sub-pages-content ${openSections.portfolio ? 'open' : ''}`}>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("portfolio-category")}
+                    >
                         <FaRegDotCircle/>
                         <h4>Portfolio Category</h4>
                     </div>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("portfolio")}
+                    >
                         <FaRegDotCircle/>
                         <h4>Portfolio</h4>
                     </div>
@@ -121,11 +143,15 @@ const AdminNavBar = () => {
                     {openSections.teamMember ? <FaAngleDown/> : <FaAngleRight/>}
                 </div>
                 <div className={`has-sub-pages-content ${openSections.teamMember ? 'open' : ''}`}>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("team-member/designation")}
+                    >
                         <FaRegDotCircle/>
                         <h4>Designation</h4>
                     </div>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("team-member")}
+                    >
                         <FaRegDotCircle/>
                         <h4>Team Member</h4>
                     </div>
@@ -140,17 +166,23 @@ const AdminNavBar = () => {
                     {openSections.testimonial ? <FaAngleDown/> : <FaAngleRight/>}
                 </div>
                 <div className={`has-sub-pages-content ${openSections.testimonial ? 'open' : ''}`}>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("testimonial")}
+                    >
                         <FaRegDotCircle/>
                         <h4>Testimonial</h4>
                     </div>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("testimonial/main-photo")}
+                    >
                         <FaRegDotCircle/>
                         <h4>Main Photo</h4>
                     </div>
                 </div>
             </div>
-            <div onMouseLeave={handleMouseLeave}>
+            <div
+                onClick={()=>handleClickRoute("partners")}
+                onMouseLeave={handleMouseLeave}>
                 <SiNginxproxymanager onMouseEnter={handleMouseEnter}/>
                 <h3>Partner</h3>
             </div>
@@ -163,15 +195,21 @@ const AdminNavBar = () => {
                     {openSections.whyChooseUs ? <FaAngleDown/> : <FaAngleRight/>}
                 </div>
                 <div className={`has-sub-pages-content ${openSections.whyChooseUs ? 'open' : ''}`}>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("why-choose-us")}
+                    >
                         <FaRegDotCircle/>
                         <h4>Why Choose</h4>
                     </div>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("why-choose-us/main-photo")}
+                    >
                         <FaRegDotCircle/>
                         <h4>Main Photo</h4>
                     </div>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("why-choose-us/background-item")}
+                    >
                         <FaRegDotCircle/>
                         <h4>Items Background</h4>
                     </div>
@@ -190,25 +228,35 @@ const AdminNavBar = () => {
                     {openSections.newsSection ? <FaAngleDown/> : <FaAngleRight/>}
                 </div>
                 <div className={`has-sub-pages-content ${openSections.newsSection ? 'open' : ''}`}>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("news-category")}
+                    >
                         <FaRegDotCircle/>
                         <h4>News Category</h4>
                     </div>
-                    <div>
+                    <div
+                        onClick={()=>handleClickRoute("news")}
+                    >
                         <FaRegDotCircle/>
                         <h4>News</h4>
                     </div>
                 </div>
             </div>
-            <div onMouseLeave={handleMouseLeave} className="main-sidebar-item">
+            <div
+                onClick={()=>handleClickRoute("comment")}
+                onMouseLeave={handleMouseLeave} className="main-sidebar-item">
                 <FaComment onMouseEnter={handleMouseEnter}/>
                 <h3>Comment</h3>
             </div>
-            <div onMouseLeave={handleMouseLeave} className="main-sidebar-item">
+            <div
+                onClick={()=>handleClickRoute("language")}
+                onMouseLeave={handleMouseLeave} className="main-sidebar-item">
                 <FaLanguage onMouseEnter={handleMouseEnter}/>
                 <h3>Language</h3>
             </div>
-            <div onMouseLeave={handleMouseLeave} className="main-sidebar-item">
+            <div
+                onClick={()=>handleClickRoute("social-media")}
+                onMouseLeave={handleMouseLeave} className="main-sidebar-item">
                 <IoShareSocialSharp onMouseEnter={handleMouseEnter}/>
                 <h3>Social Media</h3>
             </div>
