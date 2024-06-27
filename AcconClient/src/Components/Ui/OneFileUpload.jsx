@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 
-const OneFileUpload = ({file,setFile}) => {
+const OneFileUpload = ({file,setFile, propsClass}) => {
     function handleMultipleChange(event) {
         const selectedFile = event.target.files[0];
         console.log("selectedFile", selectedFile);
@@ -19,6 +19,7 @@ const OneFileUpload = ({file,setFile}) => {
         <input
             type="file"
             onChange={handleMultipleChange}
+            className={propsClass}
         />
     </>
 };

@@ -2,8 +2,10 @@ import React from 'react';
 import {useMediaQuery} from "react-responsive";
 import {FaArrowAltCircleRight, FaPlus, FaSortAmountDown} from "react-icons/fa";
 import {Table, Tbody, Td, Th, Thead, Tr} from "react-super-responsive-table";
+import {useRouter} from "next/router";
 
 const PortfolioCategory = () => {
+    const router = useRouter();
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     return <>
@@ -13,7 +15,9 @@ const PortfolioCategory = () => {
                     <FaArrowAltCircleRight/>
                     <h2>View Portfolio Categories</h2>
                 </div>
-                <div className="view-border-header__add-view">
+                <div className="view-border-header__add-view"
+                     onClick={() => router.push("/admin/portfolio-category/add")}
+                >
                     <FaPlus />
                     <span>Add New</span>
                 </div>

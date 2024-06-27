@@ -366,7 +366,7 @@
     width: 500px;
     max-width: 500px;
     outline: transparent;
-    border-color: #d2d6de;
+    border:1px solid #d2d6de;
 }
 
 /*Settings*/

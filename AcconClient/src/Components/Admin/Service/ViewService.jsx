@@ -4,7 +4,10 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {FaArrowAltCircleRight, FaPlus, FaSortAmountDown} from "react-icons/fa";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {useMediaQuery} from "react-responsive";
+import {useRouter} from "next/router";
+import service from "@/pages/service";
 const ViewService = () => {
+    const router = useRouter();
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     return <>
@@ -14,7 +17,8 @@ const ViewService = () => {
                     <FaArrowAltCircleRight/>
                     <h2>View Service</h2>
                 </div>
-                <div className="view-border-header__add-view">
+                <div className="view-border-header__add-view"
+                onClick={()=>router.push("service/add")}>
                     <FaPlus />
                     <span>Add New</span>
                 </div>

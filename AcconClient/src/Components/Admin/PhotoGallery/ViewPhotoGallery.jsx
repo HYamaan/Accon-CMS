@@ -3,8 +3,10 @@ import {useMediaQuery} from "react-responsive";
 import {FaArrowAltCircleRight, FaPlus, FaSortAmountDown} from "react-icons/fa";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {Table, Tbody, Td, Th, Thead, Tr} from "react-super-responsive-table";
+import {useRouter} from "next/router";
 
 const ViewPhotoGallery = () => {
+    const router = useRouter();
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     return <>
@@ -14,7 +16,9 @@ const ViewPhotoGallery = () => {
                     <FaArrowAltCircleRight/>
                     <h2>View Photos</h2>
                 </div>
-                <div className="view-border-header__add-view">
+                <div className="view-border-header__add-view"
+                onClick={() => router.push("/admin/photo-gallery/add")}
+                >
                     <FaPlus />
                     <span>Add New</span>
                 </div>

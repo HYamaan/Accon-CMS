@@ -11,6 +11,17 @@ import TestimonialMainPhoto from "@/Components/Admin/Testimonial/TestimonialMain
 import WhyChooseUsMainPhoto from "@/Components/Admin/WhyChooseUs/WhyChooseUsMainPhoto";
 import WhyChooseUsBackgroundPhoto from "@/Components/Admin/WhyChooseUs/WhyChooseUsBackgroundPhoto";
 import Page from "@/Components/Admin/Pages/Page";
+import AddSlider from "@/Components/Admin/Slider/AddSlider";
+import AddFaq from "@/Components/Admin/Faq/AddFaq";
+import AddPhotoGallery from "@/Components/Admin/PhotoGallery/AddPhotoGallery";
+import AddPortfolioCategory from "@/Components/Admin/Portfolio/AddPortfolioCategory";
+import AddDesignation from "@/Components/Admin/TeamMember/AddDesignation";
+import AddTeamMember from "@/Components/Admin/TeamMember/AddTeamMember";
+import AddTestimonial from "@/Components/Admin/Testimonial/AddTestimonial";
+import AddPartner from "@/Components/Admin/Partner/AddPartner";
+import AddWhyChooseUs from "@/Components/Admin/WhyChooseUs/AddWhyChooseUs";
+import AddPortfolio from "@/Components/Admin/Portfolio/AddPortfolio";
+import AddService from "@/Components/Admin/Service/AddService";
 
 const ViewSlider = dynamic(() =>
     import('@/Components/Admin/Slider/ViewSlider'), {
@@ -72,18 +83,29 @@ const Index = ({combinedSlug,slug}) => {
                 {(combinedSlug === "settings" ||(slug &&  slug[0] === "settings") )&& <Settings combinedSlug={combinedSlug} slug={slug}/>}
                 {combinedSlug === "menu" && <Menu/>}
                 {combinedSlug === "slider" && <ViewSlider/>}
+                {combinedSlug === "slider/add" && <AddSlider/>}
                 {combinedSlug === "service" && <ViewService/>}
+                {combinedSlug === "service/add" && <AddService/>}
                 {combinedSlug === "faq" && <ViewFaq/>}
+                {combinedSlug === "faq/add" && <AddFaq/>}
                 {combinedSlug === "faq/main-photo" && <MainPhoto/>}
                 {combinedSlug === "photo-gallery" && <ViewPhotoGallery/>}
+                {combinedSlug === "photo-gallery/add" && <AddPhotoGallery/>}
                 {combinedSlug === "portfolio" && <ViewPortfolio/>}
+                {combinedSlug === "portfolio/add" && <AddPortfolio/>}
                 {combinedSlug === "portfolio-category" && <PortfolioCategory/>}
+                {combinedSlug === "portfolio-category/add" && <AddPortfolioCategory/>}
                 {combinedSlug === "team-member" && <ViewTeamMember/>}
+                {combinedSlug === "team-member/add" && <AddTeamMember/>}
                 {combinedSlug === "team-member/designation" && <Designation/>}
+                {combinedSlug === "team-member/designation/add" && <AddDesignation/>}
                 {combinedSlug === "testimonial" && <ViewTestimonial/>}
+                {combinedSlug === "testimonial/add" && <AddTestimonial/>}
                 {combinedSlug === "testimonial/main-photo" && <TestimonialMainPhoto/>}
                 {combinedSlug === "partners" && <ViewPartner/>}
+                {combinedSlug === "partners/add" && <AddPartner/>}
                 {combinedSlug === "why-choose-us" && <ViewWhyChoouseUs/>}
+                {combinedSlug === "why-choose-us/add" && <AddWhyChooseUs/>}
                 {combinedSlug === "why-choose-us/main-photo" && <WhyChooseUsMainPhoto/>}
                 {combinedSlug === "why-choose-us/background-item" && <WhyChooseUsBackgroundPhoto/>}
                 {(combinedSlug === "page" || (slug && slug[0]==="page")) && <Page combinedSlug={combinedSlug} slug={slug}/>}

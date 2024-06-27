@@ -1,9 +1,11 @@
 import React from 'react';
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import OneFileUpload from "@/Components/Ui/OneFileUpload";
-import logo from "@/Components/Admin/Settings/Logo";
 
 const UploadLogoComponent = ({logoFile,setLogoFile,title}) => {
+
+    const existPhoto = logoFile;
+    console.log("existPhoto",existPhoto)
     const handleSubmitLogo= (data) => {
         console.log(data);
     }
@@ -20,7 +22,7 @@ const UploadLogoComponent = ({logoFile,setLogoFile,title}) => {
                     <div className="panel-website-icon-show">
                         {/*TODO:src kısmına logoFile dan gelen url eklenecek*/}
                         <LazyLoadImage
-                            src={logoFile}
+                            src={existPhoto}
                         />
                     </div>
                 </div>
