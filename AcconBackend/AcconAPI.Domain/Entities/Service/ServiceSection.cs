@@ -13,9 +13,7 @@ public class ServiceSection:BaseEntity
     public ServiceBanner Banner { get; set; }
 
     public bool IsPublished { get; set; }
-    public string MetaTitle { get; set; }
-    public string MetaDescription { get; set; }
-    public string MetaKeywords { get; set; }
+    public SeoItems SeoItems { get; set; }
 
     public ServicePage ServicePage { get; set; }
 }

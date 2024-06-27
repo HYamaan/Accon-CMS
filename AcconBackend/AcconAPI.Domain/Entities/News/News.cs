@@ -3,7 +3,7 @@ using AcconAPI.Domain.Entities.File.News;
 
 namespace AcconAPI.Domain.Entities.News;
 
-public class News:BaseEntity
+public class News : BaseEntity
 {
     public  string Title { get; set; }
     public string ShortContent { get; set; }
@@ -14,7 +14,5 @@ public class News:BaseEntity
     public NewsPhoto Photo { get; set; }
     public NewsBanner Banner { get; set; }
 
-    public string MetaTitle { get; set; }
-    public string MetaDescription { get; set; }
-    public string MetaKeywords { get; set; }
+    public SeoItems SeoItems { get; set; }
 }
