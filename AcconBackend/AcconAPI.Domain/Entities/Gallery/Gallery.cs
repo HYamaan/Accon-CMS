@@ -1,10 +1,11 @@
-﻿using AcconAPI.Domain.Entities.File;
+﻿using AcconAPI.Domain.Common;
+using AcconAPI.Domain.Entities.File;
 using AcconAPI.Domain.Entities.Page;
 using AcconAPI.Domain.Enum;
 
 namespace AcconAPI.Domain.Entities.Gallery;
 
-public class Gallery
+public class Gallery:BaseEntity
 {
     public string Title { get; set; }
     public GalleryPhoto GalleryPhoto { get; set; }

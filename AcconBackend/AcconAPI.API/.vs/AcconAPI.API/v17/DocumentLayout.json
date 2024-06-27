@@ -3,10 +3,15 @@
   "WorkspaceRootPath": "D:\\Repos\\Work\\Accon-CMS\\AcconBackend\\AcconAPI.API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E2FC5CD5-91CA-4FF9-9CEE-793554E87A5F}|..\\AcconAPI.Domain\\AcconAPI.Domain.csproj|d:\\repos\\work\\accon-cms\\acconbackend\\acconapi.domain\\entities\\socialmedia\\socialmedia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{533ABD3F-BEBD-4FA1-8096-D7ED738284D0}|AcconAPI.API.csproj|d:\\repos\\work\\accon-cms\\acconbackend\\acconapi.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{533ABD3F-BEBD-4FA1-8096-D7ED738284D0}|AcconAPI.API.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E2FC5CD5-91CA-4FF9-9CEE-793554E87A5F}|..\\AcconAPI.Domain\\AcconAPI.Domain.csproj|d:\\repos\\work\\accon-cms\\acconbackend\\acconapi.domain\\entities\\news\\news.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{533ABD3F-BEBD-4FA1-8096-D7ED738284D0}|AcconAPI.API.csproj|d:\\repos\\work\\accon-cms\\acconbackend\\acconapi.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{533ABD3F-BEBD-4FA1-8096-D7ED738284D0}|AcconAPI.API.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{668B8832-ACE4-46D2-AB6B-734D698B025D}|..\\AcconAPI.Persistence\\AcconAPI.Persistence.csproj|d:\\repos\\work\\accon-cms\\acconbackend\\acconapi.persistence\\context\\acconapidbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -49,27 +54,41 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "SocialMedia.cs",
-              "DocumentMoniker": "D:\\Repos\\Work\\Accon-CMS\\AcconBackend\\AcconAPI.Domain\\Entities\\SocialMedia\\SocialMedia.cs",
-              "RelativeDocumentMoniker": "..\\AcconAPI.Domain\\Entities\\SocialMedia\\SocialMedia.cs",
-              "ToolTip": "D:\\Repos\\Work\\Accon-CMS\\AcconBackend\\AcconAPI.Domain\\Entities\\SocialMedia\\SocialMedia.cs",
-              "RelativeToolTip": "..\\AcconAPI.Domain\\Entities\\SocialMedia\\SocialMedia.cs",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAcwAgAAAApAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-27T13:57:14.086Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Repos\\Work\\Accon-CMS\\AcconBackend\\AcconAPI.API\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\Repos\\Work\\Accon-CMS\\AcconBackend\\AcconAPI.API\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAABZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-06-27T16:34:39.298Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "News.cs",
-              "DocumentMoniker": "D:\\Repos\\Work\\Accon-CMS\\AcconBackend\\AcconAPI.Domain\\Entities\\News\\News.cs",
-              "RelativeDocumentMoniker": "..\\AcconAPI.Domain\\Entities\\News\\News.cs",
-              "ToolTip": "D:\\Repos\\Work\\Accon-CMS\\AcconBackend\\AcconAPI.Domain\\Entities\\News\\News.cs",
-              "RelativeToolTip": "..\\AcconAPI.Domain\\Entities\\News\\News.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAoAAAA",
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Repos\\Work\\Accon-CMS\\AcconBackend\\AcconAPI.API\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\Repos\\Work\\Accon-CMS\\AcconBackend\\AcconAPI.API\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-27T13:53:28.661Z"
+              "WhenOpened": "2024-06-27T16:08:30.768Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AcconAPIDbContext.cs",
+              "DocumentMoniker": "D:\\Repos\\Work\\Accon-CMS\\AcconBackend\\AcconAPI.Persistence\\Context\\AcconAPIDbContext.cs",
+              "RelativeDocumentMoniker": "..\\AcconAPI.Persistence\\Context\\AcconAPIDbContext.cs",
+              "ToolTip": "D:\\Repos\\Work\\Accon-CMS\\AcconBackend\\AcconAPI.Persistence\\Context\\AcconAPIDbContext.cs",
+              "RelativeToolTip": "..\\AcconAPI.Persistence\\Context\\AcconAPIDbContext.cs",
+              "ViewState": "AQIAACEAAAAAAAAAAAA0wCMAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-27T15:54:07.397Z",
+              "EditorCaption": ""
             }
           ]
         },

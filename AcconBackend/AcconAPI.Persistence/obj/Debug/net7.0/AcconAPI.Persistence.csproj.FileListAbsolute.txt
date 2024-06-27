@@ -16,3 +16,5 @@ D:\Repos\Work\Accon-CMS\AcconBackend\AcconAPI.Persistence\obj\Debug\net7.0\Accon
 D:\Repos\Work\Accon-CMS\AcconBackend\AcconAPI.Persistence\obj\Debug\net7.0\refint\AcconAPI.Persistence.dll
 D:\Repos\Work\Accon-CMS\AcconBackend\AcconAPI.Persistence\obj\Debug\net7.0\AcconAPI.Persistence.pdb
 D:\Repos\Work\Accon-CMS\AcconBackend\AcconAPI.Persistence\obj\Debug\net7.0\ref\AcconAPI.Persistence.dll
+D:\Repos\Work\Accon-CMS\AcconBackend\AcconAPI.Persistence\bin\Debug\net7.0\AcconAPI.Persistence.runtimeconfig.json
+D:\Repos\Work\Accon-CMS\AcconBackend\AcconAPI.Persistence\obj\Debug\net7.0\AcconAPI.Persistence.genruntimeconfig.cache

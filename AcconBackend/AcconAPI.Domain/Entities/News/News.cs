@@ -14,5 +14,7 @@ public class News : BaseEntity
     public NewsPhoto Photo { get; set; }
     public NewsBanner Banner { get; set; }
 
-    public SeoItems SeoItems { get; set; }
+    public string MetaTitle { get; set; }
+    public string MetaDescription { get; set; }
+    public string MetaKeywords { get; set; }
 }
