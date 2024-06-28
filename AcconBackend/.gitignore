@@ -1,0 +1,3 @@
+# Ignore bin and obj directories for any net7.0 build
+**/bin/Debug/net7.0/
+**/obj/Debug/net7.0/
