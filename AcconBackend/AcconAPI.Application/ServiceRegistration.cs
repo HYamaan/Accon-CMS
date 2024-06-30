@@ -2,12 +2,19 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using System.Text;
+using AcconAPI.Application.FluentValidation;
+using AcconAPI.Application.Helpers;
+using AcconAPI.Application.Services.Helpers;
 using AcconAPI.Domain.Common;
 using AcconAPI.Domain.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Hosting;
+using FluentValidation;
+using AcconAPI.Application.Mapping;
+using AcconAPI.Application.Services.FluentValidation;
 
 namespace AcconAPI.Application;
 
@@ -63,6 +70,14 @@ public static class ServiceRegistration
             };
         });
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddScoped<IFileCheckHelper, FileCheckHelper>();
+        services.AddAutoMapper(typeof(MappingProfile));
 
+        services.AddValidatorsFromAssembly(typeof(AboutPageCommandRequestValidator).Assembly);
+        services.AddValidatorsFromAssembly(typeof(PageEntityCommandRequestValidator).Assembly);
+        services.AddValidatorsFromAssembly(typeof(PageEntityWithContentRequestValidator).Assembly);
+        services.AddValidatorsFromAssembly(typeof(UpdateSliderCommandRequestValidator).Assembly);
+        services.AddTransient<IUpdateServiceCommandRequestValidator, UpdateServiceCommandRequestValidator>();
+        services.AddTransient<IUpdateServiceContentCommandRequestValidator, UpdateServiceContentCommandRequestValidator>();
     }
 }

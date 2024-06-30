@@ -7,12 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Entities\Menu\**" />
+    <EmbeddedResource Remove="Entities\Menu\**" />
+    <None Remove="Entities\Menu\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.20" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Common\" />
-    <Folder Include="Entities\Menu\" />
     <Folder Include="Entities\Faq\" />
     <Folder Include="Entities\Language\" />
     <Folder Include="Entities\SocialMedia\" />

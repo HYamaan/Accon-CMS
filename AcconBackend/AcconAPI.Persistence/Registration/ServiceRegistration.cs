@@ -1,7 +1,9 @@
 ﻿
+using AcconAPI.Application.Repository;
 using AcconAPI.Domain.Auth;
 using AcconAPI.Persistence.Context;
 using AcconAPI.Persistence.Extension;
+using AcconAPI.Persistence.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,5 +30,7 @@ public static class ServiceRegistration
             .AddDefaultTokenProviders();
 
         services.AddSwaggerOpenAPI();
+
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
     }
 }
