@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Hosting;
 using FluentValidation;
 using AcconAPI.Application.Mapping;
 using AcconAPI.Application.Services.FluentValidation;
+using AcconAPI.Application.Features.Commands.PhotoGallery.UpdateGallery;
 
 namespace AcconAPI.Application;
 
@@ -79,5 +80,8 @@ public static class ServiceRegistration
         services.AddValidatorsFromAssembly(typeof(UpdateSliderCommandRequestValidator).Assembly);
         services.AddTransient<IUpdateServiceCommandRequestValidator, UpdateServiceCommandRequestValidator>();
         services.AddTransient<IUpdateServiceContentCommandRequestValidator, UpdateServiceContentCommandRequestValidator>();
+
+        services.AddTransient<IUpdatePhotoGalleryValidator, GaleryPhotoCommandRequestValidator.UpdatePhotoGalleryValidator>();
+        services.AddTransient<ICreatePhotoGalleryValidator, GaleryPhotoCommandRequestValidator.CreatePhotoGalleryValidator>();
     }
 }
