@@ -3,6 +3,7 @@ using System;
 using AcconAPI.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AcconAPI.Persistence.Migrations
 {
     [DbContext(typeof(AcconAPIDbContext))]
-    partial class AcconAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240630194129_init-3")]
+    partial class init3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -612,9 +615,11 @@ namespace AcconAPI.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Facebook")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LinkedIn")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -625,12 +630,14 @@ namespace AcconAPI.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Twitter")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Youtube")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
