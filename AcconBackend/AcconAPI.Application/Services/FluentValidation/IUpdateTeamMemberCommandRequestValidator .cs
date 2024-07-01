@@ -1,4 +1,4 @@
-﻿using AcconAPI.Application.Features.Commands.TeamMember.UpdateTeamMember;
+﻿using AcconAPI.Application.Features.Commands.TeamMemberSection.TeamMember.UpdateTeamMember;
 using FluentValidation;
 
 namespace AcconAPI.Application.Services.FluentValidation;

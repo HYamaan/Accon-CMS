@@ -17,6 +17,9 @@ using AcconAPI.Application.Mapping;
 using AcconAPI.Application.Services.FluentValidation;
 using AcconAPI.Application.Features.Commands.PhotoGallery.UpdateGallery;
 using static AcconAPI.Application.FluentValidation.TeamMemberCommandRequestValidator;
+using static AcconAPI.Application.FluentValidation.TestimonialCommandRequestValidator;
+using static AcconAPI.Application.FluentValidation.WhyChooseUsRequestValidator;
+using static AcconAPI.Application.FluentValidation.NewsCommandRequestValidator;
 
 namespace AcconAPI.Application;
 
@@ -89,5 +92,14 @@ public static class ServiceRegistration
 
         services.AddTransient<ICreateTeamMemberCommandRequestValidator, CreateTeamMemberCommandRequestValidator>();
         services.AddTransient<IUpdateTeamMemberCommandRequestValidator, UpdateTeamMemberCommandRequestValidator>();
+
+        services.AddTransient<ICreateTestimonialCommandRequestValidator, CreateTestimonialCommandRequestValidator>();
+        services.AddTransient<IUpdateTestimonialCommandRequestValidator, UpdateTestimonialCommandRequestValidator>();
+
+        services.AddTransient<ICreateWhyChooseUsCommandRequestValidator, CreateWhyChooseUsCommandRequestValidator>();
+        services.AddTransient<IUpdateWhyChooseUsCommandRequestValidator, UpdateWhyChooseUsCommandRequestValidator>();
+
+        services.AddTransient<ICreateNewsCommandRequestValidator, CreateNewsCommandRequestValidator>();
+        services.AddTransient<IUpdateNewsCommandRequestValidator, UpdateNewsCommandRequestValidator>();
     }
 }

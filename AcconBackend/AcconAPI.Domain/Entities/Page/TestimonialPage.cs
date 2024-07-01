@@ -2,5 +2,5 @@
 
 public class TestimonialPage:PageEntity
 {
-    ICollection<Testimonial.Testimonial> Testimonials { get; set; }
+   public ICollection<Testimonial.Testimonial> Testimonials { get; set; }
 }

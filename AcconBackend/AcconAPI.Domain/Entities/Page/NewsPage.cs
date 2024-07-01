@@ -2,5 +2,5 @@
 
 public class NewsPage : PageEntity
 {
-    
+    public ICollection<News.News> News { get; set; }
 }

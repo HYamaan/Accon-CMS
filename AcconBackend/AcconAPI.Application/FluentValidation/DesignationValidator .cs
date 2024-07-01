@@ -1,4 +1,4 @@
-﻿using AcconAPI.Application.Features.Commands.Designation.UpdateDesignation;
+﻿using AcconAPI.Application.Features.Commands.TeamMemberSection.Designation.UpdateDesignation;
 using AcconAPI.Domain.Entities.TeamMember;
 using FluentValidation;
 

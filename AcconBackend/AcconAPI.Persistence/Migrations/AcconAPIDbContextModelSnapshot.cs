@@ -250,6 +250,9 @@ namespace AcconAPI.Persistence.Migrations
                     b.Property<Guid>("BannerId")
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("CommentShow")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("text");
@@ -272,8 +275,14 @@ namespace AcconAPI.Persistence.Migrations
                     b.Property<Guid>("NewsCategoryId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("NewsPageId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("PhotoId")
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("PublishDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ShortContent")
                         .IsRequired()
@@ -291,6 +300,8 @@ namespace AcconAPI.Persistence.Migrations
                     b.HasIndex("BannerId");
 
                     b.HasIndex("NewsCategoryId");
+
+                    b.HasIndex("NewsPageId");
 
                     b.HasIndex("PhotoId");
 
@@ -993,6 +1004,18 @@ namespace AcconAPI.Persistence.Migrations
                     b.HasDiscriminator().HasValue("FaqPage");
                 });
 
+            modelBuilder.Entity("AcconAPI.Domain.Entities.Page.Gallery", b =>
+                {
+                    b.HasBaseType("AcconAPI.Domain.Entities.Page.PageEntity");
+
+                    b.Property<Guid?>("GalleryPageId")
+                        .HasColumnType("uuid");
+
+                    b.HasIndex("GalleryPageId");
+
+                    b.HasDiscriminator().HasValue("Gallery");
+                });
+
             modelBuilder.Entity("AcconAPI.Domain.Entities.Page.GalleryPage", b =>
                 {
                     b.HasBaseType("AcconAPI.Domain.Entities.Page.PageEntity");
@@ -1102,8 +1125,14 @@ namespace AcconAPI.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("AcconAPI.Domain.Entities.News.NewsCategory", "NewsCategory")
-                        .WithMany()
+                        .WithMany("News")
                         .HasForeignKey("NewsCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AcconAPI.Domain.Entities.Page.NewsPage", "NewsPage")
+                        .WithMany("News")
+                        .HasForeignKey("NewsPageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1116,6 +1145,8 @@ namespace AcconAPI.Persistence.Migrations
                     b.Navigation("Banner");
 
                     b.Navigation("NewsCategory");
+
+                    b.Navigation("NewsPage");
 
                     b.Navigation("Photo");
                 });
@@ -1197,7 +1228,7 @@ namespace AcconAPI.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("AcconAPI.Domain.Entities.Page.TestimonialPage", "TestimonialPage")
-                        .WithMany()
+                        .WithMany("Testimonials")
                         .HasForeignKey("TestimonialPageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1280,14 +1311,41 @@ namespace AcconAPI.Persistence.Migrations
                     b.Navigation("Photo");
                 });
 
+            modelBuilder.Entity("AcconAPI.Domain.Entities.Page.Gallery", b =>
+                {
+                    b.HasOne("AcconAPI.Domain.Entities.Page.GalleryPage", null)
+                        .WithMany("Galleries")
+                        .HasForeignKey("GalleryPageId");
+                });
+
+            modelBuilder.Entity("AcconAPI.Domain.Entities.News.NewsCategory", b =>
+                {
+                    b.Navigation("News");
+                });
+
             modelBuilder.Entity("AcconAPI.Domain.Entities.Page.FaqPage", b =>
                 {
                     b.Navigation("Faqs");
                 });
 
+            modelBuilder.Entity("AcconAPI.Domain.Entities.Page.GalleryPage", b =>
+                {
+                    b.Navigation("Galleries");
+                });
+
+            modelBuilder.Entity("AcconAPI.Domain.Entities.Page.NewsPage", b =>
+                {
+                    b.Navigation("News");
+                });
+
             modelBuilder.Entity("AcconAPI.Domain.Entities.Page.ServicePage", b =>
                 {
                     b.Navigation("ServiceSections");
+                });
+
+            modelBuilder.Entity("AcconAPI.Domain.Entities.Page.TestimonialPage", b =>
+                {
+                    b.Navigation("Testimonials");
                 });
 #pragma warning restore 612, 618
         }

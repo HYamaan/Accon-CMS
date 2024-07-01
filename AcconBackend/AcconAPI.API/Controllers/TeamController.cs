@@ -1,7 +1,7 @@
-﻿using AcconAPI.Application.Features.Commands.Designation.DeleteDesignation;
-using AcconAPI.Application.Features.Commands.Designation.UpdateDesignation;
-using AcconAPI.Application.Features.Commands.TeamMember.DeleteTeamMember;
-using AcconAPI.Application.Features.Commands.TeamMember.UpdateTeamMember;
+﻿using AcconAPI.Application.Features.Commands.TeamMemberSection.Designation.DeleteDesignation;
+using AcconAPI.Application.Features.Commands.TeamMemberSection.Designation.UpdateDesignation;
+using AcconAPI.Application.Features.Commands.TeamMemberSection.TeamMember.DeleteTeamMember;
+using AcconAPI.Application.Features.Commands.TeamMemberSection.TeamMember.UpdateTeamMember;
 using AcconAPI.Application.Features.Queries.Designation.GetAllDesignation;
 using AcconAPI.Application.Features.Queries.Designation.GetEditDesignation;
 using AcconAPI.Application.Features.Queries.TeamMember.GetAllTeamMember;
