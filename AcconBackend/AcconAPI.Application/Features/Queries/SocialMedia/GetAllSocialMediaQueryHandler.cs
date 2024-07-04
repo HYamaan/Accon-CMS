@@ -26,7 +26,7 @@ public class GetAllSocialMediaQueryHandler:IRequestHandler<GetAllSocialMediaQuer
             }).ToListAsync(cancellationToken);
 
         var response = new GetAllSocialMediaQueryResponse()
-        {
+        { 
             socials = socialMediaList
         };
 
