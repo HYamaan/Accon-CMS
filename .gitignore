@@ -1,0 +1,20 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/AcconAPI/.vs/AcconAPI/v17
+/AcconAPI/.vs/ProjectEvaluation
+/AcconAPI/.vs/AcconAPI/FileContentIndex
+/AcconAPI/Accon.Infrastructure/obj
+/AcconAPI/AcconAPI.API/bin/Debug/net7.0
+/AcconAPI/AcconAPI.API/obj
+/AcconAPI/AcconAPI.Application/obj
+/AcconAPI/AcconAPI.Domain/bin/Debug/net7.0
+/AcconAPI/AcconAPI.Domain/obj
+/AcconAPI/AcconAPI.Infrastructure/bin/Debug/net7.0
+/AcconAPI/AcconAPI.Infrastructure/obj
+/AcconAPI/AcconAPI.Persistence/bin/Debug/net7.0
+/AcconAPI/AcconAPI.Persistence/obj
+/AcconAPI/obj
+/AcconAPI/AcconAPI.Application/bin/Debug/net7.0
+/AcconAPI/.vs/AcconAPI
