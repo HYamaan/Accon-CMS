@@ -101,5 +101,15 @@ public static class ServiceRegistration
 
         services.AddTransient<ICreateNewsCommandRequestValidator, CreateNewsCommandRequestValidator>();
         services.AddTransient<IUpdateNewsCommandRequestValidator, UpdateNewsCommandRequestValidator>();
+
+        services.AddTransient<ICreateLanguageCommandRequestValidator,LanguageCommandRequestValidator.CreateLanguageCommandRequestValidator>();
+        services.AddTransient<IUpdateLanguageCommandRequestValidator,LanguageCommandRequestValidator.UpdateLanguageCommandRequestValidator>();
+
+        services
+            .AddTransient<ICreateSocialMediaCommandRequestValidator,
+                SocialMediaCommandRequestValidator.CreateSocialMediaCommandRequestValidator>();
+        services
+            .AddTransient<IUpdateSocialMediaCommandRequestValidator,
+                SocialMediaCommandRequestValidator.UpdateSocialMediaCommandRequestValidator>();
     }
 }
