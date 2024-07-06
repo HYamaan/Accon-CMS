@@ -83,29 +83,29 @@ const Index = ({combinedSlug,slug}) => {
                 {(combinedSlug === "settings" ||(slug &&  slug[0] === "settings") )&& <Settings combinedSlug={combinedSlug} slug={slug}/>}
                 {combinedSlug === "menu" && <Menu/>}
                 {combinedSlug === "slider" && <ViewSlider/>}
-                {combinedSlug === "slider/add" && <AddSlider/>}
+                {(combinedSlug === "slider/add" || combinedSlug === "slider/edit/add") && <AddSlider/>}
                 {combinedSlug === "service" && <ViewService/>}
-                {combinedSlug === "service/add" && <AddService/>}
+                {(combinedSlug === "service/add" || combinedSlug === "service/edit/add") && <AddService/>}
                 {combinedSlug === "faq" && <ViewFaq/>}
-                {combinedSlug === "faq/add" && <AddFaq/>}
+                {(combinedSlug === "faq/add" || combinedSlug === "faq/edit/add") && <AddFaq/>}
                 {combinedSlug === "faq/main-photo" && <MainPhoto/>}
                 {combinedSlug === "photo-gallery" && <ViewPhotoGallery/>}
-                {combinedSlug === "photo-gallery/add" && <AddPhotoGallery/>}
+                {(combinedSlug === "photo-gallery/add" || combinedSlug === "photo-gallery/edit/add") && <AddPhotoGallery/>}
                 {combinedSlug === "portfolio" && <ViewPortfolio/>}
-                {combinedSlug === "portfolio/add" && <AddPortfolio/>}
+                {(combinedSlug === "portfolio/add" || combinedSlug === "portfolio/edit/add") && <AddPortfolio/>}
                 {combinedSlug === "portfolio-category" && <PortfolioCategory/>}
-                {combinedSlug === "portfolio-category/add" && <AddPortfolioCategory/>}
+                {(combinedSlug === "portfolio-category/add" || combinedSlug === "portfolio-category/edit/add")  && <AddPortfolioCategory/>}
                 {combinedSlug === "team-member" && <ViewTeamMember/>}
-                {combinedSlug === "team-member/add" && <AddTeamMember/>}
+                {(combinedSlug === "team-member/add" || combinedSlug === "team-member/edit/add") && <AddTeamMember/>}
                 {combinedSlug === "team-member/designation" && <Designation/>}
-                {combinedSlug === "team-member/designation/add" && <AddDesignation/>}
+                {(combinedSlug === "team-member/designation/add" || combinedSlug === "team-member/designation/edit/add") && <AddDesignation/>}
                 {combinedSlug === "testimonial" && <ViewTestimonial/>}
-                {combinedSlug === "testimonial/add" && <AddTestimonial/>}
+                {(combinedSlug === "testimonial/add" || combinedSlug === "testimonial/edit/add") && <AddTestimonial/>}
                 {combinedSlug === "testimonial/main-photo" && <TestimonialMainPhoto/>}
                 {combinedSlug === "partners" && <ViewPartner/>}
-                {combinedSlug === "partners/add" && <AddPartner/>}
+                {(combinedSlug === "partners/add" || combinedSlug === "partners/edit/add") && <AddPartner/>}
                 {combinedSlug === "why-choose-us" && <ViewWhyChoouseUs/>}
-                {combinedSlug === "why-choose-us/add" && <AddWhyChooseUs/>}
+                {(combinedSlug === "why-choose-us/add" || combinedSlug === "why-choose-us/edit/add") && <AddWhyChooseUs/>}
                 {combinedSlug === "why-choose-us/main-photo" && <WhyChooseUsMainPhoto/>}
                 {combinedSlug === "why-choose-us/background-item" && <WhyChooseUsBackgroundPhoto/>}
                 {(combinedSlug === "page" || (slug && slug[0]==="page")) && <Page combinedSlug={combinedSlug} slug={slug}/>}

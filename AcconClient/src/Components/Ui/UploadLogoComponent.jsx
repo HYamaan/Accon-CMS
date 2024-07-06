@@ -2,13 +2,10 @@ import React from 'react';
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import OneFileUpload from "@/Components/Ui/OneFileUpload";
 
-const UploadLogoComponent = ({logoFile,setLogoFile,title}) => {
+const UploadLogoComponent = ({logoFile,setLogoFile,title,existPhoto,handleSubmitLogo}) => {
 
-    const existPhoto = logoFile;
     console.log("existPhoto",existPhoto)
-    const handleSubmitLogo= (data) => {
-        console.log(data);
-    }
+
     return <>
         <div className="tab-content">
             {

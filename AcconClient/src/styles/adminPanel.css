@@ -532,6 +532,8 @@
 }
 .slider-table-banner-image{
     width: 250px;
+    max-width: 250px;
+    max-height: 100px;
     border-radius: 5px;
     object-fit: cover;
     padding-bottom: 10px;
@@ -614,6 +616,8 @@
     .slider-table-image,
     .slider-table-banner-image{
         width: 100px;
+        max-height: 100px;
+        max-width: 100px;
         object-fit: cover;
     }
 

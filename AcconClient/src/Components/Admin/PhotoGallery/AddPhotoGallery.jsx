@@ -1,18 +1,65 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useRouter } from "next/router";
 import { FaArrowAltCircleRight, FaPlus } from "react-icons/fa";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import OneFileUpload from "@/Components/Ui/OneFileUpload";
+import axios from "axios";
+import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
+import {toast} from "react-toastify";
+import {VisibilityPlaceEnum} from "@/data/enum/VisibilityPlaceEnum";
 
 const AddPhotoGallery = () => {
     const router = useRouter();
     const [caption, setCaption] = useState("");
-    const [photo, setPhoto] = useState("/photo-1.jpg");
-    const [showOnHome, setShowOnHome] = useState(true);
+    const [photo, setPhoto] = useState("");
+    const [visiblePlace, setVisiblePlace] = useState("");
+    const [existingPhoto, setExistingPhoto] = useState("");
 
-    const handleSubmit = () => {
-        console.log(caption, photo, showOnHome);
-        // İsteği göndermek veya başka işlemler yapmak için burada kod ekleyin.
+    useEffect(() => {
+        const getRouterSlider = async () => {
+            const id = router.query.Id;
+            if (id) {
+                try {
+                    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Gallery/GetEditGallery?Id=${id}`);
+                    if (response.data.succeeded) {
+                        const dataValues = response.data.data;
+                        setCaption(dataValues.title);
+                        setExistingPhoto(`/${dataValues.photo}`);
+                        setVisiblePlace(dataValues.visiblePlace.toString());
+                    }
+                } catch (error) {
+                    console.error('Error fetching photo gallery:', error);
+                }
+                console.log('Photo Gallery:', caption, photo, visiblePlace, existingPhoto)
+            }
+        };
+        getRouterSlider();
+    }, [router.query.Id]); // Corrected dependency
+    const handleSubmit =  async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        router.query.Id !== undefined && formData.append('Id', router.query.Id);
+        formData.append('Title', caption);
+        console.log("photoLength",photo.length)
+        photo.length > 0 && formData.append('Photo', photo);
+        formData.append('VisiblePlace', visiblePlace);
+
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Gallery/UpdateGallery`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            if (response.data.succeeded) {
+                toast.success('Gallery updated successfully');
+                router.push('/admin/photo-gallery');
+            } else {
+                toast.error(`Error updating ${caption} service`);
+            }
+        } catch (error) {
+            console.error(`Error updating ${caption} service`, error);
+        }
     }
 
     return (
@@ -46,7 +93,7 @@ const AddPhotoGallery = () => {
                             <span className="col-md-2">Existing Photo</span>
                             <div className="col-md-10">
                                 <div className="panel-website-icon-show">
-                                    <LazyLoadImage src={photo} />
+                                    <LazyLoadImage src={existingPhoto} />
                                 </div>
                             </div>
                         </div>
@@ -62,11 +109,12 @@ const AddPhotoGallery = () => {
                             <span className="col-md-2">Show on home? *</span>
                             <div className="col-md-10">
                                 <select
-                                    value={showOnHome}
-                                    onChange={(e) => setShowOnHome(e.target.value === "true")}
+                                    value={visiblePlace}
+                                    onChange={(e) => setVisiblePlace(e.target.value)}
                                 >
-                                    <option value="true">Yes</option>
-                                    <option value="false">No</option>
+                                    {Object.entries(VisibilityPlaceEnum).map(([key, value]) => (
+                                        <option key={key} value={key}>{value}</option>
+                                    ))}
                                 </select>
                             </div>
                         </div>

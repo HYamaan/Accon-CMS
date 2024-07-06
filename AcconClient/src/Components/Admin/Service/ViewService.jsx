@@ -1,14 +1,78 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {FaArrowAltCircleRight, FaPlus, FaSortAmountDown} from "react-icons/fa";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {useMediaQuery} from "react-responsive";
 import {useRouter} from "next/router";
-import service from "@/pages/service";
+import axios from "axios";
+import {toast} from "react-toastify";
+
 const ViewService = () => {
     const router = useRouter();
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
+
+    const [services, setServices] = useState([]);
+    const [tempServices, setTempServices] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [keys, setKeys] = useState([]);
+    useEffect(() => {
+        const fetchSliders = async () => {
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Service/GetAllService`);
+                if (response.data.succeeded) {
+                    setServices(response.data.data.services);
+                    const filteredKeys = Object.keys(response.data.data.services[0]).filter(key => key !== "id" && key !== "path");
+                    setKeys(filteredKeys);
+                }
+            } catch (error) {
+                console.error('Error fetching services:', error);
+            } finally {
+                setLoading(false);
+            }
+            console.log('Sliders:', services)
+        };
+
+        fetchSliders();
+    }, []);
+
+    const searchChangeHandler = (value) => {
+        if (tempServices.length === 0) {
+            setTempServices(services);
+        }
+
+        if (value.length > 0) {
+            const searchSliders = services.filter(service =>
+                service.heading.toLowerCase().includes(value.toLowerCase())
+            );
+
+            const exactMatch = searchSliders.filter(service =>
+                service.heading.toLowerCase() === value.toLowerCase()
+            );
+            const otherMatches = searchSliders.filter(service =>
+                service.heading.toLowerCase() !== value.toLowerCase()
+            );
+
+            setServices([...exactMatch, ...otherMatches]);
+        } else {
+            setServices(tempServices);
+        }
+    };
+    const deleteClickHandler = async (id) => {
+        try {
+            const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/Service/DeleteService?Id=${id}`);
+            if (response.data.succeeded) {
+                toast.success("Slider deleted successfully")
+                setServices(services.filter(service => service.id !== id));
+            }
+        } catch (error) {
+            console.error('Error deleting slider:', error);
+        }
+    }
+    const editClickHandler = (id) => {
+        router.push(`/admin/service/edit/add?id=${id}`);
+    }
 
     return <>
         <div className="content-wrapper">
@@ -46,74 +110,47 @@ const ViewService = () => {
                         }
                         <div className="slider-show-content__search">
                             <span>Search:</span>
-                            <input type="text" placeholder="Search"/>
+                            <input type="text"
+                                   placeholder="Search"
+                                   onChange={(event)=>searchChangeHandler(event.target.value)}
+                            />
                         </div>
                     </div>
                     <Table>
                         <Thead>
                             <Tr>
-                                <Th>
-                                    <div className="slider-table-head">
-                                        <span>SL</span>
-                                        {!isMobile && <FaSortAmountDown/>}
-                                    </div>
-                                </Th>
-                                <Th>
-                                <div className="slider-table-head">
-                                        <span>Photo</span>
-                                    </div>
-                                </Th>
-                                <Th>
-                                    <div className="slider-table-head">
-                                        <span>Banner</span>
-                                    </div>
-                                </Th>
-                                <Th>
-                                    <div className="slider-table-head">
-                                        <span>Heading</span>
-                                        {!isMobile && <FaSortAmountDown/>}
-                                    </div>
-                                </Th>
-                                <Th>
-                                    <div className="slider-table-head">
-                                        <span>Action</span>
-                                    </div>
-                                </Th>
+                                <Th>SL</Th>
+                                <Th>Photo</Th>
+                                <Th>Banner</Th>
+                                <Th>Heading</Th>
+                                <Th>Action</Th>
                             </Tr>
                         </Thead>
                         <Tbody>
-                            <Tr>
-                                <Td>
-                                    <div className="slider-table-body ">
-                                        1
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <LazyLoadImage
-                                        src={"/slider-1.jpg"}
-                                        alt={"slider-1.jpg"}
-                                        className="slider-table-image"
-                                    />
-                                </Td>
-                                <Td>
-                                    <LazyLoadImage
-                                        src={"/banner_service.jpg"}
-                                        alt={"banner_service.jpg"}
-                                        className="slider-table-banner-image"
-                                    />
-                                </Td>
-                                <Td className="table-body-col-header">
-                                    <div className="slider-table-body ">
-                                        HELPING BUILD A BETTER FUTURE
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <div className="action-edit slider-table-body">
-                                        <button className="btn btn-warning me-2">Edit</button>
-                                        <button className="btn btn-danger">Delete</button>
-                                    </div>
-                                </Td>
-                            </Tr>
+                            {services.map((service, index) => (
+                                <Tr key={service.id}>
+                                    <Td>{index + 1}</Td>
+                                    <Td>
+                                        <LazyLoadImage
+                                            src={`/${service.photo}`}
+                                            alt="Service Photo"
+                                            className="slider-table-image"
+                                        />
+                                    </Td>
+                                    <Td>
+                                        <LazyLoadImage
+                                            src={`/${service.banner}`}
+                                            alt="Service Banner"
+                                            className="slider-table-banner-image"
+                                        />
+                                    </Td>
+                                    <Td>{service.heading}</Td>
+                                    <Td>
+                                        <button className="btn btn-warning me-2" onClick={() =>editClickHandler(service.id)}>Edit</button>
+                                        <button className="btn btn-danger" onClick={() => deleteClickHandler(service.id)}>Delete</button>
+                                    </Td>
+                                </Tr>
+                            ))}
                         </Tbody>
                     </Table>
                     <div className="pagination-section">
