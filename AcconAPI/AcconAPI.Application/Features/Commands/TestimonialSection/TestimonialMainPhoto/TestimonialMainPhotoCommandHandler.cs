@@ -2,6 +2,7 @@
 using AcconAPI.Application.Services.Helpers;
 using AcconAPI.Application.Services.Storage;
 using AcconAPI.Domain.Common;
+using AcconAPI.Domain.Entities.File.Testimonial;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,7 +28,7 @@ public class TestimonialMainPhotoCommandHandler : IRequestHandler<TestimonialMai
     {
         try
         {
-            if(!await _fileCheckHelper.CheckImageFormat(request.Photo))
+            if (!await _fileCheckHelper.CheckImageFormat(request.Photo))
                 return ResponseModel<TestimonialMainPhotoCommandResponse>.Fail("File extension is not valid.");
 
             var getMainPhoto = await _testimonialMainPhotoRepository.GetAll().FirstOrDefaultAsync();
@@ -36,22 +37,28 @@ public class TestimonialMainPhotoCommandHandler : IRequestHandler<TestimonialMai
             {
                 await _storageService.DeleteAsync(getMainPhoto.Path, getMainPhoto.FileName);
                 await _testimonialMainPhotoRepository.RemoveAsync(getMainPhoto.Id.ToString());
+                await _testimonialMainPhotoRepository.CommitTransactionAsync();
+                await _testimonialMainPhotoRepository.SaveAsync();
             }
-            else
+
+            var storage = await _storageService.UploadAsync("files", request.Photo);
+            var testimonialMainPhoto = new Domain.Entities.File.Testimonial.TestimonialMainPhoto
             {
-                var storage = await _storageService.UploadAsync("files", request.Photo);
-                var testimonialMainPhoto = new Domain.Entities.File.Testimonial.TestimonialMainPhoto
-                {
-                    Path = storage.pathOrContainerName,
-                    FileName = storage.fileName,
-                    Storage = _storageService.StorageName
-                };
-                await _testimonialMainPhotoRepository.AddAsync(testimonialMainPhoto);
-            }
+                Path = storage.pathOrContainerName,
+                FileName = storage.fileName,
+                Storage = _storageService.StorageName
+            };
+            await _testimonialMainPhotoRepository.AddAsync(testimonialMainPhoto);
 
             await _testimonialMainPhotoRepository.CommitTransactionAsync();
             await _testimonialMainPhotoRepository.SaveAsync();
-            return ResponseModel<TestimonialMainPhotoCommandResponse>.Success();
+            return ResponseModel<TestimonialMainPhotoCommandResponse>.Success(new TestimonialMainPhotoCommandResponse()
+            {
+                Photo = testimonialMainPhoto.Path
+            });
+
+
+
         }
         catch (Exception e)
         {

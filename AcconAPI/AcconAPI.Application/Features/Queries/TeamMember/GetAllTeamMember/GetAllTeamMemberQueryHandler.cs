@@ -23,13 +23,10 @@ public class GetAllTeamMemberQueryHandler:IRequestHandler<GetAllTeamMemberQueryR
            {
                Id = x.Id,
                Title=x.Name,
-               Designation = x.Designation.Id,
+               Designation = x.Designation.Title,
                Photo = x.Photo.Path,
-               Facebook = x.Facebook,
-               Twitter = x.Twitter,
-               LinkedIn = x.LinkedIn,
-               Youtube = x.Youtube,
            })
+           .OrderBy(x => x.Title)
            .ToListAsync(cancellationToken);
 
        var response = new GetAllTeamMemberQueryResponse()

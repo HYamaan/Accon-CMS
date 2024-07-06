@@ -2,5 +2,5 @@
 
 public class TestimonialMainPhotoCommandResponse
 {
-
+    public string Photo { get; set; }
 }

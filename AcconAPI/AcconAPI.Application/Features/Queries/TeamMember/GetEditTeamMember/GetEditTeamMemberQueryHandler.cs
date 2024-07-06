@@ -22,6 +22,7 @@ public class GetEditTeamMemberQueryHandler:IRequestHandler<GetEditTeamMemberQuer
         }
 
         var teamMember = await _teamMemberRepository.GetWhere(x=>x.Id == request.Id)
+            .Include(x => x.Designation)
             .Include(x => x.Photo)
             .FirstOrDefaultAsync(cancellationToken);
         
@@ -34,7 +35,8 @@ public class GetEditTeamMemberQueryHandler:IRequestHandler<GetEditTeamMemberQuer
         {
             Id = teamMember.Id,
             Title = teamMember.Name,
-            Designation = teamMember.DesignationId,
+            DesignationId = teamMember.DesignationId,
+            Designation = teamMember.Designation.Title,
             Photo = teamMember.Photo.Path,
             Facebook = teamMember.Facebook,
             Twitter = teamMember.Twitter,

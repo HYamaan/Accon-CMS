@@ -109,6 +109,10 @@ public class UpdateTestimonialCommandHandler : IRequestHandler<UpdateTestimonial
         var testimonial = await _testimonialRepository.GetWhere(ux => ux.Id == request.Id)
             .Include(x => x.Photo)
             .FirstOrDefaultAsync();
+        if (testimonial == null)
+        {
+            return ResponseModel<UpdateTestimonialCommandResponse>.Fail("Testimonial not found");
+        }
 
         if (testimonial.Name != request.Name)
         {
