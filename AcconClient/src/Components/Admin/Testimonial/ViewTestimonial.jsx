@@ -1,14 +1,80 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useMediaQuery} from "react-responsive";
 import {FaArrowAltCircleRight, FaPlus, FaSortAmountDown} from "react-icons/fa";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {Table, Tbody, Td, Th, Thead, Tr} from "react-super-responsive-table";
 import {useRouter} from "next/router";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 const ViewTestimonial = () => {
     const router = useRouter();
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
+    const [testimonial, setTestimonial] = useState([]);
+    const [tempTestimonial, setTempTestimonial] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [keys, setKeys] = useState([]);
+    useEffect(() => {
+        const fetchSliders = async () => {
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Testimonial/GetAllTestimonials`);
+                if (response.data.succeeded) {
+                    const responseData = response.data.data.testimonials;
+                    setTestimonial(responseData);
+                    const filteredKeys = Object.keys(responseData[0]).filter(key => key !== "id" && key !== "path");
+                    setKeys(filteredKeys);
+                }
+            } catch (error) {
+                console.error('Error fetching testimonial:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchSliders();
+    }, []);
+
+    const searchChangeHandler = (value) => {
+        if (tempTestimonial.length === 0) {
+            setTempTestimonial(testimonial);
+        }
+        if (value.length > 0) {
+            const searchSliders = testimonial.filter(csx =>
+                csx.name.toLowerCase().includes(value.toLowerCase())
+            );
+
+            const exactMatch = searchSliders.filter(csx =>
+                csx.name.toLowerCase() === value.toLowerCase()
+            );
+            const otherMatches = searchSliders.filter(csx =>
+                csx.name.toLowerCase() !== value.toLowerCase()
+            );
+
+            setTestimonial([...exactMatch, ...otherMatches]);
+        } else {
+            setTestimonial(tempTestimonial);
+        }
+    };
+
+    const deleteClickHandler = async (id) => {
+        try {
+            const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/Testimonial/DeleteTestimonial?Id=${id}`);
+            if (response.data.succeeded) {
+                toast.success("testimonial deleted successfully")
+                setTestimonial(testimonial.filter(testimonial => testimonial.id !== id));
+            }
+        } catch (error) {
+            console.error('Error deleting testimonial:', error);
+        }
+    }
+    const editClickHandler = (id) => {
+        router.push(`/admin/testimonial/edit/add?Id=${id}`);
+    }
+
+    if (loading) {
+        return <div>Loading...</div>
+    }
     return <>
         <div className="content-wrapper">
             <div className="view-border-header">
@@ -49,7 +115,9 @@ const ViewTestimonial = () => {
                         }
                         <div className="slider-show-content__search">
                             <span>Search:</span>
-                            <input type="text" placeholder="Search"/>
+                            <input type="text" placeholder="Search"
+                                      onChange={(e) => searchChangeHandler(e.target.value)}
+                            />
                         </div>
                     </div>
                     <Table>
@@ -98,46 +166,54 @@ const ViewTestimonial = () => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            <Tr>
-                                <Td>
-                                    <div className="slider-table-body ">
-                                        1
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <LazyLoadImage
-                                        src={"/photo-1.jpg"}
-                                        alt={"photo-1.jpg"}
-                                        className="slider-table-image"
-                                    />
-                                </Td>
-                                <Td>
-                                    <div className="slider-table-body ">
-                                        John Doe
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <div className="slider-table-body ">
-                                        Managing Director
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <div className="slider-table-body ">
-                                        ABC Inc.
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <div className="slider-table-body ">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit quo illo corporis nemo consectetur nobis maxime porro obcaecati accusamus, veniam impedit. Soluta esse dolorem saepe architecto similique odit quae ut.
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <div className="action-edit slider-table-body">
-                                        <button className="btn btn-warning me-2">Edit</button>
-                                        <button className="btn btn-danger">Delete</button>
-                                    </div>
-                                </Td>
-                            </Tr>
+                            {
+                                testimonial.map((testimonial, index) => (
+                                    <Tr key={testimonial.id}>
+                                        <Td>
+                                            <div className="slider-table-body ">
+                                                {index + 1}
+                                            </div>
+                                        </Td>
+                                        <Td>
+                                            <LazyLoadImage
+                                                src={`/${testimonial.photo}`}
+                                                alt={testimonial.photo}
+                                                className="slider-table-image"
+                                            />
+                                        </Td>
+                                        <Td>
+                                            <div className="slider-table-body ">
+                                                {testimonial.name}
+                                            </div>
+                                        </Td>
+                                        <Td>
+                                            <div className="slider-table-body ">
+                                                {testimonial.designation}
+                                            </div>
+                                        </Td>
+                                        <Td>
+                                            <div className="slider-table-body ">
+                                                {testimonial.company}
+                                            </div>
+                                        </Td>
+                                        <Td>
+                                            <div className="slider-table-body ">
+                                                {testimonial.comment}
+                                            </div>
+                                        </Td>
+                                        <Td>
+                                            <div className="action-edit slider-table-body">
+                                                <button className="btn btn-warning me-2"
+                                                        onClick={() => editClickHandler(testimonial.id)}
+                                                >Edit</button>
+                                                <button className="btn btn-danger"
+                                                        onClick={() => deleteClickHandler(testimonial.id)}
+                                                >Delete</button>
+                                            </div>
+                                        </Td>
+                                    </Tr>
+                                ))
+                            }
                         </Tbody>
                     </Table>
                     <div className="pagination-section">

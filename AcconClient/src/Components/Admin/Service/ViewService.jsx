@@ -71,7 +71,7 @@ const ViewService = () => {
         }
     }
     const editClickHandler = (id) => {
-        router.push(`/admin/service/edit/add?id=${id}`);
+        router.push(`/admin/service/edit/add?Id=${id}`);
     }
 
     return <>

@@ -9,7 +9,7 @@ import axios from "axios";
 import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 import {toast} from "react-toastify";
 
-const AddService = (props) => {
+const AddService = () => {
     const router = useRouter();
     const [isPublished, setIsPublished] = useState(false);
     const [name, setName] = useState("");
@@ -55,13 +55,13 @@ const AddService = (props) => {
             }
         }
         getRoutuerSlider();
-    }, [router.query.Id]);
+    }, [router.query.id]);
 
     const handleSubmit =  async (e) => {
         e.preventDefault();
         const formData = new FormData();
         router.query.id !== undefined && formData.append('Id', router.query.id);
-        console.log("isPup",isPublished)
+
         formData.append('Heading', name);
         formData.append('ShortContent', shortContent);
         formData.append('Content', content);
@@ -94,7 +94,7 @@ const AddService = (props) => {
                 <div className="view-border-header mb-3">
                     <div className="board-header">
                         <FaArrowAltCircleRight/>
-                        <h2>{props.name ? "Edit Service" : "Add Service"}</h2>
+                        <h2>{router.query.Id ? "Edit Service" : "Add Service"}</h2>
                     </div>
                     <div
                         className="view-border-header__add-view"

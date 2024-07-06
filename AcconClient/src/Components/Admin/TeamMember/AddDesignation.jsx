@@ -1,14 +1,55 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import {FaArrowAltCircleRight, FaPlus} from "react-icons/fa";
+import axios from "axios";
+import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
+import {toast} from "react-toastify";
 
 const AddDesignation = () => {
     const router = useRouter();
     const [name, setName] = useState("");
 
-    const handleSubmit = () => {
-        console.log(name);
-        // İsteği göndermek veya başka işlemler yapmak için burada kod ekleyin.
+    useEffect(() => {
+        const getRoutuerSlider = async () => {
+            var id = router.query.Id;
+            if (id !== undefined) {
+                try {
+                    var response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Team/GetEditDesignation?Id=${id}`);
+                    if (response.data.succeeded) {
+                        const dataValues = response.data.data;
+                        setName(dataValues.title);
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        }
+        getRoutuerSlider();
+    }, [router.query.Id]);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const values = {
+            "title": name
+        };
+        if (router.query.Id !== undefined) {
+            values.id = router.query.Id;
+        }
+
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Team/UpdateDesignation`, values, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.data.succeeded) {
+                toast.success(`${name} designation updated successfully`);
+                router.push('/admin/team-member/designation');
+            } else {
+                toast.error(`Error updating ${name} designation`);
+            }
+        } catch (error) {
+            console.error(`Error updating ${name} designation`, error);
+        }
     }
 
     return (
@@ -20,7 +61,7 @@ const AddDesignation = () => {
                         <h2>Add Slider</h2>
                     </div>
                     <div className="view-border-header__add-view"
-                         onClick={() => router.push("/admin/portfolio-category")}
+                         onClick={() => router.push("/admin/team-member/designation")}
                     >
                         <FaPlus />
                         <span>View All</span>

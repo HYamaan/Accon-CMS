@@ -6,7 +6,7 @@ import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/post
 import {toast} from "react-toastify";
 
 const MainPhoto = () => {
-    const [mainPhoto, setMainPhoto] = useState("/faq-main-photo.png");
+    const [mainPhoto, setMainPhoto] = useState("");
     const [existedMainPhoto, setExistedMainPhoto] = useState("");
     const [loading, setLoading] = useState(true);
     useEffect(() => {

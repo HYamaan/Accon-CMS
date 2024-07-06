@@ -1,21 +1,73 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
 import { FaArrowAltCircleRight, FaPlus } from 'react-icons/fa';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import OneFileUpload from '@/Components/Ui/OneFileUpload';
+import axios from "axios";
+import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
+import {toast} from "react-toastify";
 
-const AddTestimonial = (props) => {
+const AddTestimonial = () => {
     const router = useRouter();
     const [name, setName] = useState("");
-    const [photo, setPhoto] = useState("/photo-1.jpg");
+    const [photo, setPhoto] = useState("");
+    const [existPhoto, setExistPhoto] = useState("");
     const [designationName, setDesignationName] = useState("");
     const [company, setCompany] = useState("");
     const [comment, setComment] = useState("");
 
-    const handleSubmit = () => {
-        console.log(name, photo, designationName, company, comment);
-        // İsteği göndermek veya başka işlemler yapmak için burada kod ekleyin.
-    };
+    useEffect(() => {
+        const getRoutuerSlider = async () => {
+            var id = router.query.Id;
+            if (id !== undefined) {
+                try {
+                    var response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Testimonial/GetEditTestimonial?Id=${id}`);
+                    if (response.data.succeeded) {
+                        const dataValues = response.data.data;
+                        setName(dataValues.name);
+                        setExistPhoto(`/${dataValues.photo}`);
+                        setDesignationName(dataValues.designation);
+                        setCompany(dataValues.company);
+                        setComment(dataValues.comment);
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        }
+
+        getRoutuerSlider();
+
+    }, [router.query.Id]);
+    const handleSubmit =  async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        router.query.Id !== undefined && formData.append('Id', router.query.Id);
+
+        formData.append('Name', name);
+        formData.append('Designation', designationName);
+        formData.append('Company', company);
+        photo && formData.append('Photo', photo);
+        formData.append('Comment', comment);
+
+
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Testimonial/UpdateTestimonial`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            if (response.data.succeeded) {
+                toast.success('Slider updated successfully');
+                router.push('/admin/testimonial');
+            } else {
+                toast.error(`Error updating ${name} testimonial`);
+            }
+        } catch (error) {
+            toast(`Error updating ${name} testimonial`);
+            console.error(`Error updating ${name} testimonial`, error);
+        }
+    }
 
     return (
         <>
@@ -23,7 +75,7 @@ const AddTestimonial = (props) => {
                 <div className="view-border-header mb-3">
                     <div className="board-header">
                         <FaArrowAltCircleRight />
-                        <h2>{props.name ? "Edit Testimonial":"Add Testimonial"}</h2>
+                        <h2>{router.query.Id ? "Edit Testimonial":"Add Testimonial"}</h2>
                     </div>
                     <div
                         className="view-border-header__add-view"
@@ -65,12 +117,12 @@ const AddTestimonial = (props) => {
                                 />
                             </div>
                         </div>
-                        {props?.existPhoto && (
+                        {existPhoto && (
                             <div className="panel-box-select">
                                 <span className="col-md-2">Existing Photo</span>
                                 <div className="col-md-10">
                                     <div className="panel-website-icon-show">
-                                        <LazyLoadImage src={photo} />
+                                        <LazyLoadImage src={existPhoto} />
                                     </div>
                                 </div>
                             </div>
