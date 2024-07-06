@@ -26,6 +26,7 @@ public class GetMenuQueryHandler:IRequestHandler<GetMenuQueryRequest, ResponseMo
                 Page = EF.Property<string>(page, "Page"),
                 IsPublished = page.IsPublished,
             })
+            .OrderBy(x=>x.Page)
             .ToListAsync(cancellationToken);
         var response = new GetMenuQueryResponse
         {

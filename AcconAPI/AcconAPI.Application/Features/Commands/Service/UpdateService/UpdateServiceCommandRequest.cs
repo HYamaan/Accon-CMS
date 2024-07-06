@@ -2,9 +2,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
-namespace AcconAPI.Application.Features.Commands.Service;
+namespace AcconAPI.Application.Features.Commands.Service.UpdateService;
 
-public class UpdateServiceCommandRequest: IRequest<ResponseModel<UpdateServiceCommandResponse>>    
+public class UpdateServiceCommandRequest : IRequest<ResponseModel<UpdateServiceCommandResponse>>
 {
     public Guid? Id { get; set; }
 

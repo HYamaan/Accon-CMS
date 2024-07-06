@@ -6,8 +6,8 @@ namespace AcconAPI.Application.Features.Commands.Slider.UpdateSlider;
 
 public class UpdatedSliderCommandRequest : IRequest<ResponseModel<UpdatedSliderCommandResponse>>
 {
-    public string? Id { get; set; }
-    public IFormFile Photo { get; set; }
+    public Guid? Id { get; set; }
+    public IFormFile? Photo { get; set; }
     public string Heading { get; set; }
     public string Content { get; set; }
     public string Button1Text { get; set; }

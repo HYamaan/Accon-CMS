@@ -35,6 +35,7 @@ public class GetEditServiceQueryHandler:IRequestHandler<GetEditServiceQueryReque
             var response = new GetEditServiceQueryResponse()
             {
                 Id = result.Id,
+                isPublished = result.IsPublished,
                 Heading = result.Title,
                 ShortContent = result.ShortContent,
                 Content = result.Content,

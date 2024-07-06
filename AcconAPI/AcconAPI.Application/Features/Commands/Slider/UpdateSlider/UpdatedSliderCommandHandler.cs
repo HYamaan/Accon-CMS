@@ -34,7 +34,7 @@ public class UpdatedSliderCommandHandler : IRequestHandler<UpdatedSliderCommandR
         {
             try
             {
-                var sliderInfo = await _sliderRepository.GetWhere(p => p.Id == Guid.Parse(request.Id))
+                var sliderInfo = await _sliderRepository.GetWhere(p => p.Id == request.Id)
                     .Include(p => p.Photo).FirstOrDefaultAsync();
 
                 if (sliderInfo == null)
@@ -49,7 +49,7 @@ public class UpdatedSliderCommandHandler : IRequestHandler<UpdatedSliderCommandR
                 if (sliderInfo.Button2Text != request.Button2Text) sliderInfo.Button2Text = request.Button2Text;
                 if (sliderInfo.Button2Link != request.Button2Link) sliderInfo.Button2Link = request.Button2Link;
 
-                if (sliderInfo.Photo.FileName != request.Photo.FileName && request.Photo.Length > 0)
+                if (request.Photo != null && (sliderInfo.Photo.FileName != request.Photo.FileName && request.Photo.Length > 0))
                 {
                     if (!await _imageFileCheckHelper.CheckImageFormat(request.Photo))
                     {

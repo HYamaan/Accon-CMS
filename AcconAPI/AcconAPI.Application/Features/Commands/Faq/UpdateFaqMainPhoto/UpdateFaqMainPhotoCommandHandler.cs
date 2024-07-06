@@ -48,7 +48,12 @@ public class UpdateFaqMainPhotoCommandHandler:IRequestHandler<UpdateFaqMainPhoto
             await _faqMainPhotoRepository.AddAsync(faqMainPhotoEntity);
             await _faqMainPhotoRepository.SaveAsync();
             await _faqMainPhotoRepository.CommitTransactionAsync();
-            return ResponseModel<UpdateFaqMainPhotoCommandResponse>.Success();
+            return ResponseModel<UpdateFaqMainPhotoCommandResponse>.Success(
+                new UpdateFaqMainPhotoCommandResponse()
+                {
+                    Photo = faqMainPhotoEntity.Path
+                }
+                );
         }
         catch (Exception e)
         {

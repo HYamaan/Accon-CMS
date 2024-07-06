@@ -13,7 +13,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 
-namespace AcconAPI.Application.Features.Commands.Service;
+namespace AcconAPI.Application.Features.Commands.Service.UpdateService;
 
 public class
     UpdateServiceCommandHandler : IRequestHandler<UpdateServiceCommandRequest,
@@ -146,7 +146,7 @@ public class
             if (serviceInfo.MetaDescription != request.MetaDescription) serviceInfo.MetaDescription = request.MetaDescription;
             if (serviceInfo.MetaKeywords != request.MetaKeywords) serviceInfo.MetaKeywords = request.MetaKeywords;
 
-            if(request.Photo != null &&(serviceInfo.Photo.FileName != request.Photo.FileName && request.Photo.Length > 0))
+            if (request.Photo != null && serviceInfo.Photo.FileName != request.Photo.FileName && request.Photo.Length > 0)
             {
                 var photoData = await _storageService.UploadAsync("files", request.Photo);
                 serviceInfo.Photo.FileName = photoData.fileName;
@@ -154,7 +154,7 @@ public class
                 serviceInfo.Photo.Storage = _storageService.StorageName;
             }
 
-            if ( request.Banner != null &&(serviceInfo.Banner.FileName != request.Banner.FileName && request.Banner.Length > 0 ))
+            if (request.Banner != null && serviceInfo.Banner.FileName != request.Banner.FileName && request.Banner.Length > 0)
             {
                 var bannerData = await _storageService.UploadAsync("files", request.Banner);
                 serviceInfo.Banner.FileName = bannerData.fileName;
@@ -172,6 +172,6 @@ public class
             await _serviceRepository.RollbackTransactionAsync();
             return ResponseModel<UpdateServiceCommandResponse>.Fail(e.Message);
         }
-    } 
+    }
 
 }

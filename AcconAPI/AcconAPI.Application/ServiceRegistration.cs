@@ -111,5 +111,7 @@ public static class ServiceRegistration
         services
             .AddTransient<IUpdateSocialMediaCommandRequestValidator,
                 SocialMediaCommandRequestValidator.UpdateSocialMediaCommandRequestValidator>();
+
+        services.AddTransient<IUpdateMenuCommandRequestValidator, UpdateMenuCommandRequestValidator>();
     }
 }

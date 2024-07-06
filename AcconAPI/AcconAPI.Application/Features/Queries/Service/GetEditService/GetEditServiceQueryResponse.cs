@@ -3,6 +3,7 @@
 public class GetEditServiceQueryResponse
 {
     public Guid Id { get; set; }
+    public bool isPublished { get; set; }
     public string Heading { get; set; }
     public string ShortContent { get; set; }
     public string Content { get; set; }

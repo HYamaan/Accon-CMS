@@ -31,6 +31,7 @@ public class GetAllServiceQueryHandler:IRequestHandler<GetAllServiceQueryRequest
                 Services = ux.ServiceSections.Select(x => new ServiceDTOs()
                 {
                     Id = x.Id,
+                    IsPublished = x.IsPublished,
                     Photo = x.Photo.Path,
                     Banner = x.Banner.Path,
                     Heading = x.Title

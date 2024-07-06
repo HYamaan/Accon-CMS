@@ -1,4 +1,5 @@
-﻿using AcconAPI.Application.Features.Commands.Service;
+﻿using AcconAPI.Application.Features.Commands.Service.DeleteService;
+using AcconAPI.Application.Features.Commands.Service.UpdateService;
 using AcconAPI.Application.Features.Commands.Slider;
 using AcconAPI.Application.Features.Queries.Service.GetAllService;
 using AcconAPI.Application.Features.Queries.Service.GetEditService;
@@ -40,5 +41,13 @@ namespace AcconAPI.API.Controllers
             var response = await _mediator.Send(request);
             return Ok(response);
         }
+
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> DeleteService([FromQuery] DeleteServiceCommandRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
     }
 }

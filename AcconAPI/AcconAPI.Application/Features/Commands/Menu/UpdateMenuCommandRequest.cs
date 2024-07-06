@@ -1,10 +1,10 @@
-﻿using AcconAPI.Domain.Common;
+﻿using AcconAPI.Application.Models.DTOs.Request;
+using AcconAPI.Domain.Common;
 using MediatR;
 
 namespace AcconAPI.Application.Features.Commands.Menu;
 
 public class UpdateMenuCommandRequest:IRequest<ResponseModel<UpdateMenuCommandResponse>>
 {
-    public string Id { get; set; }
-    public bool IsPublished { get; set; }
+    public List<UpdateCommandRequestDTOs> pages { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿using AcconAPI.Application.Features.Commands.Service;
+﻿using AcconAPI.Application.Features.Commands.Service.UpdateService;
 using AcconAPI.Application.Services.FluentValidation;
 using FluentValidation;
 

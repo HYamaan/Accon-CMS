@@ -2,5 +2,5 @@
 
 public class UpdateFaqMainPhotoCommandResponse
 {
-    
+    public string Photo { get; set; }
 }

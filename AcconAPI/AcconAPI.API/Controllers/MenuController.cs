@@ -28,7 +28,7 @@ namespace AcconAPI.API.Controllers
 
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> UpdateMenuInformation(UpdateMenuCommandRequest request)
+        public async Task<IActionResult> UpdateMenuInformation([FromBody]UpdateMenuCommandRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);
