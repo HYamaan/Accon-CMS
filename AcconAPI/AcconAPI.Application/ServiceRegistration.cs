@@ -11,11 +11,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Hosting;
 using FluentValidation;
 using AcconAPI.Application.Mapping;
 using AcconAPI.Application.Services.FluentValidation;
-using AcconAPI.Application.Features.Commands.PhotoGallery.UpdateGallery;
 using static AcconAPI.Application.FluentValidation.TeamMemberCommandRequestValidator;
 using static AcconAPI.Application.FluentValidation.TestimonialCommandRequestValidator;
 using static AcconAPI.Application.FluentValidation.WhyChooseUsRequestValidator;
@@ -29,6 +27,7 @@ public static class ServiceRegistration
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));
+        services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
