@@ -1,6 +1,6 @@
 ﻿namespace AcconAPI.Domain.Entities.File.Settings;
 
-public class FooterPhoneIcon
+public class FooterPhoneIcon:File
 {
     
 }

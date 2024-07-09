@@ -2,5 +2,5 @@
 
 public class PhoneIconCommandResponse
 {
-    
+    public string Photo { get; set; }
 }
