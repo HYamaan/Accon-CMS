@@ -44,13 +44,7 @@ const GeneralContent = () => {
     };
 
     return (
-        <div className="content-wrapper">
-            <div className="board-header">
-                <FaArrowAltCircleRight />
-                <h2>Dashboard</h2>
-            </div>
-            <div className="panel-box">
-                <div className="panel-box-body">
+        <div className="content-wrapper bg-white">
                     <div className="text-danger mb-4 mt-2 ms-2">
                         If you do not want to show a social media in your front end page, just leave the input field blank.
                     </div>
@@ -91,8 +85,6 @@ const GeneralContent = () => {
                     setLogoFile={setFooterWorkingHourIcon}
                     title={footerWorkingHourIconTitle}/>
 
-                </div>
-            </div>
         </div>
     );
 };

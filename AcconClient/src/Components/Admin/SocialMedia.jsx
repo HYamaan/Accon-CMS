@@ -1,47 +1,53 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import {generateGUID} from "@/lib/generateGUID";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 const SocialMedia = () => {
-    const initialSections = [
-        { id: generateGUID(), key: "Facebook", value: "#" },
-        { id: generateGUID(), key: "Twitter", value: "#" },
-        { id: generateGUID(), key: "LinkedIn", value: "#" },
-        { id: generateGUID(), key: "Google Plus", value: "#" },
-        { id: generateGUID(), key: "Pinterest", value: "#" },
-        { id: generateGUID(), key: "YouTube", value: "" },
-        { id: generateGUID(), key: "Instagram", value: "" },
-        { id: generateGUID(), key: "Tumblr", value: "" },
-        { id: generateGUID(), key: "Flickr", value: "" },
-        { id: generateGUID(), key: "Reddit", value: "" },
-        { id: generateGUID(), key: "Snapchat", value: "" },
-        { id: generateGUID(), key: "WhatsApp", value: "" },
-        { id: generateGUID(), key: "Quora", value: "" },
-        { id: generateGUID(), key: "StumbleUpon", value: "" },
-        { id: generateGUID(), key: "Delicious", value: "" },
-        { id: generateGUID(), key: "Digg", value: "" }
-    ];
 
-    const [sections, setSections] = useState(initialSections);
+    const [sections, setSections] = useState([]);
+
+    useEffect(() => {
+         const fetchSocialMedia = async () => {
+             const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Social/GetAllSocial`);
+
+                if(response.data.succeeded){
+                    const data = response.data.data.socials;
+                    setSections(data);
+                }
+
+         }
+        fetchSocialMedia();
+    }, []);
 
     const handleInputChange = (id, value) => {
         setSections(prevSections =>
             prevSections.map(section =>
-                section.id === id ? { ...section, value: value } : section
+                section.id === id ? { ...section, content: value } : section
             )
         );
     };
 
-    const handleSubmit = () => {
-        const selectedSections = sections.map(section => ({
+    const handleSubmit = async () => {
+        const socials = sections.map(section => ({
             id: section.id,
-            key: section.key,
-            value: section.value
+            title: section.title,
+            content: section.content
         }));
 
-        // API'ye gönderme işlemi
-        console.log('Submit:', selectedSections);
-        // fetch('/api/submit', { method: 'POST', body: JSON.stringify(selectedSections) })
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Social/UpdateSocial`, { socials });
+
+            if (response.data.succeeded) {
+                toast.success('Social updated successfully');
+            } else {
+                toast.error('Error: ' + response.data.message);
+            }
+        } catch (error) {
+            toast.error('Error: ' + error.message);
+            console.error('Error:', error);
+        }
     };
 
     return (
@@ -57,11 +63,11 @@ const SocialMedia = () => {
                     </div>
                     {sections.map(section => (
                         <div className="panel-box-select" key={section.id}>
-                            <span className="col-md-4 ">{section.key}</span>
+                            <span className="col-md-4 ">{section.title}</span>
                             <div className="col-md-8">
                                 <input
                                     type="text"
-                                    value={section.value}
+                                    value={section.content}
                                     onChange={(e) => handleInputChange(section.id, e.target.value)}
                                 />
                             </div>

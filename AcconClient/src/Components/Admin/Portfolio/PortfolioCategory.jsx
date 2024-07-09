@@ -36,12 +36,11 @@ const PortfolioCategory = () => {
     const handleSortChange = (event) => {
         const value = event.target.value;
 
-        const sortedCategory = sliders.sort((a, b) => {
+        const sortedCategory = portfolioCategory.sort((a, b) => {
             const textA = a[value].toLowerCase();
             const textB = b[value].toLowerCase();
             return textA > textB ? -1 : textA < textB ? 1 : 0;
         });
-        console.log('Sorted sliders:', sortedCategory)
         setPortfolioCategory( [...sortedCategory]);
     }
     const editClickHandler = (id) => {

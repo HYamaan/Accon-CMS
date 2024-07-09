@@ -35,13 +35,7 @@ const EmailSettings = () => {
     };
 
     return (
-        <div className="content-wrapper">
-            <div className="board-header">
-                <FaArrowAltCircleRight />
-                <h2>Email Settings</h2>
-            </div>
-            <div className="panel-box">
-                <div className="panel-box-body">
+        <div className="content-wrapper bg-white">
                     {sections.map(section => (
                         <div className="panel-box-select" key={section.id}>
                             <span className="col-md-4">{section.key}</span>
@@ -60,8 +54,7 @@ const EmailSettings = () => {
                             <button onClick={handleSubmit} className="secondary-button">Submit</button>
                         </div>
                     </div>
-                </div>
-            </div>
+
         </div>
     );
 };

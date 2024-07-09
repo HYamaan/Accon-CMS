@@ -1,14 +1,49 @@
-import React, {useState} from 'react';
-import {generateGUID} from "@/lib/generateGUID";
-import {FaArrowAltCircleRight} from "react-icons/fa";
+import React, {useEffect, useState} from 'react';
+import {toast} from "react-toastify";
+import axios from "axios";
 
-const HomePageInfo = () => {
+const HomePageInfo = ({pageInfo}) => {
     const [metaTitle, setMetaTitle] = useState("");
     const [metaKeyword, setMetaKeyword] = useState("");
     const [metaDescription, setMetaDescription] = useState("");
 
-    const handleSubmit = () => {
-        console.log( metaTitle, metaKeyword, metaDescription);
+    useEffect(() => {
+        const fetchHomePageInfo = async () => {
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Page/GetHomePage`);
+                if(response.data.succeeded) {
+                    setMetaTitle(response.data.data.metaTitle);
+                    setMetaKeyword(response.data.data.metaKeywords);
+                    setMetaDescription(response.data.data.metaDescription);
+                }else {
+                    toast.error('Error fetching page:', response.data.message);
+                }
+            }catch (error) {
+                toast.error('Error fetching page:', error);
+                console.error('Error fetching page:', error);
+            }
+        }
+        fetchHomePageInfo();
+    },[]);
+    const handleSubmit =async () => {
+      try {
+
+          const data ={
+              "metaTitle": metaTitle,
+              "metaDescription": metaDescription,
+              "metaKeywords": metaKeyword
+          };
+          const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Page/UpdateHomePage`, data);
+            if(response.data.succeeded) {
+                toast.success('Page updated successfully');
+            }else {
+                toast.error('Error updating page:', response.data.message);
+            }
+
+      }catch (error) {
+          toast.error('Error updating page:', error);
+          console.error('Error updating page:', error);
+      }
     }
     return <>
         <div className="panel-box-body">

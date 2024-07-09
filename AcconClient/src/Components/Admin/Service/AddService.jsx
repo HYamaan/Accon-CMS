@@ -27,15 +27,12 @@ const AddService = () => {
     const [metaKeyword, setMetaKeyword] = useState("");
 
 
-
-
     useEffect(() => {
         const getRoutuerSlider = async () => {
-            var id = router.query.id;
+            var id = router.query.Id;
             if (id !== undefined) {
                 try {
                     var response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Service/GetServiceEdit?Id=${id}`);
-                    console.log("response", response.data.data)
                     if (response.data.succeeded) {
                         const dataValues = response.data.data;
                         setName(dataValues.heading);
@@ -55,12 +52,12 @@ const AddService = () => {
             }
         }
         getRoutuerSlider();
-    }, [router.query.id]);
+    }, [router.query.Id]);
 
     const handleSubmit =  async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        router.query.id !== undefined && formData.append('Id', router.query.id);
+        router.query.Id !== undefined && formData.append('Id', router.query.Id);
 
         formData.append('Heading', name);
         formData.append('ShortContent', shortContent);

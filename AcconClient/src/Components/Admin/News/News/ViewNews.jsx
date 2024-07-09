@@ -1,12 +1,76 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useMediaQuery} from "react-responsive";
 import {FaArrowAltCircleRight, FaPlus, FaSortAmountDown} from "react-icons/fa";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {Table, Tbody, Td, Th, Thead, Tr} from "react-super-responsive-table";
+import {useRouter} from "next/router";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 const ViewNews = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
+    const router = useRouter();
+    const [news, setNews] = useState([]);
+    const [tempNews, setTempNews] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [keys, setKeys] = useState([]);
+    useEffect(() => {
+        const fetchSliders = async () => {
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/News/GetAllNews`);
+                if (response.data.succeeded) {
+                    var data = response.data.data.news;
+                    setNews(data);
+                    const filteredKeys = Object.keys(data[0]).filter(key => key !== "id" && key !== "path");
+                    setKeys(filteredKeys);
+                }
+            } catch (error) {
+                console.error('Error fetching news:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchSliders();
+    }, []);
+
+    const searchChangeHandler = (value) => {
+        if (tempNews.length === 0) {
+            setTempNews(news);
+        }
+
+        if (value.length > 0) {
+            const searchSliders = news.filter(newValue =>
+                newValue.title.toLowerCase().includes(value.toLowerCase())
+            );
+
+            const exactMatch = searchSliders.filter(newValue =>
+                newValue.title.toLowerCase() === value.toLowerCase()
+            );
+            const otherMatches = searchSliders.filter(newValue =>
+                newValue.title.toLowerCase() !== value.toLowerCase()
+            );
+
+            setNews([...exactMatch, ...otherMatches]);
+        } else {
+            setNews(tempNews);
+        }
+    };
+    const deleteClickHandler = async (id) => {
+        try {
+            const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/News/DeleteNews?Id=${id}`);
+            if (response.data.succeeded) {
+                toast.success("Slider deleted successfully")
+                setNews(news.filter(newValue => newValue.id !== id));
+            }
+        } catch (error) {
+            console.error('Error deleting slider:', error);
+        }
+    }
+    const editClickHandler = (id) => {
+        router.push(`/admin/news/edit/add?Id=${id}`);
+    }
     return <>
         <div className="content-wrapper">
             <div className="view-border-header">
@@ -14,7 +78,9 @@ const ViewNews = () => {
                     <FaArrowAltCircleRight/>
                     <h2>View Service</h2>
                 </div>
-                <div className="view-border-header__add-view">
+                <div className="view-border-header__add-view"
+                        onClick={() => router.push("/admin/news/add")}
+                >
                     <FaPlus />
                     <span>Add New</span>
                 </div>
@@ -85,43 +151,51 @@ const ViewNews = () => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            <Tr>
-                                <Td>
-                                    <div className="slider-table-body ">
-                                        1
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <LazyLoadImage
-                                        src={"/slider-1.jpg"}
-                                        alt={"slider-1.jpg"}
-                                        className="slider-table-image"
-                                    />
-                                </Td>
-                                <Td>
-                                    <LazyLoadImage
-                                        src={"/banner_service.jpg"}
-                                        alt={"banner_service.jpg"}
-                                        className="slider-table-banner-image"
-                                    />
-                                </Td>
-                                <Td >
-                                    <div className="slider-table-body ">
-                                        HELPING BUILD A BETTER FUTURE
-                                    </div>
-                                </Td>
-                                <Td >
-                                    <div className="slider-table-body ">
-                                        News Category 6
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <div className="action-edit slider-table-body">
-                                        <button className="btn btn-warning me-2">Edit</button>
-                                        <button className="btn btn-danger">Delete</button>
-                                    </div>
-                                </Td>
-                            </Tr>
+                            {
+                                news?.map((sum,index)=>(
+                                    <Tr key={sum.id}>
+                                        <Td>
+                                            <div className="slider-table-body ">
+                                                {index + 1}
+                                            </div>
+                                        </Td>
+                                        <Td>
+                                            <LazyLoadImage
+                                                src={`/${sum.photo}`}
+                                                alt={sum.photo}
+                                                className="slider-table-image"
+                                            />
+                                        </Td>
+                                        <Td>
+                                            <LazyLoadImage
+                                                src={`/${sum.banner}`}
+                                                alt={sum.banner}
+                                                className="slider-table-banner-image"
+                                            />
+                                        </Td>
+                                        <Td >
+                                            <div className="slider-table-body ">
+                                                {sum.title}
+                                            </div>
+                                        </Td>
+                                        <Td >
+                                            <div className="slider-table-body ">
+                                                {sum.category}
+                                            </div>
+                                        </Td>
+                                        <Td>
+                                            <div className="action-edit slider-table-body">
+                                                <button className="btn btn-warning me-2"
+                                                        onClick={() => editClickHandler(sum.id)}
+                                                >Edit</button>
+                                                <button className="btn btn-danger"
+                                                        onClick={() => deleteClickHandler(sum.id)}
+                                                >Delete</button>
+                                            </div>
+                                        </Td>
+                                    </Tr>
+                                ))
+                            }
                         </Tbody>
                     </Table>
                     <div className="pagination-section">

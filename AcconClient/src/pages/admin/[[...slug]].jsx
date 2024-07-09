@@ -22,6 +22,8 @@ import AddPartner from "@/Components/Admin/Partner/AddPartner";
 import AddWhyChooseUs from "@/Components/Admin/WhyChooseUs/AddWhyChooseUs";
 import AddPortfolio from "@/Components/Admin/Portfolio/AddPortfolio";
 import AddService from "@/Components/Admin/Service/AddService";
+import AddNewsCategory from "@/Components/Admin/News/Category/AddNewsCategory";
+import AddViewNews from "@/Components/Admin/News/News/AddViewNews";
 
 const ViewSlider = dynamic(() =>
     import('@/Components/Admin/Slider/ViewSlider'), {
@@ -110,7 +112,9 @@ const Index = ({combinedSlug,slug}) => {
                 {combinedSlug === "why-choose-us/background-item" && <WhyChooseUsBackgroundPhoto/>}
                 {(combinedSlug === "page" || (slug && slug[0]==="page")) && <Page combinedSlug={combinedSlug} slug={slug}/>}
                 {combinedSlug === "news" && <ViewNews/>}
+                {(combinedSlug === "news/add" || combinedSlug === "news/edit/add") && <AddViewNews/>}
                 {combinedSlug === "news-category" && <ViewNewsCategory/>}
+                {(combinedSlug=== "news-category/add" || combinedSlug === "news-category/edit/add") && <AddNewsCategory/>}
                 {combinedSlug === "language" && <Language/>}
                 {combinedSlug === "social-media" && <SocialMedia/>}
             </div>

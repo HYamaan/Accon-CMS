@@ -1,13 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import {FaArrowAltCircleRight} from "react-icons/fa";
-import Logo from "@/Components/Admin/Settings/Logo";
-import FavIcon from "@/Components/Admin/Settings/FavIcon";
-import LoginBackground from "@/Components/Admin/Settings/LoginBackground";
-import GeneralContent from "@/Components/Admin/Settings/GeneralContent";
-import EmailSettings from "@/Components/Admin/Settings/EmailSettings";
-import SideBarAndFooter from "@/Components/Admin/Settings/SideBarAndFooter";
-import HomePage from "@/Components/Admin/Settings/HomePage";
 import HomePageInfo from "@/Components/Admin/Pages/HomePageInfo";
 import AboutPageInfo from "@/Components/Admin/Pages/AboutPageInfo";
 import GalleryPageInfo from "@/Components/Admin/Pages/GalleryPageInfo";
@@ -19,14 +12,17 @@ import NewsPageInfo from "@/Components/Admin/Pages/NewsPageInfo";
 import ContactPageInfo from "@/Components/Admin/Pages/ContactPageInfo";
 import TermsPageInfo from "@/Components/Admin/Pages/TermsPageInfo";
 import PrivacyPageInfo from "@/Components/Admin/Pages/PrivacyPageInfo";
+import axios from "axios";
 
 const Page =({ slug, combinedSlug }) => {
     const router = useRouter();
     const [activeTab, setActiveTab] = useState(slug[1] || "");
+    const [pages, setPages] = useState([]);
 
     useEffect(() => {
         setActiveTab(slug[1] || "");
     }, [slug]);
+
 
     const handleClickRouter = (path) => {
         setActiveTab(path);

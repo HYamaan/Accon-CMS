@@ -6,7 +6,7 @@ import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/post
 import {toast} from "react-toastify";
 
 const MainPhoto = () => {
-    const [mainPhoto, setMainPhoto] = useState("");
+    const [mainPhoto, setMainPhoto] = useState("/faq-main-photo.png");
     const [existedMainPhoto, setExistedMainPhoto] = useState("");
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -26,11 +26,10 @@ const MainPhoto = () => {
         fetchSliders();
     }, []);
 
-    const handleSubmitLogo= async (e) => {
+    const handleSubmitLogo= async (data) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('Photo', mainPhoto);
-        console.log("mainPhoto",mainPhoto)
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Faq/UpdateFaqMainPhoto`, formData, {
                 headers: {
@@ -39,8 +38,6 @@ const MainPhoto = () => {
             });
             if (response.data.succeeded) {
                 toast.success('Main Photo updated successfully');
-
-                setExistedMainPhoto(`/${response.data.data.photo}`)
             } else {
                 toast.error(`Error updating main photo`);
             }
@@ -53,7 +50,7 @@ const MainPhoto = () => {
             <div className="view-border-header">
                 <div className="board-header">
                     <FaArrowAltCircleRight/>
-                    <h2>Edit FAQ Photo</h2>
+                    <h2>FAQ Main Photo</h2>
                 </div>
             </div>
             <div className="panel-box mt-3">

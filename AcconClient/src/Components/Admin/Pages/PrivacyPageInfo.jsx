@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import WYSIWYG from "@/Components/WYSIWYG/WYSIWYG";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 const PrivacyPageInfo = () => {
     const [privacyHeading, setPrivacyHeading] = useState("");
@@ -8,8 +10,48 @@ const PrivacyPageInfo = () => {
     const [metaKeyword, setMetaKeyword] = useState("");
     const [metaDescription, setMetaDescription] = useState("");
 
-    const handleSubmit = () => {
-        console.log(privacyHeading,privacyContent, metaTitle, metaKeyword, metaDescription);
+    useEffect(() => {
+        const fetchPortfolioPageInfo = async () => {
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Page/GetPrivacyPage`);
+                if(response.data.succeeded) {
+                    var data = response.data.data;
+                    setPrivacyHeading(data.title);
+                    setPrivacyContent(data.content);
+                    setMetaTitle(data.metaTitle);
+                    setMetaKeyword(data.metaKeywords);
+                    setMetaDescription(data.metaDescription);
+                }else {
+                    toast.error('Error fetching page:', response.data.message);
+                }
+            }catch (error) {
+                toast.error('Error fetching page:', error);
+                console.error('Error fetching page:', error);
+            }
+        }
+        fetchPortfolioPageInfo();
+    },[]);
+    const handleSubmit =async () => {
+        try {
+
+            const data ={
+                "Heading": privacyHeading,
+                "Content": privacyContent,
+                "metaTitle": metaTitle,
+                "metaDescription": metaDescription,
+                "metaKeywords": metaKeyword
+            };
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Page/UpdatePrivacyPage`, data);
+            if(response.data.succeeded) {
+                toast.success('Page updated successfully');
+            }else {
+                toast.error('Error updating page:', response.data.message);
+            }
+
+        }catch (error) {
+            toast.error('Error updating page:', error);
+            console.error('Error updating page:', error);
+        }
     }
     return <>
         <div className="panel-box-body">

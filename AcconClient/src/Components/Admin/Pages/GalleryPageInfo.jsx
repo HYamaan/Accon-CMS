@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
+import {toast} from "react-toastify";
 
 const GalleryPageInfo = () => {
     const [galleryHeading, setGalleryHeading] = useState("");
@@ -6,8 +8,46 @@ const GalleryPageInfo = () => {
     const [metaKeyword, setMetaKeyword] = useState("");
     const [metaDescription, setMetaDescription] = useState("");
 
-    const handleSubmit = () => {
-        console.log(galleryHeading, metaTitle, metaKeyword, metaDescription);
+    useEffect(() => {
+        const fetchHomePageInfo = async () => {
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Page/GetGalleryPage`);
+                if(response.data.succeeded) {
+                    var data = response.data.data;
+                    setGalleryHeading(data.title);
+                    setMetaTitle(data.metaTitle);
+                    setMetaKeyword(data.metaKeywords);
+                    setMetaDescription(data.metaDescription);
+                }else {
+                    toast.error('Error fetching page:', response.data.message);
+                }
+            }catch (error) {
+                toast.error('Error fetching page:', error);
+                console.error('Error fetching page:', error);
+            }
+        }
+        fetchHomePageInfo();
+    },[]);
+    const handleSubmit =async () => {
+        try {
+
+            const data ={
+                "Heading": galleryHeading,
+                "metaTitle": metaTitle,
+                "metaDescription": metaDescription,
+                "metaKeywords": metaKeyword
+            };
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Page/UpdateGalleryPage`, data);
+            if(response.data.succeeded) {
+                toast.success('Page updated successfully');
+            }else {
+                toast.error('Error updating page:', response.data.message);
+            }
+
+        }catch (error) {
+            toast.error('Error updating page:', error);
+            console.error('Error updating page:', error);
+        }
     }
     return <>
         <div className="panel-box-body">

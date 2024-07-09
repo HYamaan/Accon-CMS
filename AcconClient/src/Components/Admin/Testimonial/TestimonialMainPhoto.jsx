@@ -51,7 +51,7 @@ const TestimonialMainPhoto = () => {
             <div className="view-border-header">
                 <div className="board-header">
                     <FaArrowAltCircleRight/>
-                    <h2>Edit Testimonial Photo</h2>
+                    <h2>Testimonial Main Photo</h2>
                 </div>
             </div>
             <div className="panel-box mt-3">

@@ -89,19 +89,23 @@ const AddPhotoGallery = () => {
                                 />
                             </div>
                         </div>
-                        <div className="panel-box-select">
-                            <span className="col-md-2">Existing Photo</span>
-                            <div className="col-md-10">
-                                <div className="panel-website-icon-show">
-                                    <LazyLoadImage src={existingPhoto} />
+                        {
+                            router.query.Id !== undefined && (
+                                <div className="panel-box-select">
+                                    <span className="col-md-2">Existing Photo</span>
+                                    <div className="col-md-10">
+                                        <div className="panel-website-icon-show">
+                                            <LazyLoadImage src={existingPhoto}/>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            )
+                        }
                         <div className="panel-box-select">
                             <span className="col-md-2">New Photo</span>
                             <div className="col-md-10">
                                 <div className="panel-website-icon-show">
-                                    <OneFileUpload file={photo} setFile={setPhoto} />
+                                    <OneFileUpload file={photo} setFile={setPhoto}/>
                                 </div>
                             </div>
                         </div>

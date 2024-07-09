@@ -5,7 +5,6 @@ import OneFileUpload from "@/Components/Ui/OneFileUpload";
 const UploadLogoComponent = ({logoFile,setLogoFile,title,existPhoto,handleSubmitLogo}) => {
 
     console.log("existPhoto",existPhoto)
-
     return <>
         <div className="tab-content">
             {
@@ -13,17 +12,21 @@ const UploadLogoComponent = ({logoFile,setLogoFile,title,existPhoto,handleSubmit
                     {title}
                 </h3>
             }
-            <div className="panel-box-select">
-                <span className="col-md-3 ">Existing Photo</span>
-                <div className="col-md-9">
-                    <div className="panel-website-icon-show">
-                        {/*TODO:src kısmına logoFile dan gelen url eklenecek*/}
-                        <LazyLoadImage
-                            src={existPhoto}
-                        />
+            {
+                existPhoto != null && (
+                    <div className="panel-box-select">
+                        <span className="col-md-3 ">Existing Photo</span>
+                        <div className="col-md-9">
+                            <div className="panel-website-icon-show">
+                                {/*TODO:src kısmına logoFile dan gelen url eklenecek*/}
+                                <LazyLoadImage
+                                    src={existPhoto}
+                                />
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                )
+            }
             <div className="panel-box-select">
                 <span className="col-md-3 ">New Photo</span>
                 <div className="col-md-9">

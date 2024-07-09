@@ -7,6 +7,7 @@ import {useRouter} from "next/router";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {VisibilityPlaceEnum} from "@/data/enum/VisibilityPlaceEnum";
+import faq from "@/pages/faq";
 
 const ViewFaq = () => {
     const router = useRouter();
@@ -30,7 +31,6 @@ const ViewFaq = () => {
             } finally {
                 setLoading(false);
             }
-            console.log("faqs", faqs)
         };
         fetchSliders();
     }, []);

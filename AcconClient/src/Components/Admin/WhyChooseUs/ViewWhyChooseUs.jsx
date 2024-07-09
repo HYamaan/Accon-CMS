@@ -1,13 +1,85 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useMediaQuery} from "react-responsive";
 import {FaArrowAltCircleRight, FaPlus, FaSortAmountDown} from "react-icons/fa";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {Table, Tbody, Td, Th, Thead, Tr} from "react-super-responsive-table";
 import {useRouter} from "next/router";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 const ViewWhyChooseUs = () => {
     const router = useRouter();
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
+    const [chooseUs, setChooseUs] = useState([]);
+    const [tempChooseUs, setTempChooseUs] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [keys, setKeys] = useState([]);
+    useEffect(() => {
+        const fetchSliders = async () => {
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/WhyChooseUs/GetWhyChooseList`);
+                if (response.data.succeeded) {
+                    var data = response.data.data.whyChoose;
+                    setChooseUs(data);
+                    const filteredKeys = Object.keys(data[0]).filter(key => key !== "id" && key !== "path");
+                    setKeys(filteredKeys);
+                }
+            } catch (error) {
+                console.error('Error fetching chooseUs:', error);
+            } finally {
+                setLoading(false);
+            }
+            console.log('Sliders:', chooseUs)
+        };
+
+        fetchSliders();
+    }, []);
+
+    const searchChangeHandler = (value) => {
+        if (tempChooseUs.length === 0) {
+            setTempChooseUs(chooseUs);
+        }
+
+        if (value.length > 0) {
+            const searchSliders = chooseUs.filter(chooseUs =>
+                chooseUs.title.toLowerCase().includes(value.toLowerCase())
+            );
+
+            const exactMatch = searchSliders.filter(chooseUs =>
+                chooseUs.title.toLowerCase() === value.toLowerCase()
+            );
+            const otherMatches = searchSliders.filter(chooseUs =>
+                chooseUs.title.toLowerCase() !== value.toLowerCase()
+            );
+
+            setChooseUs([...exactMatch, ...otherMatches]);
+        } else {
+            setChooseUs(tempChooseUs);
+        }
+    };
+    const deleteClickHandler = async (id) => {
+        try {
+            const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/WhyChooseUs/DeleteChooseUs?Id=${id}`);
+            if (response.data.succeeded) {
+                toast.success("chooseUs deleted successfully")
+                setChooseUs(chooseUs.filter(chooseUs => chooseUs.id !== id));
+            }
+        } catch (error) {
+            toast.error("Error deleting chooseUs")
+            console.error('Error deleting slider:', error);
+        }
+    }
+    const editClickHandler = (id) => {
+        router.push(`/admin/why-choose-us/edit/add?Id=${id}`);
+    }
+    if (loading) {
+        return (
+            <div className="content-wrapper">
+                <div>Loading...</div>
+            </div>
+        );
+    }
 
     return <>
         <div className="content-wrapper">
@@ -47,7 +119,10 @@ const ViewWhyChooseUs = () => {
                         }
                         <div className="slider-show-content__search">
                             <span>Search:</span>
-                            <input type="text" placeholder="Search"/>
+                            <input type="text" placeholder="Search"
+                                   onChange={(event) => searchChangeHandler(event.target.value)}
+
+                            />
                         </div>
                     </div>
                     <Table>
@@ -84,36 +159,44 @@ const ViewWhyChooseUs = () => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            <Tr>
-                                <Td>
-                                    <div className="slider-table-body ">
-                                        1
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <LazyLoadImage
-                                        src={"/why-choose-1.png"}
-                                        alt={"why-choose-1.png"}
-                                        className="slider-table-image"
-                                    />
-                                </Td>
-                                <Td>
-                                    <div className="slider-table-body ">
-                                        Brute altera causae ne sed cum no
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <div className="slider-table-body ">
-                                        Lorem ipsum dolor sit amet, an labores explicari qui, eu nostrum copiosae argumentum has. Latine propriae quo no, unum ridens expetenda id sit, at usu eius eligendi singulis.Sea ocurreret principes ne.
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <div className="action-edit slider-table-body">
-                                        <button className="btn btn-warning me-2">Edit</button>
-                                        <button className="btn btn-danger">Delete</button>
-                                    </div>
-                                </Td>
-                            </Tr>
+                            {
+                                chooseUs?.map((sum,index) =>(
+                                    <Tr key={sum.id}>
+                                        <Td>
+                                            <div className="slider-table-body ">
+                                                {index + 1}
+                                            </div>
+                                        </Td>
+                                        <Td>
+                                            <LazyLoadImage
+                                                src={`/${sum.photo}`}
+                                                alt={sum.photo}
+                                                className="slider-table-image"
+                                            />
+                                        </Td>
+                                        <Td>
+                                            <div className="slider-table-body ">
+                                                {sum.title}
+                                            </div>
+                                        </Td>
+                                        <Td>
+                                            <div className="slider-table-body ">
+                                                {sum.content}
+                                            </div>
+                                        </Td>
+                                        <Td>
+                                            <div className="action-edit slider-table-body">
+                                                <button className="btn btn-warning me-2"
+                                                        onClick={() => editClickHandler(sum.id)}
+                                                >Edit</button>
+                                                <button className="btn btn-danger"
+                                                        onClick={() => deleteClickHandler(sum.id)}
+                                                >Delete</button>
+                                            </div>
+                                        </Td>
+                                    </Tr>
+                                ))
+                            }
                         </Tbody>
                     </Table>
                     <div className="pagination-section">
