@@ -4,7 +4,7 @@ namespace AcconAPI.Domain.Entities.Page;
 
 public class AboutPage:PageEntity
 {
-    public AboutPagePhoto Photo { get; set; }
+    public AboutPagePhoto? Photo { get; set; }
     public string Content { get; set; }
     public string MissionHeading { get; set; }
     public string MissionContent { get; set; }

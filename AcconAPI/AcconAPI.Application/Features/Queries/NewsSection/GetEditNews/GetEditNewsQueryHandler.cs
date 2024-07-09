@@ -30,11 +30,13 @@ public class GetEditNewsQueryHandler:IRequestHandler<GetEditNewsQueryRequest,Res
                 .Select(x => new GetEditNewsQueryResponse()
                 {
                     Id = x.Id,
+                    Title = x.Title,
                     ShortContent = x.ShortContent,
                     Content = x.Content,
                     PublishDate = x.PublishDate,
                     CategoryId = x.NewsCategory.Id,
                     CategoryName = x.NewsCategory.Title,
+                     IsPublished = x.IsPublished,
                     CommentShow = x.CommentShow,
                     BannerPhoto = x.Banner.Path,
                     FeaturePhoto = x.Photo.Path,

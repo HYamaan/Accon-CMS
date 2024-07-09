@@ -8,9 +8,6 @@ public class PageEntityCommandRequestValidator : AbstractValidator<PageEntity>
 {
     public PageEntityCommandRequestValidator()
     {
-        RuleFor(x => x.Heading)
-            .NotEmpty().WithMessage("Heading is required.")
-            .MaximumLength(60).WithMessage("Heading cannot exceed 60 characters.");
 
         RuleFor(x => x.MetaTitle)
             .NotEmpty().WithMessage("MetaTitle is required.")

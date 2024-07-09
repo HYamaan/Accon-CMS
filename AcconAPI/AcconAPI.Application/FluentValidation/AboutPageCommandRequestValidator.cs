@@ -6,7 +6,6 @@ public class AboutPageCommandRequestValidator : AbstractValidator<AboutPageComma
 {
     public AboutPageCommandRequestValidator()
     {
-        RuleFor(x => x.Photo).NotNull().WithMessage("Photo is required.");
         RuleFor(x => x.AboutHeader).NotEmpty().WithMessage("AboutHeader is required.");
         RuleFor(x => x.AboutContent).NotEmpty().WithMessage("AboutContent is required.");
         RuleFor(x => x.MissionHeader).NotEmpty().WithMessage("MissionHeader is required.");

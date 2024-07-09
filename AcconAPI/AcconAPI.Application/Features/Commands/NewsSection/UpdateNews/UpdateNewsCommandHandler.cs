@@ -80,7 +80,8 @@ public class UpdateNewsCommandHandler:IRequestHandler<UpdateNewsCommandRequest,R
                 Title = request.Title,
                 Content = request.Content,
                 ShortContent = request.ShortContent,
-                PublishDate = request.PublishDate,
+                IsPublished = request.IsPublished,
+                PublishDate = DateTime.SpecifyKind(request.PublishDate, DateTimeKind.Utc),
                 NewsCategoryId = request.NewsCategoryId,
                 CommentShow = request.CommentShow,
                 MetaTitle = request.MetaTitle,
@@ -127,9 +128,11 @@ public class UpdateNewsCommandHandler:IRequestHandler<UpdateNewsCommandRequest,R
                 findNews.Content = request.Content;
             if(findNews.ShortContent != request.ShortContent)
                 findNews.ShortContent = request.ShortContent;
-            if(findNews.PublishDate != request.PublishDate)
-                findNews.PublishDate = request.PublishDate;
-            if(findNews.NewsCategoryId != request.NewsCategoryId)
+            if(findNews.IsPublished != request.IsPublished)
+                findNews.IsPublished = request.IsPublished;
+            if (findNews.PublishDate != request.PublishDate)
+                findNews.PublishDate = DateTime.SpecifyKind(request.PublishDate, DateTimeKind.Utc);
+            if (findNews.NewsCategoryId != request.NewsCategoryId)
                 findNews.NewsCategoryId = request.NewsCategoryId;
             if(findNews.CommentShow != request.CommentShow)
                 findNews.CommentShow = request.CommentShow;

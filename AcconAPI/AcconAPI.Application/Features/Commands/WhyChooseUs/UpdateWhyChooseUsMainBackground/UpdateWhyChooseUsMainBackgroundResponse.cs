@@ -2,5 +2,5 @@
 
 public class UpdateWhyChooseUsMainBackgroundResponse
 {
-    
+    public string Photo { get; set; }
 }

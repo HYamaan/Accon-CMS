@@ -40,7 +40,6 @@ public class PortfolioPageCommandHandler : IRequestHandler<HomePageCommandReques
 
             if (getHomePage != null)
             {
-                getHomePage.Heading = request.Heading;
                 getHomePage.MetaTitle = request.MetaTitle;
                 getHomePage.MetaDescription = request.MetaDescription;
                 getHomePage.MetaKeywords = request.MetaKeywords;
@@ -51,7 +50,7 @@ public class PortfolioPageCommandHandler : IRequestHandler<HomePageCommandReques
             {
                 var homePage = new Domain.Entities.Page.HomePage
                 {
-                    Heading = request.Heading,
+                    Heading = "HomePage",
                     MetaTitle = request.MetaTitle,
                     MetaDescription = request.MetaDescription,
                     MetaKeywords = request.MetaKeywords

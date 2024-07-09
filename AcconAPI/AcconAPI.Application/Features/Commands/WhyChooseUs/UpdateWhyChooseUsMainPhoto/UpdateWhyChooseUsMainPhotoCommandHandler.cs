@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AcconAPI.Application.Features.Commands.WhyChooseUs.UpdateWhyChooseUsMainPhoto;
 
-public class UpdateWhyChooseUsMainPhotoCommandHandler:IRequestHandler<UpdateWhyChooseUsMainPhotoCommandRequest, ResponseModel<UpdateWhyChooseUsMainPhotoCommandResponse>>
+public class UpdateWhyChooseUsMainPhotoCommandHandler : IRequestHandler<UpdateWhyChooseUsMainPhotoCommandRequest, ResponseModel<UpdateWhyChooseUsMainPhotoCommandResponse>>
 {
     private readonly IGenericRepository<Domain.Entities.File.WhyChooseUs.ChooseUsMainPhoto> _chooseUsMainPhotoRepository;
     private readonly IFileCheckHelper _fileCheckHelper;
@@ -25,7 +25,7 @@ public class UpdateWhyChooseUsMainPhotoCommandHandler:IRequestHandler<UpdateWhyC
     {
         try
         {
-            if(!await _fileCheckHelper.CheckImageFormat(request.Photo))
+            if (!await _fileCheckHelper.CheckImageFormat(request.Photo))
                 return ResponseModel<UpdateWhyChooseUsMainPhotoCommandResponse>.Fail("File extension is not valid.");
 
 
@@ -36,25 +36,27 @@ public class UpdateWhyChooseUsMainPhotoCommandHandler:IRequestHandler<UpdateWhyC
                 await _storageService.DeleteAsync(getMainPhoto.Path, getMainPhoto.FileName);
                 await _chooseUsMainPhotoRepository.RemoveAsync(getMainPhoto.Id.ToString());
             }
-            else
+
+            var storage = await _storageService.UploadAsync("files", request.Photo);
+            var chooseUsMainPhoto = new ChooseUsMainPhoto()
             {
-                var storage = await _storageService.UploadAsync("files", request.Photo);
-                var chooseUsMainPhoto = new ChooseUsMainPhoto()
-                {
-                    Path = storage.pathOrContainerName,
-                    FileName = storage.fileName,
-                    Storage = _storageService.StorageName
-                };
-                await _chooseUsMainPhotoRepository.AddAsync(chooseUsMainPhoto);
-            }
+                Path = storage.pathOrContainerName,
+                FileName = storage.fileName,
+                Storage = _storageService.StorageName
+            };
+            await _chooseUsMainPhotoRepository.AddAsync(chooseUsMainPhoto);
+
             await _chooseUsMainPhotoRepository.CommitTransactionAsync();
             await _chooseUsMainPhotoRepository.SaveAsync();
-            return ResponseModel<UpdateWhyChooseUsMainPhotoCommandResponse>.Success();
+            return ResponseModel<UpdateWhyChooseUsMainPhotoCommandResponse>.Success(new UpdateWhyChooseUsMainPhotoCommandResponse()
+            {
+                Photo = chooseUsMainPhoto.Path
+            });
 
         }
         catch (Exception e)
         {
-          await  _chooseUsMainPhotoRepository.RollbackTransactionAsync();
+            await _chooseUsMainPhotoRepository.RollbackTransactionAsync();
             return ResponseModel<UpdateWhyChooseUsMainPhotoCommandResponse>.Fail(e.Message);
         }
     }

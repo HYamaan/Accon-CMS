@@ -39,23 +39,38 @@ namespace AcconAPI.Application.Features.Commands.Pages.AboutPage
                 return ResponseModel<AboutPageCommandResponse>.Fail(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
             }
 
-            if (!await _fileCheckHelper.CheckImageFormat(request.Photo))
-            {
-                return ResponseModel<AboutPageCommandResponse>.Fail("Invalid Image Format");
-            }
+    
 
             await _aboutPageRepository.BeginTransactionAsync();
 
             try
             {
-                var photoData = await _storageService.UploadAsync("files", request.Photo);
-                var aboutPhotoModel = new AboutPagePhoto()
+                var aboutPhotoModel = new AboutPagePhoto();
+
+                var findAboutPage = await _aboutPageRepository.GetAll()
+                    .Include(x => x.Photo)
+                    .FirstOrDefaultAsync();
+
+                if (findAboutPage != null && (findAboutPage.Photo == null && request.Photo == null))
                 {
-                    FileName = photoData.fileName,
-                    Path = photoData.pathOrContainerName,
-                    Storage = _storageService.StorageName,
-                };
-                var findAboutPage = await _aboutPageRepository.GetAll().FirstOrDefaultAsync();
+                   return ResponseModel<AboutPageCommandResponse>.Fail("Photo is required");
+                }
+
+                if (request.Photo != null)
+                {
+                    var photoData = await _storageService.UploadAsync("files", request.Photo);
+                    aboutPhotoModel = new AboutPagePhoto()
+                    {
+                        FileName = photoData.fileName,
+                        Path = photoData.pathOrContainerName,
+                        Storage = _storageService.StorageName,
+                    };
+                    if (request.Photo != null && !await _fileCheckHelper.CheckImageFormat(request.Photo))
+                    {
+                        return ResponseModel<AboutPageCommandResponse>.Fail("Invalid Image Format");
+                    }
+                    await _aboutPagePhotoRepository.AddAsync(aboutPhotoModel);
+                }
 
                 if (findAboutPage != null)
                 {
@@ -69,10 +84,10 @@ namespace AcconAPI.Application.Features.Commands.Pages.AboutPage
                     findAboutPage.MetaDescription = request.MetaDescription;
                     findAboutPage.MetaKeywords = request.MetaKeywords;
                     findAboutPage.MetaTitle = request.MetaTitle;
-                    findAboutPage.Photo = aboutPhotoModel;
-
-                    await _aboutPagePhotoRepository.AddAsync(aboutPhotoModel);
-                    await _aboutPagePhotoRepository.SaveAsync();
+                    if (request.Photo != null)
+                    {
+                        findAboutPage.Photo = aboutPhotoModel;
+                    }
                     _aboutPageRepository.Update(findAboutPage);
                 }
                 else
@@ -92,9 +107,8 @@ namespace AcconAPI.Application.Features.Commands.Pages.AboutPage
                     };
 
                     await _aboutPageRepository.AddAsync(aboutPageModel);
-                    await _aboutPagePhotoRepository.AddAsync(aboutPhotoModel);
                 }
-
+                await _aboutPagePhotoRepository.SaveAsync();
                 await _aboutPageRepository.SaveAsync();
                 await _aboutPageRepository.CommitTransactionAsync();
 

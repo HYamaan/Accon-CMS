@@ -8,7 +8,7 @@ public class AboutPageCommandRequest: IRequest<ResponseModel<AboutPageCommandRes
 {
 
     public string? Id { get; set; }
-    public IFormFile Photo { get; set; }
+    public IFormFile? Photo { get; set; }
     public string AboutHeader { get; set; }
     public string AboutContent { get; set; }
     public string MissionHeader { get; set; }

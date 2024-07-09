@@ -2,5 +2,5 @@
 
 public class UpdateWhyChooseUsMainPhotoCommandResponse
 {
-    
+    public string Photo { get; set; }
 }

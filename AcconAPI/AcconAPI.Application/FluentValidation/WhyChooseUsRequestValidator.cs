@@ -10,7 +10,7 @@ public class WhyChooseUsRequestValidator
     {
         public CreateWhyChooseUsCommandRequestValidator()
         {
-            RuleFor(x => x.Heading)
+            RuleFor(x => x.Title)
                 .NotEmpty().WithMessage("Heading is required.")
                 .MaximumLength(100).WithMessage("Heading cannot be longer than 100 characters.");
 
@@ -29,7 +29,7 @@ public class WhyChooseUsRequestValidator
             RuleFor(x => x.Id)
                 .NotEmpty().WithMessage("Id is required.");
 
-            RuleFor(x => x.Heading)
+            RuleFor(x => x.Title)
                 .NotEmpty().WithMessage("Heading is required.")
                 .MaximumLength(100).WithMessage("Heading cannot be longer than 100 characters.");
 

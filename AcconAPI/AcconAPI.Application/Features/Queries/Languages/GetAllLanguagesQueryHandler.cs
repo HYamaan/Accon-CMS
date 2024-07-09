@@ -24,7 +24,9 @@ public class GetAllLanguagesQueryHandler:IRequestHandler<GetAllLanguagesQueryReq
                 Id = x.Id,
                 Title = x.Title,
                 Content = x.Content
-            }).ToListAsync()
+            })
+            .OrderBy(x=>x.Title) 
+            .ToListAsync()
             ;
         var response = new GetAllLanguagesQueryResponse()
         {

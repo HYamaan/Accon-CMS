@@ -14,6 +14,7 @@ public class News : BaseEntity
     public Guid NewsCategoryId { get; set; }
     public NewsCategory NewsCategory { get; set; }
     public bool CommentShow { get; set; }
+    public bool IsPublished { get; set; }
     public DateTime PublishDate { get; set; }
     public NewsPhoto Photo { get; set; }
     public NewsBanner Banner { get; set; }

@@ -260,6 +260,9 @@ namespace AcconAPI.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("MetaDescription")
                         .IsRequired()
                         .HasColumnType("text");
@@ -938,7 +941,7 @@ namespace AcconAPI.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("PhotoId")
+                    b.Property<Guid?>("PhotoId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("VisionContent")
@@ -1268,9 +1271,7 @@ namespace AcconAPI.Persistence.Migrations
                 {
                     b.HasOne("AcconAPI.Domain.Entities.File.AboutPagePhoto", "Photo")
                         .WithMany()
-                        .HasForeignKey("PhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PhotoId");
 
                     b.Navigation("Photo");
                 });

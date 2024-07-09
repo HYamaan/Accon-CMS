@@ -3,11 +3,13 @@
 public class GetEditNewsQueryResponse
 {
     public Guid Id { get; set; }
+    public string Title { get; set; }
     public string ShortContent { get; set; }
     public string Content { get; set; }
     public DateTime PublishDate { get; set; }
     public string CategoryName { get; set; }
     public Guid CategoryId { get; set; }
+    public bool IsPublished { get; set; }
     public bool CommentShow { get; set; }
     public string BannerPhoto { get; set; }
     public string FeaturePhoto { get; set; }

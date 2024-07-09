@@ -63,7 +63,7 @@ public class UpdateWhyChooseUsCommandHandler : IRequestHandler<UpdateWhyChooseUs
             await _whyChooseUsRepository.BeginTransactionAsync();
             var createChoose = new WhyChoose()
             {
-                Title = request.Heading,
+                Title = request.Title,
                 Content = request.Content,
                 IconPhoto = iconPhotoModel
 
@@ -94,8 +94,8 @@ public class UpdateWhyChooseUsCommandHandler : IRequestHandler<UpdateWhyChooseUs
 
             if (chooseUs == null)
                 return ResponseModel<UpdateWhyChooseUsCommandResponse>.Fail("Choose us not found");
-            if (chooseUs.Title != request.Heading)
-                chooseUs.Title = request.Heading;
+            if (chooseUs.Title != request.Title)
+                chooseUs.Title = request.Title;
             if (chooseUs.Content != request.Content)
                 chooseUs.Content = request.Content;
             if (request.Photo != null)
