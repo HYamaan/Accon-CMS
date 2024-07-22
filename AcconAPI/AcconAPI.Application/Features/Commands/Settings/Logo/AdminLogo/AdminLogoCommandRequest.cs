@@ -6,5 +6,5 @@ namespace AcconAPI.Application.Features.Commands.Settings.Logo.AdminLogo;
 
 public class AdminLogoCommandRequest : IRequest<ResponseModel<AdminLogoCommandResponse>>
 {
-    public IFormFile Photo;
+    public IFormFile Photo { get; set; }
 }

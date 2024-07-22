@@ -1,10 +1,8 @@
-﻿using System.Net.Mail;
-using System.Text;
+﻿using System.Text;
 using AcconAPI.Application.Features.Commands.ContactPage.ContactPageMail;
 using AcconAPI.Application.Models;
 using AcconAPI.Application.Services;
 using AcconAPI.Domain.Settings;
-using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
@@ -16,7 +14,7 @@ namespace AcconAPI.Infrastructure.Services
     {
         private MailSettings _mailSettings { get; }
 
-        public MailService(IOptions<MailSettings> mailSettings)
+         public MailService(IOptions<MailSettings> mailSettings)
         {
             _mailSettings = mailSettings.Value;
         }

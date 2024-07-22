@@ -9,10 +9,10 @@ namespace AcconAPI.Application.Features.Commands.Settings.EmailSettings;
 
 public class EmailSettingsCommandHandler:IRequestHandler<EmailSettingsCommandRequest,ResponseModel<EmailSettingsCommandResponse>>
 {
-    private readonly IGenericRepository<Domain.Entities.EmailSettings> _emailSettingsRepository;
+    private readonly IGenericRepository<Domain.Entities.Settings.EmailSettings> _emailSettingsRepository;
     private readonly IValidator<EmailSettingsCommandRequest> _validator;
 
-    public EmailSettingsCommandHandler(IGenericRepository<Domain.Entities.EmailSettings> emailSettingsRepository, IValidator<EmailSettingsCommandRequest> validator)
+    public EmailSettingsCommandHandler(IGenericRepository<Domain.Entities.Settings.EmailSettings> emailSettingsRepository, IValidator<EmailSettingsCommandRequest> validator)
     {
         _emailSettingsRepository = emailSettingsRepository;
         _validator = validator;
@@ -29,7 +29,7 @@ public class EmailSettingsCommandHandler:IRequestHandler<EmailSettingsCommandReq
         var result= await _emailSettingsRepository.GetAll().FirstOrDefaultAsync();
         if (result == null)
         {
-            var emailSettings = new Domain.Entities.EmailSettings
+            var emailSettings = new Domain.Entities.Settings.EmailSettings
             {
                 FromEmail = request.FromEmail,
                 ToEmail = request.ToEmail,

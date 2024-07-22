@@ -5,6 +5,7 @@ using AcconAPI.Domain.Entities.File;
 using AcconAPI.Domain.Entities.File.News;
 using AcconAPI.Domain.Entities.File.Portfolio;
 using AcconAPI.Domain.Entities.File.Service;
+using AcconAPI.Domain.Entities.File.Settings;
 using AcconAPI.Domain.Entities.File.Testimonial;
 using AcconAPI.Domain.Entities.File.WhyChooseUs;
 using AcconAPI.Domain.Entities.Language;
@@ -13,6 +14,7 @@ using AcconAPI.Domain.Entities.Page;
 using AcconAPI.Domain.Entities.Partner;
 using AcconAPI.Domain.Entities.Portfolio;
 using AcconAPI.Domain.Entities.Service;
+using AcconAPI.Domain.Entities.Settings;
 using AcconAPI.Domain.Entities.Slider;
 using AcconAPI.Domain.Entities.SocialMedia;
 using AcconAPI.Domain.Entities.TeamMember;
@@ -49,8 +51,10 @@ public class AcconAPIDbContext : IdentityDbContext<AppUser, AppRole, string>
     public DbSet<WhyChoose> WhyChooses { get; set; }
 
     public DbSet<PageEntity> Pages { get; set; }
+    public DbSet<EmailSettings> EmailSettings { get; set; }
+    public DbSet<GeneralContent> GeneralContent { get; set; }
 
-
+    public DbSet<HomePageSettings> HomePageSettings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -77,7 +81,15 @@ public class AcconAPIDbContext : IdentityDbContext<AppUser, AppRole, string>
             .HasValue<GalleryPhoto>("GalleryPhotos")
             .HasValue<PartnerPhoto>("PartnerPhotos")
             .HasValue<SliderPhoto>("SliderPhotos")
-            .HasValue<TeamMemberPhoto>("TeamMemberPhotos");
+            .HasValue<TeamMemberPhoto>("TeamMemberPhotos")
+            .HasValue<AdminLogo>("AdminLogo")
+            .HasValue<WebSiteLogo>("WebSiteLogo")
+            .HasValue<LoginBackground>("LoginBackground")
+            .HasValue<Favicon>("Favicon")
+            .HasValue<FooterAdressIcon>("FooterAdressIcon")
+            .HasValue<FooterPhoneIcon>("FooterPhoneIcon")
+            .HasValue<FooterWorkingIcon>("FooterWorkingIcon");
+
 
         modelBuilder.Entity<PageEntity>()
             .HasDiscriminator<string>("Page")

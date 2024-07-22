@@ -23,28 +23,34 @@ public class WebsiteLogoCommandHandler:IRequestHandler<WebsiteLogoCommandRequest
 
     public async Task<ResponseModel<WebsiteLogoCommandResponse>> Handle(WebsiteLogoCommandRequest request, CancellationToken cancellationToken)
     {
-        if (request.Photo == null)
-            return ResponseModel<WebsiteLogoCommandResponse>.Fail("Photo is required");
-
-        if (!await _fileCheckHelper.CheckImageFormat(request.Photo))
-            return ResponseModel<WebsiteLogoCommandResponse>.Fail("Photo is not an image");
-
-        var setStorage = await _storageService.UploadAsync("files", request.Photo);
-
-        var logo = new Domain.Entities.File.Settings.WebSiteLogo()
+        try
         {
-            Path = setStorage.pathOrContainerName,
-            FileName = setStorage.fileName,
-            Storage = _storageService.StorageName
-        };
-        var result = await _websiteLogoRepository.AddAsync(logo);
-        if (result == null)
-            return ResponseModel<WebsiteLogoCommandResponse>.Fail("Failed to save logo");
-        await _websiteLogoRepository.SaveAsync();
+            if (request.Photo == null)
+                return ResponseModel<WebsiteLogoCommandResponse>.Fail("Photo is required");
 
-        return ResponseModel<WebsiteLogoCommandResponse>.Success(new WebsiteLogoCommandResponse
+            if (!await _fileCheckHelper.CheckImageFormat(request.Photo))
+                return ResponseModel<WebsiteLogoCommandResponse>.Fail("Photo is not an image");
+
+            var setStorage = await _storageService.UploadAsync("files", request.Photo);
+
+            var logo = new WebSiteLogo()
+            {
+                Path = setStorage.pathOrContainerName,
+                FileName = setStorage.fileName,
+                Storage = _storageService.StorageName
+            };
+            var result = await _websiteLogoRepository.AddAsync(logo);
+
+            await _websiteLogoRepository.SaveAsync();
+
+            return ResponseModel<WebsiteLogoCommandResponse>.Success(new WebsiteLogoCommandResponse
+            {
+                Photo = logo.Path
+            });
+        }
+        catch (Exception e)
         {
-            Photo = logo.Path
-        });
+            return ResponseModel<WebsiteLogoCommandResponse>.Fail(e.Message);
+        }
     }
 }

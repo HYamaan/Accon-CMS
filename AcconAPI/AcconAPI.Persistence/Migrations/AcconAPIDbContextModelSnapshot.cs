@@ -485,6 +485,154 @@ namespace AcconAPI.Persistence.Migrations
                     b.ToTable("ServiceSections");
                 });
 
+            modelBuilder.Entity("AcconAPI.Domain.Entities.Settings.EmailSettings", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("FromEmail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SmtpHost")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SmtpPassword")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("SmtpPort")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SmtpUser")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ToEmail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailSettings");
+                });
+
+            modelBuilder.Entity("AcconAPI.Domain.Entities.Settings.GeneralContent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ContactMap")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("FooterAboutUs")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FooterAdress")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FooterCopyRight")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FooterPhone")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FooterWorkingHours")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("PopularPostCount")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("RecentPostCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TopBarEmail")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TopBarPhone")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GeneralContent");
+                });
+
+            modelBuilder.Entity("AcconAPI.Domain.Entities.Settings.HomePageSettings", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Counter1Text")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Counter1Value")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Counter2Text")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Counter2Value")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Counter3Text")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Counter3Value")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Counter4Text")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Counter4Value")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("CounterBackgroundPhotoId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("SettingId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("SubTitle")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("TotalRecentPosts")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CounterBackgroundPhotoId");
+
+                    b.ToTable("HomePageSettings");
+                });
+
             modelBuilder.Entity("AcconAPI.Domain.Entities.Slider.Slider", b =>
                 {
                     b.Property<Guid>("Id")
@@ -806,6 +954,13 @@ namespace AcconAPI.Persistence.Migrations
                     b.HasDiscriminator().HasValue("AboutPagePhotos");
                 });
 
+            modelBuilder.Entity("AcconAPI.Domain.Entities.File.CounterBackgroundPhoto", b =>
+                {
+                    b.HasBaseType("AcconAPI.Domain.Entities.File.File");
+
+                    b.HasDiscriminator().HasValue("CounterBackgroundPhoto");
+                });
+
             modelBuilder.Entity("AcconAPI.Domain.Entities.File.FaqMainPhoto", b =>
                 {
                     b.HasBaseType("AcconAPI.Domain.Entities.File.File");
@@ -874,6 +1029,55 @@ namespace AcconAPI.Persistence.Migrations
                     b.HasBaseType("AcconAPI.Domain.Entities.File.File");
 
                     b.HasDiscriminator().HasValue("ServicePhoto");
+                });
+
+            modelBuilder.Entity("AcconAPI.Domain.Entities.File.Settings.AdminLogo", b =>
+                {
+                    b.HasBaseType("AcconAPI.Domain.Entities.File.File");
+
+                    b.HasDiscriminator().HasValue("AdminLogo");
+                });
+
+            modelBuilder.Entity("AcconAPI.Domain.Entities.File.Settings.Favicon", b =>
+                {
+                    b.HasBaseType("AcconAPI.Domain.Entities.File.File");
+
+                    b.HasDiscriminator().HasValue("Favicon");
+                });
+
+            modelBuilder.Entity("AcconAPI.Domain.Entities.File.Settings.FooterAdressIcon", b =>
+                {
+                    b.HasBaseType("AcconAPI.Domain.Entities.File.File");
+
+                    b.HasDiscriminator().HasValue("FooterAdressIcon");
+                });
+
+            modelBuilder.Entity("AcconAPI.Domain.Entities.File.Settings.FooterPhoneIcon", b =>
+                {
+                    b.HasBaseType("AcconAPI.Domain.Entities.File.File");
+
+                    b.HasDiscriminator().HasValue("FooterPhoneIcon");
+                });
+
+            modelBuilder.Entity("AcconAPI.Domain.Entities.File.Settings.FooterWorkingIcon", b =>
+                {
+                    b.HasBaseType("AcconAPI.Domain.Entities.File.File");
+
+                    b.HasDiscriminator().HasValue("FooterWorkingIcon");
+                });
+
+            modelBuilder.Entity("AcconAPI.Domain.Entities.File.Settings.LoginBackground", b =>
+                {
+                    b.HasBaseType("AcconAPI.Domain.Entities.File.File");
+
+                    b.HasDiscriminator().HasValue("LoginBackground");
+                });
+
+            modelBuilder.Entity("AcconAPI.Domain.Entities.File.Settings.WebSiteLogo", b =>
+                {
+                    b.HasBaseType("AcconAPI.Domain.Entities.File.File");
+
+                    b.HasDiscriminator().HasValue("WebSiteLogo");
                 });
 
             modelBuilder.Entity("AcconAPI.Domain.Entities.File.SliderPhoto", b =>
@@ -1154,6 +1358,15 @@ namespace AcconAPI.Persistence.Migrations
                     b.Navigation("Photo");
 
                     b.Navigation("ServicePage");
+                });
+
+            modelBuilder.Entity("AcconAPI.Domain.Entities.Settings.HomePageSettings", b =>
+                {
+                    b.HasOne("AcconAPI.Domain.Entities.File.CounterBackgroundPhoto", "CounterBackgroundPhoto")
+                        .WithMany()
+                        .HasForeignKey("CounterBackgroundPhotoId");
+
+                    b.Navigation("CounterBackgroundPhoto");
                 });
 
             modelBuilder.Entity("AcconAPI.Domain.Entities.Slider.Slider", b =>

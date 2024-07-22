@@ -39,8 +39,6 @@ namespace AcconAPI.Application.Features.Commands.Pages.AboutPage
                 return ResponseModel<AboutPageCommandResponse>.Fail(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
             }
 
-    
-
             await _aboutPageRepository.BeginTransactionAsync();
 
             try
