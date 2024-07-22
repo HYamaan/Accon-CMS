@@ -2,5 +2,5 @@
 
 public class GalleryPage:PageEntity
 {
-   public ICollection<Gallery> Galleries { get; set; }
+   public ICollection<Domain.Entities.Gallery.Gallery> Galleries { get; set; }
 }

@@ -155,7 +155,6 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   justify-content: center;
   align-items: center;
-
   text-align: center;
   width: 90px;
   height: 90px;
@@ -168,6 +167,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 .about-mission h3 {
   text-transform: uppercase;
+}
+.about-main-image{
+  max-height: 500px;
+  object-fit: contain;
 }
 
 

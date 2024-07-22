@@ -1,6 +1,9 @@
-﻿namespace AcconAPI.Application.Features.Queries.ClientPages.GalleryPage;
+﻿using AcconAPI.Domain.Common;
+using MediatR;
 
-public class GalleryClientPageQueryRequest
+namespace AcconAPI.Application.Features.Queries.ClientPages.GalleryPage;
+
+public class GalleryClientPageQueryRequest : IRequest<ResponseModel<GalleryClientPageQueryResponse>>
 {
     
 }

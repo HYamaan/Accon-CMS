@@ -7,6 +7,7 @@ import axios from "axios";
 import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 import {toast} from "react-toastify";
 import {VisibilityPlaceEnum} from "@/data/enum/VisibilityPlaceEnum";
+import logo from "@/Components/Admin/Settings/Logo";
 
 const AddPhotoGallery = () => {
     const router = useRouter();
@@ -42,9 +43,10 @@ const AddPhotoGallery = () => {
         router.query.Id !== undefined && formData.append('Id', router.query.Id);
         formData.append('Title', caption);
 
-        photo.length > 0 && formData.append('Photo', photo);
+        photo.size > 0 && formData.append('Photo', photo);
         formData.append('VisiblePlace', visiblePlace);
 
+        console.log("formData", photo)
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Gallery/UpdateGallery`, formData, {
                 headers: {

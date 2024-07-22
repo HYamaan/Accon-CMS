@@ -2,27 +2,32 @@ import React from 'react';
 import Head from 'next/head';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaHeart, FaStar } from "react-icons/fa";
+import axios from "axios";
+import https from 'https';
 
-const Index = ({ siteTitle, siteDescription, ogImage, siteUrl, structuredData }) => {
+const Index = ({ pageInformation, ogImage, siteUrl, structuredData }) => {
+    const siteTitle = pageInformation.metaTitle;
+
     return (
         <>
             <Head>
                 <title>{siteTitle}</title>
-                <meta name="description" content={siteDescription} />
-                <meta property="og:title" content={siteTitle} />
-                <meta property="og:description" content={siteDescription} />
+                <meta name="description" content={pageInformation.metaDescription} />
+                <meta name="keywords" content={pageInformation.metaKeywords} />
+                <meta property="og:title" content={pageInformation.metaTitle} />
+                <meta property="og:description" content={pageInformation.metaDescription} />
                 <meta property="og:image" content={ogImage} />
                 <meta property="og:url" content={siteUrl} />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content={siteTitle} />
-                <meta name="twitter:description" content={siteDescription} />
+                <meta name="twitter:description" content={pageInformation.metaDescription} />
                 <meta name="twitter:image" content={ogImage} />
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
             </Head>
             <div className="banner-slider" style={{ backgroundImage: "url(banner_service.jpg)" }}>
                 <div className="bg"></div>
                 <div className="banner-text">
-                    <h1>About</h1>
+                    <h1>{pageInformation.title}</h1>
                 </div>
             </div>
             <div className="bg-white">
@@ -30,35 +35,17 @@ const Index = ({ siteTitle, siteDescription, ogImage, siteUrl, structuredData })
                     <div className="row">
                         <div className="col-md-12">
                             <LazyLoadImage
-                                src={"about_photo.jpg"}
-                                alt={"about_photo"}
+                                src={`/${pageInformation.photo}`}
+                                alt={pageInformation.photo}
                                 effect="blur"
                                 width="100%"
+                                className={"about-main-image"}
                             />
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12">
-                            <h3 className="mt-3">About Us</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae laudantium dignissimos
-                                doloremque tempore fugiat error blanditiis voluptas aliquam fuga, molestiae. Corporis enim
-                                iusto, in magnam, commodi minus officiis maxime neque. Lorem ipsum dolor sit amet,
-                                consectetur adipisicing elit. Beatae laudantium dignissimos doloremque tempore fugiat error
-                                blanditiis voluptas aliquam fuga, molestiae.
-                            </p>
-                            <p>
-                                Corporis enim iusto, in magnam, commodi minus officiis maxime neque. Lorem ipsum dolor sit
-                                amet, consectetur adipisicing elit. Beatae laudantium dignissimos doloremque tempore fugiat error
-                                blanditiis voluptas aliquam fuga, molestiae. Corporis enim iusto, in magnam, commodi minus
-                                officiis maxime neque.
-                            </p>
-                            <p>
-                                Eu semper imperdiet duo, eos ut exerci sanctus impedit, sit ne legere maiorum gubergren.
-                                Putent accusamus te qui, vero forensibus ei ius. His nostrud singulis forensibus te, in possim
-                                gubergren his. Habemus officiis qui te, vix te meliore rationibus. No augue zril reformidans
-                                est. Pro ex unum vidit, no est noster discere neglegentur, et dictas tamquam his.
-                            </p>
+                            <div dangerouslySetInnerHTML={{ __html: pageInformation.content }} />
                         </div>
                     </div>
                 </div>
@@ -70,8 +57,8 @@ const Index = ({ siteTitle, siteDescription, ogImage, siteUrl, structuredData })
                             <div className="mission-icon">
                                 <FaStar />
                             </div>
-                            <h3>Mission</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae laudantium dignissimos doloremque tempore fugiat error blanditiis voluptas aliquam fuga, molestiae. Corporis enim iusto, in magnam, commodi minus officiis maxime neque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae laudantium dignissimos doloremque tempore fugiat error blanditiis voluptas aliquam fuga, molestiae. Corporis enim iusto, in magnam, commodi minus officiis maxime neque.</p>
+                            <h3>{pageInformation.missionTitle}</h3>
+                            {pageInformation.missionContent}
                         </div>
                     </div>
                     <div className="col-md-6 col-sm-6">
@@ -79,8 +66,8 @@ const Index = ({ siteTitle, siteDescription, ogImage, siteUrl, structuredData })
                             <div className="mission-icon">
                                 <FaHeart />
                             </div>
-                            <h3>Vision</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae laudantium dignissimos doloremque tempore fugiat error blanditiis voluptas aliquam fuga, molestiae. Corporis enim iusto, in magnam, commodi minus officiis maxime neque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae laudantium dignissimos doloremque tempore fugiat error blanditiis voluptas aliquam fuga, molestiae. Corporis enim iusto, in magnam, commodi minus officiis maxime neque.</p>
+                            <h3>{pageInformation.visionTitle}</h3>
+                            <p>{pageInformation.visionContent}</p>
                         </div>
                     </div>
                 </div>
@@ -95,35 +82,54 @@ export const getServerSideProps = async ({ req }) => {
     const protocol = req.headers['x-forwarded-proto'] || 'http';
     const host = req.headers.host;
     const siteUrl = `${protocol}://${host}/about`;
-    const siteTitle = "About Us - Accon";
-    const siteDescription = "Learn more about Accon, our mission, vision, and the team behind our success.";
     const ogImage = `${protocol}://${host}/about_photo.jpg`;
-    const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME;
 
-    const structuredData = {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "url": siteUrl,
-        "name": siteTitle,
-        "description": siteDescription,
-        "logo": {
-            "@type": "ImageObject",
-            "url": `${protocol}://${host}/logo.png`
-        },
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+1-800-555-5555",
-            "contactType": "Customer Service"
-        }
-    };
+    const axiosInstance = axios.create({
+        httpsAgent: new https.Agent({
+            rejectUnauthorized: false
+        })
+    });
 
-    return {
-        props: {
-            siteTitle,
-            siteDescription,
-            ogImage,
-            siteUrl,
-            structuredData
+    try {
+        const getAboutPage = await axiosInstance.get(`${process.env.NEXT_PUBLIC_API_URL}/Cms/GetAboutPage`);
+        if (getAboutPage.data.succeeded === false) {
+            return {
+                redirect: {
+                    destination: '/404',
+                    permanent: false
+                }
+            }
+        } else {
+            const aboutPage = getAboutPage.data.data;
+
+            const structuredData = {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "url": siteUrl,
+                "name": aboutPage.metaTitle,
+                "description": aboutPage.metaDescription,
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": `${protocol}://${host}/logo.png`
+                }
+            };
+
+            return {
+                props: {
+                    ogImage,
+                    siteUrl,
+                    structuredData,
+                    pageInformation: aboutPage
+                }
+            };
         }
-    };
+    } catch (error) {
+        console.error('Error fetching about page:', error);
+        return {
+            redirect: {
+                destination: '/500',
+                permanent: false
+            }
+        };
+    }
 };

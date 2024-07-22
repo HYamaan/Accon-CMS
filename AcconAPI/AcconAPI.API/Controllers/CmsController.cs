@@ -1,4 +1,6 @@
 ﻿using AcconAPI.Application.Features.Commands.ContactPage.ContactPageMail;
+using AcconAPI.Application.Features.Queries.ClientPages.AboutPage;
+using AcconAPI.Application.Features.Queries.ClientPages.GalleryPage;
 using AcconAPI.Application.Features.Queries.Dashboard;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -29,5 +31,20 @@ namespace AcconAPI.API.Controllers
             var response = await _mediator.Send(new GetDashboardQueryRequest());
             return Ok(response);
         }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAboutPage()
+        {
+            var response = await _mediator.Send(new AboutClientPageQueryRequest());
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetGalleryPage()
+        {
+            var response = await _mediator.Send(new GalleryClientPageQueryRequest());
+            return Ok(response);
+        }
+
     }
 }

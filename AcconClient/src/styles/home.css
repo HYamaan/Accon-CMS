@@ -558,6 +558,7 @@
 }
 .caption-photo img{
     height: 100% !important;
+    object-fit: contain;
     background-size: cover;
     background-position: top center;
     background-repeat: no-repeat;
