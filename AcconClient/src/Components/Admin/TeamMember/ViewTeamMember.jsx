@@ -30,7 +30,7 @@ const ViewTeamMember = () => {
             } finally {
                 setLoading(false);
             }
-            console.log('Sliders:', teamMember)
+
         };
 
         fetchSliders();

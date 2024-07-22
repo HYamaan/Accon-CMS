@@ -42,7 +42,7 @@ const Designation = () => {
             const textB = b[value].toLowerCase();
             return textA > textB ? -1 : textA < textB ? 1 : 0;
         });
-        console.log('Sorted sliders:', sortedCategory)
+
         setDesignation( [...sortedCategory]);
     }
     const editClickHandler = (id) => {

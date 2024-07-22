@@ -39,8 +39,6 @@ const AboutPageInfo = () => {
                     setMetaKeyword(data.metaKeywords);
                     setMetaDescription(data.metaDescription);
                     setExistingLogo(`/${data.photo}`)
-                } else {
-                    toast.error('Error fetching page:', response.data.message);
                 }
             } catch (error) {
                 toast.error('Error fetching page:', error);
@@ -145,7 +143,7 @@ const AboutPageInfo = () => {
                         <input
                             type="text"
                             value={missionContent}
-                            onChange={(e) => setMissionHeading(e.target.value)}
+                            onChange={(e) => setMissionContent(e.target.value)}
                         />
                     </div>
                 </div>

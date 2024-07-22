@@ -31,7 +31,7 @@ const ViewService = () => {
             } finally {
                 setLoading(false);
             }
-            console.log('Sliders:', services)
+
         };
 
         fetchSliders();

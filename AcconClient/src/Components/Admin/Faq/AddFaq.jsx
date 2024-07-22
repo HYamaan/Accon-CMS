@@ -18,7 +18,6 @@ const AddFaq = () => {
             if (id !== undefined) {
                 try {
                     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Faq/GetFaqEdit?Id=${id}`);
-                    console.log("response", response.data)
                     if (response.data.succeeded) {
                         const dataValues = response.data.data;
                         setFaqTitle(dataValues.title);

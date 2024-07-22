@@ -17,7 +17,6 @@ const Language = () => {
                     setSections(data);
                 }
 
-                console.log('Data:', sections)
             }catch (error) {
                 toast.error('Error: ' + error.message);
                 console.error('Error:', error);

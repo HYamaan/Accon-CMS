@@ -37,7 +37,7 @@ const TestimonialMainPhoto = () => {
             });
             if (response.data.succeeded) {
                 toast.success('Photo updated successfully');
-                console.log("response", response.data.data)
+
                 setExistedMainPhoto(`/${response.data.data.photo}`)
             } else {
                 toast.error(`Error updating main photo`);

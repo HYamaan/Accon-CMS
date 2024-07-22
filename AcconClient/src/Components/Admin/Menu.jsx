@@ -37,10 +37,6 @@ const Menu = () => {
         );
     };
 
-    useEffect(() => {
-        console.log('Sections:', sections);
-    }, [sections]);
-
     const handleSubmit = async () => {
         const selectedSections = sections.map(section => ({
             id: section.id,

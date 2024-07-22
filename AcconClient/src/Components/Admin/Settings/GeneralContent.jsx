@@ -1,89 +1,222 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FaArrowAltCircleRight} from "react-icons/fa";
 import {generateGUID} from "@/lib/generateGUID";
 import UploadLogoComponent from "@/Components/Ui/UploadLogoComponent";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 const GeneralContent = () => {
-    const initialSections = [
-        { id: generateGUID(), name: "Footer - Copyright", value: "Copyright 2023. All Rights Reserved.", type: "input" },
-        { id: generateGUID(), name: "Footer - Address", value: "Lane A21, ABC Steet, \nNewYork, USA.", type: "textarea" },
-        { id: generateGUID(), name: "Footer - Phone", value: "111-222-3333\n111-222-4444", type: "textarea" },
-        { id: generateGUID(), name: "Footer - Working Hour", value: "Monday-Friday (9:00 AM - 5:00 PM)\nSaturday and Sunday: Off", type: "textarea" },
-        { id: generateGUID(), name: "Footer - About us", value: "Lorem ipsum dolor sit amet, omnis signiferumque in mei, mei ex enim concludaturque. Senserit salutandi euripidis no per, modus maiestatis scribentur est an. Ea suas pertinax has, solet officiis pericula cu pro, possit inermis qui ad. An mea tale perfecto sententiae.", type: "textarea" },
-        { id: generateGUID(), name: "Top Bar Email", value: "info@yourdomain.com", type: "input" },
-        { id: generateGUID(), name: "Top Bar Phone Number", value: "123-456-7878", type: "input" },
-        { id: generateGUID(), name: "Contact Map iFrame", value: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387142.84040262736!2d-74.25819605476612!3d40.70583158628177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sbd!4v1485712851643" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>', type: "textarea" }
-    ];
+    const [footerCopyRight, setFooterCopyRight] = useState("");
+    const [footerAddress, setFooterAddress] = useState("");
+    const [footerPhone, setFooterPhone] = useState("");
+    const [footerWorkingHour, setFooterWorkingHour] = useState("");
+    const [footerAboutUs, setFooterAboutUs] = useState("");
+    const [topBarEmail, setTopBarEmail] = useState("");
+    const [topBarPhoneNumber, setTopBarPhoneNumber] = useState("");
+    const [contactMapIFrame, setContactMapIFrame] = useState("");
 
-    const [sections, setSections] = useState(initialSections);
-    const [footerAddressIcon,setFooterAddressIcon] = useState(null);
-    const [footerPhoneIcon,setFooterPhoneIcon] = useState(null);
-    const [footerWorkingHourIcon,setFooterWorkingHourIcon] = useState(null);
+    const [footerAddressIcon, setFooterAddressIcon] = useState(null);
+    const [existFooterAddressIcon, setExistFooterAddressIcon] = useState(null);
+    const [footerPhoneIcon, setFooterPhoneIcon] = useState(null);
+    const [existFooterPhoneIcon, setExistFooterPhoneIcon] = useState(null);
+    const [footerWorkingHourIcon, setFooterWorkingHourIcon] = useState(null);
+    const [existFooterWorkingHourIcon, setExistFooterWorkingHourIcon] = useState(null);
     const footerAddressIconTitle = "Footer Address Icon";
     const footerPhoneIconTitle = "Footer Phone Icon";
     const footerWorkingHourIconTitle = "Footer Working Hour Icon";
 
-    const handleInputChange = (id, value) => {
-        setSections(prevSections =>
-            prevSections.map(section =>
-                section.id === id ? { ...section, value: value } : section
-            )
-        );
+
+    useEffect(() => {
+        const getGeneralContent = async () => {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Settings/GetGeneralContentSettings`);
+            if (response.data.succeeded) {
+                var getData = response.data.data;
+                setFooterCopyRight(getData.copyRight);
+                setFooterAddress(getData.address);
+                setFooterPhone(getData.phone);
+                setFooterWorkingHour(getData.workingHour);
+                setFooterAboutUs(getData.aboutUs);
+                setTopBarEmail(getData.topBarEmail);
+                setTopBarPhoneNumber(getData.topBarPhone);
+                setContactMapIFrame(getData.contactMap);
+                setExistFooterAddressIcon(`/${getData.footerAdressIcon}`);
+                setExistFooterPhoneIcon(`/${getData.footerPhoneIcon}`);
+                setExistFooterWorkingHourIcon(`/${getData.footerWorkingHoutIcon}`);
+            }
+        }
+        getGeneralContent();
+    }, []);
+
+    const handleSubmit = async () => {
+        const data = {
+            footerCopyRight: footerCopyRight,
+            footerAdress: footerAddress,
+            footerPhone: footerPhone,
+            footerWorkingHours: footerWorkingHour,
+            footerAboutUs: footerAboutUs,
+            topBarEmail: topBarEmail,
+            topBarPhone: topBarPhoneNumber,
+            contactMap: contactMapIFrame
+        };
+        const  result =await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Settings/UpdateGeneralContent`, data);
+        console.log("result",result.data)
+        if (result.data.succeeded) {
+            toast.success("Settings saved successfully");
+        } else {
+            toast.error("An error occurred while saving the settings");
+        }
+
     };
 
-    const handleSubmit = () => {
-        const selectedSections = sections.map(section => ({
-            id: section.id,
-            name: section.name,
-            value: section.value
-        }));
+    const handleSubmitAdressIcon = async () => {
+        var formData = new FormData();
+        formData.append('Photo', footerAddressIcon);
+        const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Settings/UpdateAdressIcon`, formData);
+        if (result.data.succeeded) {
+            toast.success("Settings saved successfully");
+            setExistFooterAddressIcon(`/${result.data.data.photo}`);
+        } else {
+            toast.error("An error occurred while saving the settings");
+        }
+    }
 
-        // API'ye gönderme işlemi
-        console.log('Submit:', selectedSections);
-        // fetch('/api/submit', { method: 'POST', body: JSON.stringify(selectedSections) })
-    };
+    const handleSubmitPhoneIcon = async () => {
+        var formData = new FormData();
+        formData.append('Photo', footerPhoneIcon);
+        const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Settings/UpdatePhoneIcon`, formData);
+        if (result.data.succeeded) {
+            toast.success("Settings saved successfully");
+            setExistFooterPhoneIcon(`/${result.data.data.photo}`);
+        } else {
+            toast.error("An error occurred while saving the settings");
+        }
+    }
+    const handleSubmitWorkingHourIcon = async () => {
+        var formData = new FormData();
+        formData.append('Photo', footerWorkingHourIcon);
+        const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Settings/UpdateWorkingHourIcon`, formData);
+        if (result.data.succeeded) {
+            toast.success("Settings saved successfully");
+            setExistFooterWorkingHourIcon(`/${result.data.data.photo}`);
+        } else {
+            toast.error("An error occurred while saving the settings");
+        }
+    }
+
 
     return (
         <div className="content-wrapper bg-white">
-                    <div className="text-danger mb-4 mt-2 ms-2">
-                        If you do not want to show a social media in your front end page, just leave the input field blank.
-                    </div>
-                    {sections.map(section => (
-                        <div className="panel-box-select" key={section.id}>
-                            <span className="col-md-4 ">{section.name}</span>
-                            <div className="col-md-8">
-                                {section.type === "input" ? (
-                                    <input
-                                        type="text"
-                                        value={section.value}
-                                        onChange={(e) => handleInputChange(section.id, e.target.value)}
-                                    />
-                                ) : (
-                                    <textarea
-                                        rows="5"
-                                        value={section.value}
-                                        onChange={(e) => handleInputChange(section.id, e.target.value)}
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    ))}
-                    <div className="panel-box-select ps-md-3">
-                        <div className="col-md-4"></div>
-                        <div className="col-md-8">
-                            <button onClick={handleSubmit} className="secondary-button">Submit</button>
-                        </div>
-                    </div>
+            <div className="text-danger mb-4 mt-2 ms-2">
+                If you do not want to show a social media in your front end page, just leave the input field blank.
+            </div>
 
-                    <UploadLogoComponent logoFile={footerAddressIcon}
-                    setLogoFile={setFooterAddressIcon}
-                    title={footerAddressIconTitle}/>
-                    <UploadLogoComponent logoFile={footerPhoneIcon}
-                    setLogoFile={setFooterPhoneIcon}
-                    title={footerPhoneIconTitle}/>
-                    <UploadLogoComponent logoFile={footerWorkingHourIcon}
-                    setLogoFile={setFooterWorkingHourIcon}
-                    title={footerWorkingHourIconTitle}/>
+            <div className="panel-box-select">
+                <span className="col-md-4 ">Footer - Copyright</span>
+                <div className="col-md-8">
+                    <input
+                        type="text"
+                        value={footerCopyRight}
+                        onChange={(e) => setFooterCopyRight(e.target.value)}
+                    />
+                </div>
+            </div>
+            <div className="panel-box-select">
+                <span className="col-md-4 ">Footer - Address</span>
+                <div className="col-md-8">
+                    <textarea
+                        rows="3"
+                        value={footerAddress}
+                        onChange={(e) => setFooterAddress(e.target.value)}
+                    />
+                </div>
+            </div>
+            <div className="panel-box-select">
+                <span className="col-md-4 ">Footer - Phone</span>
+                <div className="col-md-8">
+                    <textarea
+                        rows="3"
+                        value={footerPhone}
+                        onChange={(e) => setFooterPhone(e.target.value)}
+                    />
+                </div>
+            </div>
+            <div className="panel-box-select">
+                <span className="col-md-4 ">Footer - Working Hour</span>
+                <div className="col-md-8">
+                    <textarea
+                        value={footerWorkingHour}
+                        rows="3"
+                        onChange={(e) => setFooterWorkingHour(e.target.value)}
+                    />
+                </div>
+            </div>
+            <div className="panel-box-select">
+                <span className="col-md-4 ">Footer - About Us</span>
+                <div className="col-md-8">
+                    <textarea
+                        rows="5"
+                        value={footerAboutUs}
+                        onChange={(e) => setFooterAboutUs(e.target.value)}
+                    />
+                </div>
+            </div>
+            <div className="panel-box-select">
+                <span className="col-md-4 ">Top Bar Email</span>
+                <div className="col-md-8">
+                    <input
+                        type="text"
+                        value={topBarEmail}
+                        onChange={(e) => setTopBarEmail(e.target.value)}
+                    />
+                </div>
+            </div>
+            <div className="panel-box-select">
+                <span className="col-md-4 ">Top Bar Phone Number</span>
+                <div className="col-md-8">
+                    <input
+                        type="text"
+                        value={topBarPhoneNumber}
+                        onChange={(e) => setTopBarPhoneNumber(e.target.value)}
+                    />
+                </div>
+            </div>
+            <div className="panel-box-select">
+                <span className="col-md-4 ">Contact Map iFrame</span>
+                <div className="col-md-8">
+                    <textarea
+                        rows="7"
+                        value={contactMapIFrame}
+                        onChange={(e) => setContactMapIFrame(e.target.value)}
+                    />
+                </div>
+            </div>
+
+
+            <div className="panel-box-select ps-md-3">
+                <div className="col-md-4"></div>
+                <div className="col-md-8">
+                    <button onClick={handleSubmit} className="secondary-button">Submit</button>
+                </div>
+            </div>
+
+            <UploadLogoComponent logoFile={footerAddressIcon}
+                                 setLogoFile={setFooterAddressIcon}
+                                 title={footerAddressIconTitle}
+                                 existPhoto={existFooterAddressIcon}
+                                 handleSubmitLogo={handleSubmitAdressIcon}
+            />
+            <UploadLogoComponent logoFile={footerPhoneIcon}
+                                 setLogoFile={setFooterPhoneIcon}
+                                 title={footerPhoneIconTitle}
+                                 existPhoto={existFooterPhoneIcon}
+                                 handleSubmitLogo={handleSubmitPhoneIcon}
+            />
+            <UploadLogoComponent logoFile={footerWorkingHourIcon}
+                                 setLogoFile={setFooterWorkingHourIcon}
+                                 title={footerWorkingHourIconTitle}
+                                 existPhoto={existFooterWorkingHourIcon}
+                                 handleSubmitLogo={handleSubmitWorkingHourIcon}
+            />
 
         </div>
     );

@@ -15,8 +15,6 @@ const HomePageInfo = ({pageInfo}) => {
                     setMetaTitle(response.data.data.metaTitle);
                     setMetaKeyword(response.data.data.metaKeywords);
                     setMetaDescription(response.data.data.metaDescription);
-                }else {
-                    toast.error('Error fetching page:', response.data.message);
                 }
             }catch (error) {
                 toast.error('Error fetching page:', error);

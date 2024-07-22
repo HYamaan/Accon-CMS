@@ -22,7 +22,7 @@ const AddPartner = (props) => {
                     var response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Partner/GetEditPartner?Id=${id}`);
                     if (response.data.succeeded) {
                         const dataValues = response.data.data;
-                        console.log(dataValues)
+
                         setName(dataValues.name);
                         setExistPhoto(`/${dataValues.path}`);
                     }

@@ -30,7 +30,6 @@ const ViewPartner = () => {
             } finally {
                 setLoading(false);
             }
-            console.log('Sliders:', partner)
         };
 
         fetchSliders();

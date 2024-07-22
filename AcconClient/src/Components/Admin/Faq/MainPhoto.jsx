@@ -14,7 +14,6 @@ const MainPhoto = () => {
             try {
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Faq/GetFaqMainPhoto`);
                 if (response.data.succeeded) {
-                    console.log("response", response.data.data)
                     setExistedMainPhoto(`/${response.data.data.photo}`);
                 }
             } catch (error) {

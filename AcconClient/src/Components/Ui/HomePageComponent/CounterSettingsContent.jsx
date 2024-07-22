@@ -1,18 +1,6 @@
 import React, { useState } from 'react';
 
-const CounterSettingsContent = () => {
-    const [formData, setFormData] = useState({
-        counter1Text: "",
-        counter1Value: "",
-        counter2Text: "",
-        counter2Value: "",
-        counter3Text: "",
-        counter3Value: "",
-        counter4Text: "",
-        counter4Value: "",
-        status: "true"
-    });
-
+const CounterSettingsContent = ({formData,setFormData,handleSubmit}) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevFormData => ({
@@ -21,11 +9,6 @@ const CounterSettingsContent = () => {
         }));
     };
 
-    const handleSubmit = () => {
-        console.log('Form Data:', formData);
-        // API'ye gönderme işlemi
-        // fetch('/api/submit', { method: 'POST', body: JSON.stringify(formData) })
-    };
 
     return (
         <>

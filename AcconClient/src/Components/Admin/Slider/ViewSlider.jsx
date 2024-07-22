@@ -29,7 +29,7 @@ const ViewSlider = () => {
             } finally {
                 setLoading(false);
             }
-            console.log('Sliders:', sliders)
+
         };
 
         fetchSliders();

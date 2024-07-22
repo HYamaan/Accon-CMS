@@ -24,7 +24,7 @@ const AddSlider = () => {
             if(id !== undefined){
                 try {
                     var response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Slider/GetSliderEdit?Id=${router.query.Id}`);
-                    console.log("response",response.data.data)
+
                     if(response.data.succeeded){
                         setExistingPhoto(`/${response.data.data.photo}`);
                         setHeading(response.data.data.heading);

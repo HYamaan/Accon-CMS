@@ -18,8 +18,6 @@ const PortfolioPageInfo = () => {
                     setMetaTitle(data.metaTitle);
                     setMetaKeyword(data.metaKeywords);
                     setMetaDescription(data.metaDescription);
-                }else {
-                    toast.error('Error fetching page:', response.data.message);
                 }
             }catch (error) {
                 toast.error('Error fetching page:', error);

@@ -1,15 +1,50 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import OneFileUpload from "@/Components/Ui/OneFileUpload";
+import {toast} from "react-toastify";
+import axios from "axios";
 
 const Logo = () => {
     const [logoFile, setLogoFile] = useState(null);
+    const [existLogoFile, setExistLogoFile] = useState(null);
     const [adminLogoFile, setAdminLogoFile] = useState(null);
-    const handleSubmitLogo= (data) => {
-        console.log(data);
+    const [existAdminLogoFile, setExistAdminLogoFile] = useState(null);
+
+    useEffect(() => {
+        const getLogos = async () => {
+            var response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Settings/GetLogoSettings`);
+            console.log("respose",response.data);
+            if(response.data.succeeded){
+
+                setExistLogoFile(`/${response.data.data.websiteLogo}`);
+                setExistAdminLogoFile(`/${response.data.data.adminLogo}`);
+            }
+        }
+        getLogos();
+    }, []);
+
+
+    const handleSubmitLogo= async () => {
+        const formData = new FormData();
+        formData.append('Photo', logoFile);
+        const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Settings/UpdateWebsiteLogo`,formData)
+        if(result.data.succeeded) {
+            toast.success("Settings saved successfully");
+            setExistLogoFile(`/${result.data.data.photo}`)
+        }else{
+            toast.error("An error occurred while saving the settings");
+        }
     }
-    const handleSubmitAdminLogo= (data) => {
-        console.log(data);
+    const handleSubmitAdminLogo= async () => {
+        const formData = new FormData();
+        formData.append('Photo', adminLogoFile);
+        const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Settings/UpdateAdminLogo`,formData)
+        if(result.data.succeeded) {
+            toast.success("Settings saved successfully");
+            setExistAdminLogoFile(`/${result.data.data.photo}`)
+        }else{
+            toast.error("An error occurred while saving the settings");
+        }
     }
     return <>
         <div className="tab-content">
@@ -21,7 +56,7 @@ const Logo = () => {
                 <div className="col-md-9">
                     <div className="panel-website-icon-show">
                         <LazyLoadImage
-                            src={"/logo.png"}
+                            src={existLogoFile}
                         />
                     </div>
                 </div>
@@ -53,7 +88,7 @@ const Logo = () => {
                 <div className="col-md-9">
                     <div className="panel-website-icon-show">
                         <LazyLoadImage
-                            src={"/logo.png"}
+                            src={existAdminLogoFile}
                         />
                     </div>
                 </div>

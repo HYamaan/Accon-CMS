@@ -1,7 +1,32 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {FaArrowAltCircleRight, FaRegHandPointRight} from "react-icons/fa";
+import axios from "axios";
 
 const Dashboard = () => {
+
+    const [totalNewsCategories, setTotalNewsCategories] = useState(null);
+    const [totalNews, setTotalNews] = useState("");
+    const [totalTeamMembers, setTotalTeamMembers] = useState(null);
+    const [totalPortfolios, setTotalPortfolios] = useState(null);
+    const [totalTestimonials, setTotalTestimonials] = useState(null);
+    const [totalSliders, setTotalSliders] = useState(null);
+
+    useEffect(() => {
+        const getDashboardData = async () => {
+            const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Cms/GetDashboard`);
+            if(result.data.succeeded){
+                var getData = result.data.data;
+                setTotalNewsCategories(getData.totalNewsCategoryCount);
+                setTotalNews(getData.totalNewsCount);
+                setTotalTeamMembers(getData.totalPortfolioCount);
+                setTotalPortfolios(getData.totalPortfolioCount);
+                setTotalTestimonials(getData.totalTestimonialCount);
+                setTotalSliders(getData.totalSliderCount)
+            }
+        }
+        getDashboardData();
+    }, []);
+
     return <>
         <div className="content-wrapper">
             <div className="board-header">
@@ -17,7 +42,7 @@ const Dashboard = () => {
                             </div>
                             <div className="info-box__content">
                                 <span className="info-box__text">TOTAL NEWS CATEGORIES</span>
-                                <span className="info-box__number">6</span>
+                                <span className="info-box__number">{totalNewsCategories}</span>
                             </div>
                         </div>
                     </div>
@@ -28,7 +53,7 @@ const Dashboard = () => {
                             </div>
                             <div className="info-box__content">
                                 <span className="info-box__text">TOTAL NEWS</span>
-                                <span className="info-box__number">6</span>
+                                <span className="info-box__number">{totalNews}</span>
                             </div>
                         </div>
                     </div>
@@ -39,7 +64,7 @@ const Dashboard = () => {
                             </div>
                             <div className="info-box__content">
                                 <span className="info-box__text">Total Team Members</span>
-                                <span className="info-box__number">5</span>
+                                <span className="info-box__number">{totalTeamMembers}</span>
                             </div>
                         </div>
                     </div>
@@ -50,7 +75,7 @@ const Dashboard = () => {
                             </div>
                             <div className="info-box__content">
                                 <span className="info-box__text">TOTAL PORTFOLIOS</span>
-                                <span className="info-box__number">6</span>
+                                <span className="info-box__number">{totalPortfolios}</span>
                             </div>
                         </div>
                     </div>
@@ -61,7 +86,7 @@ const Dashboard = () => {
                             </div>
                             <div className="info-box__content">
                                 <span className="info-box__text">TOTAL TESTIMONIALS</span>
-                                <span className="info-box__number">4</span>
+                                <span className="info-box__number">{totalTestimonials}</span>
                             </div>
                         </div>
                     </div>
@@ -72,7 +97,7 @@ const Dashboard = () => {
                             </div>
                             <div className="info-box__content">
                                 <span className="info-box__text">TOTAL SLIDERS</span>
-                                <span className="info-box__number">2</span>
+                                <span className="info-box__number">{totalSliders}</span>
                             </div>
                         </div>
                     </div>

@@ -30,7 +30,7 @@ const ViewPhotoGallery = () => {
             } finally {
                 setLoading(false);
             }
-            console.log('photoGallery:', photoGallery)
+
         };
 
         fetchSliders();

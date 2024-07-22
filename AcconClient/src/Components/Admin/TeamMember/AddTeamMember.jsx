@@ -27,7 +27,7 @@ const AddTeamMember = () => {
                     var response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Team/GetEditTeamMember?Id=${id}`);
                     if (response.data.succeeded) {
                         const dataValues = response.data.data;
-                        console.log('Data:', dataValues)
+
                         setName(dataValues.title);
                         setExistPhoto(`/${dataValues.photo}`);
                         setDesignationName(dataValues.designationId);
@@ -52,7 +52,7 @@ const AddTeamMember = () => {
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Team/GetAllDesignation`);
                 if (response.data.succeeded) {
                     setDesignations(response.data.data.designation);
-                    console.log("Designations:", designations)
+
                 }
             } catch (error) {
                 console.error('Error fetching designations:', error);

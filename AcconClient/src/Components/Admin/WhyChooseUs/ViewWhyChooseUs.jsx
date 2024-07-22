@@ -30,7 +30,7 @@ const ViewWhyChooseUs = () => {
             } finally {
                 setLoading(false);
             }
-            console.log('Sliders:', chooseUs)
+
         };
 
         fetchSliders();

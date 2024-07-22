@@ -4,7 +4,6 @@ import OneFileUpload from "@/Components/Ui/OneFileUpload";
 
 const UploadLogoComponent = ({logoFile,setLogoFile,title,existPhoto,handleSubmitLogo}) => {
 
-    console.log("existPhoto",existPhoto)
     return <>
         <div className="tab-content">
             {

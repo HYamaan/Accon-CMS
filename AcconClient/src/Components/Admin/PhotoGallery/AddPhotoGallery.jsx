@@ -30,7 +30,7 @@ const AddPhotoGallery = () => {
                 } catch (error) {
                     console.error('Error fetching photo gallery:', error);
                 }
-                console.log('Photo Gallery:', caption, photo, visiblePlace, existingPhoto)
+
             }
         };
         getRouterSlider();
@@ -41,7 +41,7 @@ const AddPhotoGallery = () => {
         const formData = new FormData();
         router.query.Id !== undefined && formData.append('Id', router.query.Id);
         formData.append('Title', caption);
-        console.log("photoLength",photo.length)
+
         photo.length > 0 && formData.append('Photo', photo);
         formData.append('VisiblePlace', visiblePlace);
 
