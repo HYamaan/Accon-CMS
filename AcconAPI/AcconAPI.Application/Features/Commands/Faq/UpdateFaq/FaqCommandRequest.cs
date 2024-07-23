@@ -6,7 +6,6 @@ namespace AcconAPI.Application.Features.Commands.Faq.UpdateFaq;
 
 public class FaqCommandRequest : IRequest<ResponseModel<FaqCommandResponse>>
 {
-
     public Guid? Id { get; set; }
     public string Title { get; set; }
     public string Content { get; set; }

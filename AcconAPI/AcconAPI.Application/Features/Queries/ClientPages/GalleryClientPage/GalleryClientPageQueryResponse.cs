@@ -1,4 +1,4 @@
-﻿using AcconAPI.Application.Models.DTOs.Response;
+﻿using AcconAPI.Application.Models.DTOs.Response.ClientPage;
 
 namespace AcconAPI.Application.Features.Queries.ClientPages.GalleryPage;
 

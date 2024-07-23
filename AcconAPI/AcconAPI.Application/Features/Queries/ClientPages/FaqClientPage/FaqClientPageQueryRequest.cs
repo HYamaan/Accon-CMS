@@ -1,6 +1,9 @@
-﻿namespace AcconAPI.Application.Features.Queries.ClientPages.FaqPage;
+﻿using AcconAPI.Domain.Common;
+using MediatR;
 
-public class FaqClientPageQueryRequest
+namespace AcconAPI.Application.Features.Queries.ClientPages.FaqPage;
+
+public class FaqClientPageQueryRequest : IRequest<ResponseModel<FaqClientPageQueryResponse>>
 {
     
 }

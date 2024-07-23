@@ -1,4 +1,5 @@
 ﻿using AcconAPI.Application.Models.DTOs.Response;
+using AcconAPI.Application.Models.DTOs.Response.ClientPage;
 using AcconAPI.Application.Repository;
 using AcconAPI.Domain.Common;
 using MediatR;

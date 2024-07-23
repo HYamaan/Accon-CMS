@@ -1,4 +1,4 @@
-﻿namespace AcconAPI.Application.Models.DTOs.Response;
+﻿namespace AcconAPI.Application.Models.DTOs.Response.ClientPage;
 
 public class GetClientGalleryDTOs
 {

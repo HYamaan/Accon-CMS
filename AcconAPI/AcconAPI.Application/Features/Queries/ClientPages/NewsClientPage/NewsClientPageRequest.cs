@@ -1,6 +1,9 @@
-﻿namespace AcconAPI.Application.Features.Queries.ClientPages.NewsPage;
+﻿using AcconAPI.Domain.Common;
+using MediatR;
 
-public class NewsClientPageRequest
+namespace AcconAPI.Application.Features.Queries.ClientPages.NewsPage;
+
+public class NewsClientPageRequest : IRequest<ResponseModel<NewsClientPageResponse>>
 {
     
 }

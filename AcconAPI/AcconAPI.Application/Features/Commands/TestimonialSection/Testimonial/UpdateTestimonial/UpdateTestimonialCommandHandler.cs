@@ -129,6 +129,11 @@ public class UpdateTestimonialCommandHandler : IRequestHandler<UpdateTestimonial
             testimonial.Company = request.Company;
         }
 
+        if (testimonial.Comment != request.Comment)
+        {
+            testimonial.Comment = request.Comment;
+        }
+
         if (request.Photo != null)
         {
             if (!await _fileCheckHelper.CheckImageFormat(request.Photo))

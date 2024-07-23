@@ -1,6 +1,9 @@
-﻿namespace AcconAPI.Application.Features.Queries.ClientPages.ServicePage;
+﻿using AcconAPI.Domain.Common;
+using MediatR;
 
-public class ServiceClientPageQueryRequest
+namespace AcconAPI.Application.Features.Queries.ClientPages.ServicePage;
+
+public class ServiceClientPageQueryRequest : IRequest<ResponseModel<ServiceClientPageQueryResponse>>
 {
     
 }

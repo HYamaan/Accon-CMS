@@ -1,6 +1,11 @@
 ﻿using AcconAPI.Application.Features.Commands.ContactPage.ContactPageMail;
 using AcconAPI.Application.Features.Queries.ClientPages.AboutPage;
+using AcconAPI.Application.Features.Queries.ClientPages.FaqPage;
 using AcconAPI.Application.Features.Queries.ClientPages.GalleryPage;
+using AcconAPI.Application.Features.Queries.ClientPages.NewsPage;
+using AcconAPI.Application.Features.Queries.ClientPages.ServiceClientContentPage;
+using AcconAPI.Application.Features.Queries.ClientPages.ServicePage;
+using AcconAPI.Application.Features.Queries.ClientPages.TestimonialPage;
 using AcconAPI.Application.Features.Queries.Dashboard;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -46,5 +51,39 @@ namespace AcconAPI.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetFaqPage()
+        {
+            var response = await _mediator.Send(new FaqClientPageQueryRequest());
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetServicePage()
+        {
+            var response = await _mediator.Send(new ServiceClientPageQueryRequest());
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetServiceContentPage([FromQuery] ServiceClientContentPageQueryRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetTestimonialPage()
+        {
+            var response = await _mediator.Send(new TestimonialClientPageQueryRequest());
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetNewsPage()
+        {
+            var response = await _mediator.Send(new NewsClientPageRequest());
+            return Ok(response);
+        }
     }
 }
