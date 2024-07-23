@@ -1,7 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
 import CardPhotoGallery from "@/Components/Card/CardPhotoGallery";
-import { photoJson } from "@/data/photoJson";
 import axios from "axios";
 import https from 'https';
 const Index = ({pageInformation,ogImage, siteUrl, structuredData }) => {

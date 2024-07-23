@@ -18,8 +18,8 @@ const CardTestimonial = ({data}) => {
                 </div>
                 <div className="testimonial-photo">
                     <LazyLoadImage
-                        src={data.url}
-                        alt={data.url}
+                        src={`/${data.photo}`}
+                        alt={data.photo}
                     />
                 </div>
             </div>

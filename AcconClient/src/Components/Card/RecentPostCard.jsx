@@ -28,7 +28,7 @@ const RecentPostCard = ({data}) => {
             </div>
         </div>
         <div className="blog-text">
-            <h3>Pri et oratio iisque atomorum, enim detracto</h3>
+            <h3>{data.title}</h3>
             <p dangerouslySetInnerHTML={{__html: htmlContent}}></p>
             <div className="blog-button">
                 <div onClick={()=>router.push(`news/${data.url}`)} className="secondary-button">Read More</div>

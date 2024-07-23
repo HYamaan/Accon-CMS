@@ -2,33 +2,35 @@ import React from 'react';
 import { cardJson } from "@/data/service";
 import Card from "@/Components/Card/Card";
 import Head from 'next/head';
-
-const Service = ({ cardInfo, siteTitle, siteDescription, ogImage, siteUrl, structuredData }) => {
+import axios from "axios";
+import https from 'https';
+const Service = ({ servicePage,cardInfo, siteTitle, siteDescription, ogImage, siteUrl, structuredData }) => {
+    console.log("servicePage",servicePage)
     return (
         <>
             <Head>
-                <title>{siteTitle}</title>
-                <meta name="description" content={siteDescription} />
-                <meta property="og:title" content={siteTitle} />
-                <meta property="og:description" content={siteDescription} />
+                <title>{servicePage.metaTitle}</title>
+                <meta name="description" content={servicePage.metaDescription} />
+                <meta property="og:title" content={servicePage.metaTitle} />
+                <meta property="og:description" content={servicePage.metaDescription} />
                 <meta property="og:image" content={ogImage} />
                 <meta property="og:url" content={siteUrl} />
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={siteTitle} />
-                <meta name="twitter:description" content={siteDescription} />
+                <meta name="twitter:title" content={servicePage.metaTitle} />
+                <meta name="twitter:description" content={servicePage.metaDescription} />
                 <meta name="twitter:image" content={ogImage} />
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
             </Head>
             <div className="banner-slider" style={{ backgroundImage: "url(banner_service.jpg)" }}>
                 <div className="bg"></div>
                 <div className="banner-text">
-                    <h1>Service</h1>
+                    <h1>{servicePage.header}</h1>
                 </div>
             </div>
             <section className="services-section">
                 <div className="container services">
                     <div className="row">
-                        {cardInfo.map((item, index) =>
+                        {servicePage.services?.map((item, index) =>
                             <div key={index} className="col-md-4 col-sm-6 col-xs-12 clear-three">
                                 <Card data={item} baseUrl={"service"} />
                             </div>
@@ -51,31 +53,61 @@ export const getServerSideProps = async ({ req }) => {
     const ogImage = `${siteUrl}/banner_service.jpg`;
     const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME;
 
-    const structuredData = {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "url": siteUrl,
-        "name": siteTitle,
-        "description": siteDescription,
-        "publisher": {
-            "@type": "Organization",
-            "name": companyName,
-            "url": siteUrl,
-            "logo": {
-                "@type": "ImageObject",
-                "url": `${protocol}://${host}/logo.png`
+
+    const axiosInstance = axios.create({
+        httpsAgent: new https.Agent({
+            rejectUnauthorized: false
+        })
+    });
+
+    try {
+        const getServicePage = await axiosInstance.get(`${process.env.NEXT_PUBLIC_API_URL}/Cms/GetServicePage`);
+        if (getServicePage.data.succeeded === false) {
+            return {
+                redirect: {
+                    destination: '/404',
+                    permanent: false
+                }
+            }
+        } else {
+            const servicePage = getServicePage.data.data;
+            const structuredData = {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "url": siteUrl,
+                "name": servicePage.metaTitle,
+                "description": servicePage.metaDescription,
+                "publisher": {
+                    "@type": "Organization",
+                    "name": companyName,
+                    "url": siteUrl,
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": `${protocol}://${host}/logo.png`
+                    }
+                }
+            };
+
+            return {
+                props: {
+                    servicePage,
+                    cardInfo: cardJson,
+                    siteTitle,
+                    siteDescription,
+                    ogImage,
+                    siteUrl,
+                    structuredData
+                }
+            };
+        }
+    }catch (e){
+        return {
+            redirect: {
+                destination: '/404',
+                permanent: false
             }
         }
-    };
+    }
 
-    return {
-        props: {
-            cardInfo: cardJson,
-            siteTitle,
-            siteDescription,
-            ogImage,
-            siteUrl,
-            structuredData
-        }
-    };
+
 };

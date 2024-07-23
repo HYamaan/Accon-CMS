@@ -163,6 +163,14 @@ export const getServerSideProps = async ({ params, req }) => {
     const companyUrl = process.env.NEXT_PUBLIC_COMPANY_URL;
     const project = recentPostJson.find(item => item.url === params.slug.join('/'));
 
+
+
+
+
+
+
+
+
     if (project) {
         const allProject = recentPostJson.map(item => ({
             url: item.url, title: item.title
