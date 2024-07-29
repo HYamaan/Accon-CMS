@@ -188,7 +188,7 @@ const AddService = () => {
                                 SEO INFORMATION
                             </h3>
                             <div className="panel-box-select">
-                                <span className="col-md-2 ">Existing Photo</span>
+                                <span className="col-md-2 ">Meta Title</span>
                                 <div className="col-md-10">
                                     <input
                                         type="text"

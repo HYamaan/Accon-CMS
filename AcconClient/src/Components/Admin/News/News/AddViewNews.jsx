@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import {FaArrowAltCircleRight, FaPlus} from "react-icons/fa";
 import WYSIWYG from "@/Components/WYSIWYG/WYSIWYG";
-import UploadLogoComponent from "@/Components/Ui/UploadLogoComponent";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import OneFileUpload from "@/Components/Ui/OneFileUpload";
 import axios from "axios";
@@ -16,7 +15,7 @@ const AddViewNews = () => {
     const [shortContent, setShortContent] = useState("");
     const [content, setContent] = useState("");
     const [publishDate, setPublishDate] = useState("");
-    const [clientComment, setClientComment] = useState("");
+    const [clientComment, setClientComment] = useState(false);
     const [category, setCategory] = useState("");
     const [newsCategory, setNewsCategory] = useState([]);
 
@@ -37,6 +36,8 @@ const AddViewNews = () => {
                     var response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/News/GetEditNews?Id=${id}`);
                     if (response.data.succeeded) {
                         const dataValues = response.data.data;
+
+                        console.log("DataValues",dataValues.isPublished);
                         setName(dataValues.title);
                         setShortContent(dataValues.shortContent);
                         setContent(dataValues.content);
@@ -44,7 +45,7 @@ const AddViewNews = () => {
                         setClientComment(dataValues.commentShow);
                         setExistPhoto(`/${dataValues.featurePhoto}`);
                         setExistBanner(`/${dataValues.bannerPhoto}`);
-                        setIsPublished(dataValues.isPublished)
+                        setIsPublished(dataValues.isPublished);
                         if (dataValues.publishDate) {
                             const formattedDate = new Date(dataValues.publishDate).toISOString().split('T')[0];
                             setPublishDate(formattedDate);
@@ -75,6 +76,7 @@ const AddViewNews = () => {
         }
         getNewsCategory();
     }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -111,6 +113,9 @@ const AddViewNews = () => {
         }
     }
 
+    useEffect(() => {
+        console.log("router.query?.Id",router.query?.Id)
+    }, [router]);
 
     return (
         <>
@@ -135,7 +140,7 @@ const AddViewNews = () => {
                             <div className="col-md-10">
                                 <input
                                     type="checkbox"
-                                    value={isPublished}
+                                    checked={isPublished}
                                     onChange={(e) => setIsPublished(!isPublished)}
                                 />
                             </div>
@@ -190,7 +195,7 @@ const AddViewNews = () => {
                                     onChange={(e) => setCategory(e.target.value)}
                                 >
                                     {
-                                        router.query.Id === "" ? <option value="">Select Category</option> : ""
+                                        ( router.query?.Id === "" ||  router.query?.Id === undefined) ? <option value="">Select Category</option> : ""
                                     }
                                     {
                                         newsCategory.map((category, index) => (

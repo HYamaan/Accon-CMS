@@ -182,7 +182,7 @@ const AddTeamMember = () => {
                             </div>
                         </div>
                         <div className="panel-box-select">
-                            <span className="col-md-2">Google *</span>
+                            <span className="col-md-2">Youtube *</span>
                             <div className="col-md-10">
                                 <input
                                     type="text"

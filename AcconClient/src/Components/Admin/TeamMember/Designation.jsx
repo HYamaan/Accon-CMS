@@ -72,8 +72,9 @@ const Designation = () => {
     };
 
     const deleteClickHandler = async (id) => {
+        console.log("id", id)
         try {
-            const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}Team/DeleteDesignation?Id=${id}`);
+            const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/Team/DeleteDesignation?Id=${id}`);
             if (response.data.succeeded) {
                 toast.success("Designation deleted successfully")
                 setDesignation(designation.filter(designation => designation.id !== id));

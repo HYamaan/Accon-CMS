@@ -1,7 +1,7 @@
 import React from 'react';
 import SliderPartners from "@/Components/Slider/SliderPartners";
 
-const Partners = () => {
+const Partners = ({partners}) => {
     const partnersJson = [
         {
             url:"partner-1.png"
@@ -34,10 +34,10 @@ const Partners = () => {
 
    return <div className="container partners">
        <div className="headline">
-           <h2>OUR PARTNERS</h2>
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit Deserunt libero voluptate</p>
+           <h2>{partners.title}</h2>
+           <p>{partners.subTitle}</p>
        </div>
-       <SliderPartners data={partnersJson}/>
+       <SliderPartners data={partners.partners}/>
    </div>
 };
 

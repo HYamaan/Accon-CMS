@@ -56,6 +56,26 @@ const SliderTeam = ({data}) => {
             }
         ]
     };
+
+    if (data.length === 1) {
+        return (
+            <div className="slider-team">
+                <div className="slider-container">
+                    <CardTeam data={data[0]} />
+                </div>
+            </div>
+        );
+    }
+    if (data.length === 2) {
+        return (
+            <div className="slider-team">
+                <div className="slider-container">
+                    <CardTeam data={data[0]} />
+                    <CardTeam data={data[1]} />
+                </div>
+            </div>
+        );
+    }
     return (
         <div className="slider-team">
             <div className="slider-container">

@@ -3,7 +3,7 @@ import {LazyLoadImage} from "react-lazy-load-image-component";
 
 const CardPartner = ({data}) => {
     return (
-       <LazyLoadImage src={data.url}/>
+       <LazyLoadImage src={data.photo}/>
     );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import SliderTestimonialArea from "@/Components/Slider/SliderTestimonialArea";
 import {testimonialJson} from "@/data/testimonialJson";
-const TestimonialArea = () => {
+const TestimonialArea = ({testimonials}) => {
 
 
 
@@ -13,11 +13,11 @@ const TestimonialArea = () => {
                 <div className="container">
                     <div className="row">
                         <div className="testimonial-headline">
-                            <h2>WHAT OUR CLIENTS SAY</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit Deserunt libero voluptate</p>
+                            <h2>{testimonials.title}</h2>
+                            <p>{testimonials.subTitle}</p>
                         </div>
                         <div className="col-md-12">
-                     <SliderTestimonialArea data={testimonialJson}/>
+                     <SliderTestimonialArea data={testimonials.testimonials}/>
                         </div>
                     </div>
                 </div>

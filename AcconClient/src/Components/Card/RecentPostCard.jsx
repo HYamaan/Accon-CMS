@@ -13,7 +13,7 @@ const RecentPostCard = ({data}) => {
     return<>
     <div className="blog-item">
      <LazyLoadImage
-         src={data.photo}
+         src={`/${data.photo}`}
          alt={data.photo}
      effect="blur"
      className="blog-photo"

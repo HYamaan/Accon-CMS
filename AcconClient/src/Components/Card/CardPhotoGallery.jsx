@@ -32,15 +32,15 @@ const CardPhotoGallery = ({data}) => {
             <Lightbox
                 open={open}
                 close={() => setOpen(false)}
-                slides={[{ src: data.url,  title: data.url.split('.')[0], downloadUrl: data.url, }]}
+                slides={[{ src: data.photo,  title: data.title, downloadUrl: data.photo, }]}
                 plugins={[Download, Fullscreen,Captions]}
             />
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
                 <div className="caption-item" onClick={handleCaptionClick}>
                     <div className="caption-photo">
                         <LazyLoadImage
-                            alt={data.url}
-                            src={data.url}
+                            alt={`/${data.photo}`}
+                            src={data.photo}
                             effect="blur"
                         />
                         {!isMobile && (
@@ -53,7 +53,7 @@ const CardPhotoGallery = ({data}) => {
                         )}
                     </div>
                     <div className="caption-text">
-                        <p>{data.name}</p>
+                        <p>{data.title}</p>
                     </div>
                 </div>
             </div>

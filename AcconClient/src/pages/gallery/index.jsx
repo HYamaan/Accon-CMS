@@ -22,7 +22,7 @@ const Index = ({pageInformation,ogImage, siteUrl, structuredData }) => {
             <div className="banner-slider" style={{ backgroundImage: "url(banner_service.jpg)" }}>
                 <div className="bg"></div>
                 <div className="banner-text">
-                    <h1>{pageInformation.Heading}</h1>
+                    <h1>{pageInformation.heading}</h1>
                 </div>
             </div>
             <div className="photo-gallery-section pb-5 pt-5">

@@ -1,7 +1,7 @@
 import React from 'react';
 import SliderTeam from "@/Components/Slider/SliderTeam";
 
-const Experience = () => {
+const Experience = ({teams}) => {
 
     const experienceJson = [
         {
@@ -55,10 +55,10 @@ const Experience = () => {
         <div className="experience-section">
             <div className="container experience">
                 <div className="headline">
-                    <h2>EXPERIENCED TEAM</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit Deserunt libero voluptate</p>
+                    <h2>{teams.title}</h2>
+                    <p>{teams.subTitle}</p>
                 </div>
-                <SliderTeam data={experienceJson}/>
+                <SliderTeam data={teams.teamMembers}/>
             </div>
         </div>
     </>

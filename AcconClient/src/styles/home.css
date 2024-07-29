@@ -556,11 +556,16 @@
 .caption-photo {
     position: relative;
 }
+.caption-photo span{
+    max-height: 150px;
+    width: 100%;
+}
 .caption-photo img{
+    max-height: 150px;
     height: 100% !important;
-    object-fit: contain;
+    object-fit: cover;
     background-size: cover;
-    background-position: top center;
+    background-position: top left;
     background-repeat: no-repeat;
     width: 100%;
 

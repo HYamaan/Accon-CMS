@@ -44,7 +44,7 @@ function SamplePrevArrow(props) {
     );
 }
 
-const SliderComponent = () => {
+const SliderComponent = ({slider}) => {
     const router = useRouter();
     const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -70,24 +70,24 @@ const SliderComponent = () => {
         <div className="slider-section">
             <div className="slider-container">
                 <Slider {...settings}>
-                    {sliderData.map((slide, index) => (
+                    {slider.map((slide, index) => (
                         <div key={index} className="slider-section">
-                            <LazyLoadImage src={slide.src} alt={slide.alt} />
+                            <LazyLoadImage src={`/${slide.path}`} alt={slide.path} />
                             <div className={`slider-text ${getAnimateClass(index)}`}>
-                                <h3>{slide.title}</h3>
-                                <p>{slide.description}</p>
+                                <h3>{slide.heading}</h3>
+                                <p>{slide.content}</p>
                                 <div className="d-flex gap-3 justify-content-center">
                                     <button
                                         className="primary-button"
-                                        onClick={() => router.push(slide.primaryButton.link)}
+                                        onClick={() => router.push(slide.button1Link)}
                                     >
-                                        {slide.primaryButton.text}
+                                        {slide.button1Text}
                                     </button>
                                     <button
                                         className="secondary-button"
-                                        onClick={() => router.push(slide.secondaryButton.link)}
+                                        onClick={() => router.push(slide.button2Link)}
                                     >
-                                        {slide.secondaryButton.text}
+                                        {slide.button2Text}
                                     </button>
                                 </div>
                             </div>

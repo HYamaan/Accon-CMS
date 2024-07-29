@@ -8,12 +8,12 @@ const CardTestimonial = ({data}) => {
             <div className="testimonial-text">
                 <div className="client-name">
                     <h4>{data.name}</h4>
-                    <span>{data.position}</span>
+                    <span>{data.company},{data.designation}</span>
                 </div>
                 <div className="testimonial-detail">
                     <FaQuoteLeft/>
                     <p>
-                        {data.description}
+                        {data.comment}
                     </p>
                 </div>
                 <div className="testimonial-photo">

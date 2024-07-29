@@ -2,7 +2,7 @@ import React from 'react';
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
 
-const CounterupArea = () => {
+const CounterupArea = ({counterSection}) => {
     const [ref, inView] = useInView({
         threshold: 0.1,
         triggerOnce: true
@@ -16,33 +16,33 @@ const CounterupArea = () => {
                         <div className="col-md-3 col-sm-6 counter-border">
                             <div className="counter-item">
                                 <h2 className="counter">
-                                    {inView && <CountUp start={0} end={150} duration={2.75}/>}
+                                    {inView && <CountUp start={0} end={counterSection.text1Value} duration={2.75}/>}
                                 </h2>
-                                <h4>Working Persons</h4>
+                                <h4>{counterSection.text1}</h4>
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-6 counter-border">
                             <div className="counter-item">
                                 <h2 className="counter">
-                                    {inView && <CountUp start={0} end={1200} duration={2.75}/>}
+                                    {inView && <CountUp start={0} end={counterSection.text2Value} duration={2.75}/>}
                                 </h2>
-                                <h4>Projects Completed</h4>
+                                <h4>{counterSection.text2}</h4>
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-6 counter-border">
                             <div className="counter-item">
                                 <h2 className="counter">
-                                    {inView && <CountUp start={0} end={800} duration={2.75}/>}
+                                    {inView && <CountUp start={0} end={counterSection.text3Value} duration={2.75}/>}
                                 </h2>
-                                <h4>Happy Clients</h4>
+                                <h4>{counterSection.text3}</h4>
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-6 counter-border">
                             <div className="counter-item achieved">
                                 <h2 className="counter">
-                                    {inView && <CountUp start={0} end={1200} duration={2.75}/>}
+                                    {inView && <CountUp start={0} end={counterSection.text4Value} duration={2.75}/>}
                                 </h2>
-                                <h4>Awards Achieved</h4>
+                                <h4>{counterSection.text4}</h4>
                             </div>
                         </div>
                     </div>

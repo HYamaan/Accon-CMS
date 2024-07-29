@@ -76,7 +76,7 @@ const ViewNews = () => {
             <div className="view-border-header">
                 <div className="board-header">
                     <FaArrowAltCircleRight/>
-                    <h2>View Service</h2>
+                    <h2>View News</h2>
                 </div>
                 <div className="view-border-header__add-view"
                         onClick={() => router.push("/admin/news/add")}

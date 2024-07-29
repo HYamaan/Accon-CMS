@@ -26,7 +26,6 @@ const MainPhoto = () => {
     }, []);
 
     const handleSubmitLogo= async (data) => {
-        e.preventDefault();
         const formData = new FormData();
         formData.append('Photo', mainPhoto);
         try {

@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { accordionData } from "@/data/faqJson";
+import faq from "@/pages/faq";
 
 const Faq = ({faqData}) => {
     useEffect(() => {
         import('bootstrap/dist/js/bootstrap.bundle.min.js');
     }, []);
 
+
+    console.log("faqData", faqData);
     if(faqData === undefined || faqData === null){
         return (
             <div className="faq-section">
@@ -14,19 +17,19 @@ const Faq = ({faqData}) => {
                     <div className="row">
                         <div className="col-md-6 col-sm-12 faq-img">
                             <LazyLoadImage
-                                src={"faq-main-photo.png"}
-                                alt={"faq-main-photo"}
+                             src={`/${faqData.mainPhoto}`}
+                                alt={faqData.mainPhoto}
                                 effect="blur"
                             />
                         </div>
                         <div className="col-md-6 col-sm-12">
                             <div className="faq-gallery">
-                                <h3>Have Some Questions?</h3>
+                                <h3>{faqData.title}</h3>
                                 <h4 className="sub">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit Deserunt libero voluptate
+                                    {faqData.subTitle}
                                 </h4>
                                 <div className="accordion accordion-flush" id="accordionFaq">
-                                    {faqData?.map((item, index) => {
+                                    {faqData?.faqs.map((item, index) => {
                                         const headingId = `flush-heading-${index}`;
                                         const collapseId = `flush-collapse-${index}`;
                                         return (
@@ -41,7 +44,7 @@ const Faq = ({faqData}) => {
                                                 <div id={collapseId} className="accordion-collapse collapse"
                                                      aria-labelledby={headingId} data-bs-parent="#accordionFaq">
                                                     <div className="accordion-body">
-                                                        {item.body}
+                                                        {item.content}
                                                     </div>
                                                 </div>
                                             </div>
@@ -61,16 +64,16 @@ const Faq = ({faqData}) => {
                     <div className="row">
                         <div className="col-md-6 col-sm-12 faq-img">
                             <LazyLoadImage
-                                src={`/${faqData.mainPhoto}`}
-                                alt={faqData.mainPhoto}
+                                src={`/${faqData.backgroundImage}`}
+                                alt={faqData.backgroundImage}
                                 effect="blur"
                             />
                         </div>
                         <div className="col-md-6 col-sm-12">
                             <div className="faq-gallery">
-                                <h3>Have Some Questions?</h3>
+                                <h3>{faqData.title}</h3>
                                 <h4 className="sub">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit Deserunt libero voluptate
+                                    {faqData.subTitle}
                                 </h4>
                                 <div className="accordion accordion-flush" id="accordionFaq">
                                     {faqData.faqs?.map((item, index) => {

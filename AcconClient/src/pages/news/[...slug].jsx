@@ -1,10 +1,9 @@
 import React from 'react';
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import { FaCaretRight } from "react-icons/fa";
+import {LazyLoadImage} from "react-lazy-load-image-component";
+import {FaCaretRight} from "react-icons/fa";
 import Link from "next/link";
-import { recentPostJson } from "@/data/recentPostJson";
-import { FaRegCalendarDays } from "react-icons/fa6";
-import { PiUserCircleFill } from "react-icons/pi";
+import {FaRegCalendarDays} from "react-icons/fa6";
+import {PiUserCircleFill} from "react-icons/pi";
 import {
     EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton,
     LinkedinIcon, LinkedinShareButton, PinterestIcon, PinterestShareButton,
@@ -12,9 +11,11 @@ import {
     TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton
 } from "react-share";
 import Head from 'next/head';
-import { convert } from 'html-to-text';
+import {convert} from 'html-to-text';
+import axios from "axios";
+import https from 'https';
 
-const Index = ({ project, allProject, popularProject, latestProject, fullUrl, companyName, companyUrl }) => {
+const Index = ({project, ogImage, allProject, popularProject, latestProject, fullUrl, companyName, companyUrl}) => {
     const stripHtmlTags = (html) => {
         return convert(html, {
             wordwrap: 130
@@ -47,19 +48,19 @@ const Index = ({ project, allProject, popularProject, latestProject, fullUrl, co
     return (
         <div className="bg-white">
             <Head>
-                <title>{project.title}</title>
-                <meta name="description" content={stripHtmlTags(project.description)} />
-                <meta property="og:title" content={project.title} />
-                <meta property="og:description" content={stripHtmlTags(project.description)} />
-                <meta property="og:image" content={project.photo} />
-                <meta property="og:url" content={fullUrl} />
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={project.title} />
-                <meta name="twitter:description" content={stripHtmlTags(project.description)} />
-                <meta name="twitter:image" content={project.photo} />
-                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+                <title>{project.metaTitle}</title>
+                <meta name="description" content={stripHtmlTags(project.metaDescription)}/>
+                <meta property="og:title" content={project.metaTitle}/>
+                <meta property="og:description" content={stripHtmlTags(project.metaDescription)}/>
+                <meta property="og:image" content={ogImage}/>
+                <meta property="og:url" content={fullUrl}/>
+                <meta name="twitter:card" content="summary_large_image"/>
+                <meta name="twitter:title" content={project.metaTitle}/>
+                <meta name="twitter:description" content={stripHtmlTags(project.metaDescription)}/>
+                <meta name="twitter:image" content={project.metaDescription}/>
+                <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(structuredData)}}/>
             </Head>
-            <div className="banner-slider" style={{ backgroundImage: "url(/banner_service.jpg)" }}>
+            <div className="banner-slider" style={{backgroundImage: `url(/${project.backGroundPhoto})`}}>
                 <div className="bg"></div>
                 <div className="banner-text">
                     <h1>{project.title}</h1>
@@ -70,49 +71,49 @@ const Index = ({ project, allProject, popularProject, latestProject, fullUrl, co
                     <div className="row">
                         <div className="col-md-8">
                             <LazyLoadImage
-                                src={`${project.photo}`}
+                                src={`/${project.photo}`}
                                 alt={`${project.photo}`}
                                 className="service-main-photo"
                             />
                             <div className="single-blog-author">
                                 <ul>
                                     <li className="gro">
-                                        <FaRegCalendarDays />
+                                        <FaRegCalendarDays/>
                                         <span>{project.date}</span>
                                     </li>
                                     <li className="blog-author-created">
-                                        <PiUserCircleFill />
+                                        <PiUserCircleFill/>
                                         <span>{project.created}</span>
                                     </li>
                                 </ul>
                             </div>
-                            <div dangerouslySetInnerHTML={{ __html: project.description }}>
+                            <div dangerouslySetInnerHTML={{__html: project.longDescription}}>
                             </div>
                             <h3>Share This</h3>
                             <div className="share-links">
                                 <FacebookShareButton url={fullUrl}>
-                                    <FacebookIcon size={32} round={true} />
+                                    <FacebookIcon size={32} round={true}/>
                                 </FacebookShareButton>
                                 <TwitterShareButton url={fullUrl}>
-                                    <TwitterIcon size={32} round={true} />
+                                    <TwitterIcon size={32} round={true}/>
                                 </TwitterShareButton>
                                 <LinkedinShareButton url={fullUrl}>
-                                    <LinkedinIcon size={32} round={true} />
+                                    <LinkedinIcon size={32} round={true}/>
                                 </LinkedinShareButton>
                                 <PinterestShareButton url={fullUrl}>
-                                    <PinterestIcon size={32} round={true} />
+                                    <PinterestIcon size={32} round={true}/>
                                 </PinterestShareButton>
                                 <RedditShareButton url={fullUrl}>
-                                    <RedditIcon size={32} round={true} />
+                                    <RedditIcon size={32} round={true}/>
                                 </RedditShareButton>
                                 <TumblrShareButton url={fullUrl}>
-                                    <TumblrIcon size={32} round={true} />
+                                    <TumblrIcon size={32} round={true}/>
                                 </TumblrShareButton>
                                 <EmailShareButton url={fullUrl}>
-                                    <EmailIcon size={32} round={true} />
+                                    <EmailIcon size={32} round={true}/>
                                 </EmailShareButton>
                                 <WhatsappShareButton url={fullUrl}>
-                                    <WhatsappIcon size={32} round={true} />
+                                    <WhatsappIcon size={32} round={true}/>
                                 </WhatsappShareButton>
                             </div>
                         </div>
@@ -121,25 +122,17 @@ const Index = ({ project, allProject, popularProject, latestProject, fullUrl, co
                                 <div className="sidebar-item">
                                     <h3>News</h3>
                                     <ul>
-                                        {allProject.map((item, index) => (
+                                        {project?.popularNews?.map((item, index) => (
                                             <li key={index}>
-                                                <FaCaretRight />
+                                                <FaCaretRight/>
                                                 <Link href={`/news/${item.url}`}>{item.title}</Link>
                                             </li>))}
                                     </ul>
                                     <h3 className="mt-3">Latest News</h3>
                                     <ul>
-                                        {latestProject?.map((item, index) => (
+                                        {project?.latestNews?.map((item, index) => (
                                             <li key={index}>
-                                                <FaCaretRight />
-                                                <Link href={`/news/${item.url}`}>{item.title}</Link>
-                                            </li>))}
-                                    </ul>
-                                    <h3 className="mt-3">Popular News</h3>
-                                    <ul>
-                                        {popularProject?.map((item, index) => (
-                                            <li key={index}>
-                                                <FaCaretRight />
+                                                <FaCaretRight/>
                                                 <Link href={`/news/${item.url}`}>{item.title}</Link>
                                             </li>))}
                                     </ul>
@@ -155,35 +148,63 @@ const Index = ({ project, allProject, popularProject, latestProject, fullUrl, co
 
 export default Index;
 
-export const getServerSideProps = async ({ params, req }) => {
+export const getServerSideProps = async ({params, req}) => {
     const protocol = req.headers['x-forwarded-proto'] || 'http';
     const host = req.headers.host;
-    const fullUrl = `${protocol}://${host}${req.url}`;
     const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME;
-    const companyUrl = process.env.NEXT_PUBLIC_COMPANY_URL;
-    const project = recentPostJson.find(item => item.url === params.slug.join('/'));
+    const siteUrl = `${protocol}://${host}/news?view=${params.slug[1]}`;
+    const ogImage = `${protocol}://${host}/banner_service.jpg`;
 
+    const axiosInstance = axios.create({
+        httpsAgent: new https.Agent({
+            rejectUnauthorized: false
+        })
+    });
 
+    try {
+        const getNewsPage = await axiosInstance.get(`${process.env.NEXT_PUBLIC_API_URL}/Cms/GetNewsContentPage?Id=${params.slug[1]}`);
 
-
-
-
-
-
-
-    if (project) {
-        const allProject = recentPostJson.map(item => ({
-            url: item.url, title: item.title
-        }));
-        const popularProject = recentPostJson.filter(item => item.popular);
-        const latestProject = recentPostJson.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
-        return {
-            props: { project, allProject, popularProject, latestProject, fullUrl, companyName, companyUrl }
+        if (getNewsPage.data.succeeded === false) {
+            return {
+                redirect: {
+                    destination: '/404',
+                    permanent: false
+                }
+            }
+        } else {
+            const newsPage = getNewsPage.data.data;
+            const structuredData = {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "url": siteUrl,
+                "name": newsPage.metaTitle || "Default Title",
+                "description": newsPage.metaDescription || "Default Description",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": companyName,
+                    "url": siteUrl,
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": `${protocol}://${host}/logo.png`
+                    }
+                }
+            };
+            return {
+                props: {
+                    ogImage,
+                    siteUrl,
+                    structuredData,
+                    project: newsPage
+                }
+            }
         }
-    }
-    return {
-        redirect: {
-            destination: '/news',
-        },
+
+    } catch (e) {
+        return {
+            redirect: {
+                destination: '/404',
+                permanent: false
+            }
+        }
     }
 }

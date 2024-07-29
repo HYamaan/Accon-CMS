@@ -11,26 +11,24 @@ import CounterupArea from "@/Components/HomePageComponent/CounterupArea";
 import Faq from "@/Components/HomePageComponent/FAQ";
 import RecentPost from "@/Components/HomePageComponent/RecentPost";
 import Partners from "@/Components/HomePageComponent/Partners";
+import axios from "axios";
 
-const HomePage = () => {
+const HomePage = ({data}) => {
     return (
         <main>
-
-            <SliderComponent />
-            <ChooseUs />
-            <Services />
-            <PortFolio />
-            <Experience />
-            <TestimonialArea />
-            <Faq />
-            <CounterupArea />
-            <PhotoGallery />
-            <RecentPost />
-            <Partners />
+            <SliderComponent  slider={data.sliders}/>
+            <ChooseUs whyChooseUs={data.whyChooseUs}/>
+            <Services services={data.services}/>
+            <PortFolio portfolios={data.portfolio}/>
+            <Experience teams={data.teamMembers}/>
+            <TestimonialArea testimonials={data.testimonials}/>
+            <Faq faqData={data.faqs}/>
+            <CounterupArea counterSection={data.counterSection}/>
+            <PhotoGallery galleries={data.galleries}/>
+            <RecentPost news={data.news}/>
+            <Partners partners={data.partners}/>
         </main>
     );
 };
 
 export default HomePage;
-
-

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {FaArrowAltCircleRight, FaRegHandPointRight} from "react-icons/fa";
 import axios from "axios";
+import {normalizeRscURL} from "next/dist/shared/lib/router/utils/app-paths";
 
 const Dashboard = () => {
 
@@ -13,16 +14,20 @@ const Dashboard = () => {
 
     useEffect(() => {
         const getDashboardData = async () => {
-            const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Cms/GetDashboard`);
-            if(result.data.succeeded){
-                var getData = result.data.data;
-                setTotalNewsCategories(getData.totalNewsCategoryCount);
-                setTotalNews(getData.totalNewsCount);
-                setTotalTeamMembers(getData.totalPortfolioCount);
-                setTotalPortfolios(getData.totalPortfolioCount);
-                setTotalTestimonials(getData.totalTestimonialCount);
-                setTotalSliders(getData.totalSliderCount)
-            }
+          try{
+              const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Cms/GetDashboard`);
+              if(result.data.succeeded){
+                  var getData = result.data.data;
+                  setTotalNewsCategories(getData.totalNewsCategoryCount);
+                  setTotalNews(getData.totalNewsCount);
+                  setTotalTeamMembers(getData.totalPortfolioCount);
+                  setTotalPortfolios(getData.totalPortfolioCount);
+                  setTotalTestimonials(getData.totalTestimonialCount);
+                  setTotalSliders(getData.totalSliderCount)
+              }
+          }catch (e){
+              console.log(e);
+          }
         }
         getDashboardData();
     }, []);

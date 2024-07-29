@@ -3,8 +3,11 @@ import PortFolioFilter from "@/Components/NotHeader/PortfolioFilter";
 
 
 
-const PortFolio = () => {
+const PortFolio = ({portfolios}) => {
 
+    if(portfolios.isPublished === false){
+        return null;
+    }
 
     return <section className="portfolio">
         <div className="container">
