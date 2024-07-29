@@ -16,11 +16,11 @@ public class NewsCommandRequestValidator
 
             RuleFor(x => x.ShortContent)
                 .NotEmpty().WithMessage("ShortContent is required.")
-                .MaximumLength(200).WithMessage("ShortContent cannot be longer than 200 characters.");
+                .MaximumLength(260).WithMessage("ShortContent cannot be longer than 260 characters.");
 
             RuleFor(x => x.Content)
                 .NotEmpty().WithMessage("Content is required.")
-                .MaximumLength(500).WithMessage("Content cannot be longer than 500 characters.");
+                .MinimumLength(100).WithMessage("Content cannot be min than 100 characters.");
 
             RuleFor(x => x.PublishDate)
                 .NotEmpty().WithMessage("PublishDate is required.");
@@ -64,7 +64,7 @@ public class NewsCommandRequestValidator
 
             RuleFor(x => x.Content)
                 .NotEmpty().WithMessage("Content is required.")
-                .MaximumLength(500).WithMessage("Content cannot be longer than 500 characters.");
+                .MaximumLength(100).WithMessage("Content cannot be min than 100 characters.");
 
             RuleFor(x => x.PublishDate)
                 .NotEmpty().WithMessage("PublishDate is required.");

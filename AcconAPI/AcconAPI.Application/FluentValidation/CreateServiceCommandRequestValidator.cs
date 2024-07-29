@@ -17,7 +17,7 @@ public class CreateServiceCommandRequestValidator: AbstractValidator<UpdateServi
 
         RuleFor(x => x.Content)
             .NotEmpty().WithMessage("Content is required.")
-            .MaximumLength(500).WithMessage("Content cannot be longer than 500 characters.");
+            .MinimumLength(10).WithMessage("Content cannot be longer than 500 characters.");
 
     }
 }

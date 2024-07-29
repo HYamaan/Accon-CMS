@@ -25,7 +25,7 @@ public class GetWhyChooseBackgroundPhotoQueryHandler:IRequestHandler<GetWhyChoos
 
         var response = new GetWhyChooseBackgroundPhotoQueryResponse()
         {
-            Photo = getWhyChooseBackgroundPhoto.Path,
+            Photo = getWhyChooseBackgroundPhoto?.Path,
         };
         return ResponseModel<GetWhyChooseBackgroundPhotoQueryResponse>.Success(response);
     }

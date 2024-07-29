@@ -9,7 +9,7 @@ public class PageEntityWithContentRequestValidator: AbstractValidator<PageEntity
     {
         RuleFor(x => x.Content)
             .NotEmpty().WithMessage("Content is required.")
-            .MaximumLength(5000).WithMessage("Content cannot exceed 5000 characters.");
+            .MinimumLength(10).WithMessage("Content cannot min 10 characters.");
         RuleFor(x => x.Heading)
             .NotEmpty().WithMessage("Heading is required.")
             .MaximumLength(60).WithMessage("Heading cannot exceed 60 characters.");

@@ -21,9 +21,10 @@ public class GetWhyChooseMainPhotoQueryHandler:IRequestHandler<GetWhyChooseMainP
 
         var response = new GetWhyChooseMainPhotoQueryResponse()
         {
-            Photo = getWhyChooseMainPhoto.Path,
+            Photo = getWhyChooseMainPhoto?.Path
         };
 
+     
         return ResponseModel<GetWhyChooseMainPhotoQueryResponse>.Success(response);
     }
 }

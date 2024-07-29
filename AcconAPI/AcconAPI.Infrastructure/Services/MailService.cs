@@ -1,9 +1,12 @@
 ﻿using System.Text;
 using AcconAPI.Application.Features.Commands.ContactPage.ContactPageMail;
 using AcconAPI.Application.Models;
+using AcconAPI.Application.Repository;
 using AcconAPI.Application.Services;
+using AcconAPI.Domain.Entities.Settings;
 using AcconAPI.Domain.Settings;
 using MailKit.Security;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
@@ -13,28 +16,36 @@ namespace AcconAPI.Infrastructure.Services
     public class MailService : IMailService
     {
         private MailSettings _mailSettings { get; }
+        private readonly IGenericRepository<Domain.Entities.Settings.EmailSettings> _emailSettings;
 
-         public MailService(IOptions<MailSettings> mailSettings)
+        public MailService(IOptions<MailSettings> mailSettings, IGenericRepository<EmailSettings> emailSettings)
         {
+            _emailSettings = emailSettings;
             _mailSettings = mailSettings.Value;
         }
+
 
         private async Task SendMailAsync(MailRequest mailRequest)
         {
             try
             {
-                // create message
+                var mailInformation = await _emailSettings.GetAll().FirstOrDefaultAsync();
+                if (mailInformation == null)
+                {
+                    throw new Exception("Mail settings not found");
+                }
+
                 var email = new MimeMessage();
-                email.From.Add(MailboxAddress.Parse(mailRequest.From));
-                email.To.Add(MailboxAddress.Parse(_mailSettings.EmailTo));
+                email.From.Add(MailboxAddress.Parse(mailInformation.FromEmail));
+                email.To.Add(MailboxAddress.Parse(mailInformation.ToEmail));
                 email.Subject = mailRequest.Subject;
                 var builder = new BodyBuilder();
                 builder.HtmlBody = mailRequest.Body;
                 email.Body = builder.ToMessageBody();
 
                 using var smtp = new SmtpClient();
-                smtp.Connect(_mailSettings.SmtpHost, _mailSettings.SmtpPort, SecureSocketOptions.StartTls);
-                smtp.Authenticate(_mailSettings.SmtpUser, _mailSettings.SmtpPass);
+                smtp.Connect(mailInformation.SmtpHost, mailInformation.SmtpPort, SecureSocketOptions.SslOnConnect);
+                smtp.Authenticate(mailInformation.SmtpUser, mailInformation.SmtpPassword);
                 await smtp.SendAsync(email);
                 smtp.Disconnect(true);
             }

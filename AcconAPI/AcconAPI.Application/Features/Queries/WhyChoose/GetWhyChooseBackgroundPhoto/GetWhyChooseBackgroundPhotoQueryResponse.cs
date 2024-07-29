@@ -2,5 +2,5 @@
 
 public class GetWhyChooseBackgroundPhotoQueryResponse
 {
-    public string Photo { get; set; }
+    public string? Photo { get; set; }
 }

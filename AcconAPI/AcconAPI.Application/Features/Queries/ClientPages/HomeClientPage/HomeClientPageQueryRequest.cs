@@ -1,6 +1,9 @@
-﻿namespace AcconAPI.Application.Features.Queries.ClientPages.HomePage;
+﻿using AcconAPI.Domain.Common;
+using MediatR;
 
-public class HomeClientPageQueryRequest
+namespace AcconAPI.Application.Features.Queries.ClientPages.HomePage;
+
+public class HomeClientPageQueryRequest : IRequest<ResponseModel<HomeClientPageQueryResponse>>
 {
     
 }

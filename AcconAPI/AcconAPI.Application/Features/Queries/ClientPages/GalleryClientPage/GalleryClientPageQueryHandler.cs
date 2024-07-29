@@ -37,8 +37,8 @@ public class GalleryClientPageQueryHandler:IRequestHandler<GalleryClientPageQuer
                 MetaKeywords = result.MetaKeywords,
                 Galleries = result.Galleries.Select(x => new GetClientGalleryDTOs()
                 {
-                    Name = x.Title,
-                    Url = x.GalleryPhoto.Path,
+                    Title = x.Title,
+                    Photo = x.GalleryPhoto.Path,
                 }).ToList()
 
             };

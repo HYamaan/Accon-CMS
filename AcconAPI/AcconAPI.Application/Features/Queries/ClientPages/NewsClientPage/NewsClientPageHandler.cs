@@ -30,7 +30,7 @@ public class NewsClientPageHandler:IRequestHandler<NewsClientPageRequest,Respons
 
             var news = newsPage.News.Select(x=> new GetClientNewsPageResponseDTOs()
             {
-                Url = x.Id,
+                Url =$"view/{x.Id}",
                 Title = x.Title,
                 Description = x.ShortContent,
                 Photo = x.Photo?.Path,

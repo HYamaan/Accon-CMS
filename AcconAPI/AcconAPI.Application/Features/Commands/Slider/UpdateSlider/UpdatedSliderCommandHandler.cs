@@ -56,7 +56,14 @@ public class UpdatedSliderCommandHandler : IRequestHandler<UpdatedSliderCommandR
                         return ResponseModel<UpdatedSliderCommandResponse>.Fail("Invalid Image Format");
                     }
 
-                    await _storageService.UploadAsync("files", request.Photo);
+                    var photoData = await _storageService.UploadAsync("files", request.Photo);
+                    var sliderPhotoModel = new SliderPhoto()
+                    {
+                        FileName = photoData.fileName,
+                        Path = photoData.pathOrContainerName,
+                        Storage = _storageService.StorageName,
+                    };
+                   sliderInfo.Photo = sliderPhotoModel;
                 }
 
                 _sliderRepository.Update(sliderInfo);

@@ -11,7 +11,7 @@ public class PageEntityCommandRequestValidator : AbstractValidator<PageEntity>
 
         RuleFor(x => x.MetaTitle)
             .NotEmpty().WithMessage("MetaTitle is required.")
-            .MaximumLength(60).WithMessage("MetaTitle cannot exceed 60 characters.");
+            .MaximumLength(150).WithMessage("MetaTitle cannot exceed 150 characters.");
 
         RuleFor(x => x.MetaDescription)
             .NotEmpty().WithMessage("MetaDescription is required.")
@@ -19,6 +19,6 @@ public class PageEntityCommandRequestValidator : AbstractValidator<PageEntity>
 
         RuleFor(x => x.MetaKeywords)
             .NotEmpty().WithMessage("MetaKeywords is required.")
-            .MaximumLength(100).WithMessage("MetaKeywords cannot exceed 100 characters.");
+            .MaximumLength(140).WithMessage("MetaKeywords cannot exceed 100 characters.");
     }
 }

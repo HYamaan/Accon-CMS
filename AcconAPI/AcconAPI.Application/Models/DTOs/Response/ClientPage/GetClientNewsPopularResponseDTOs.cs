@@ -1,7 +1,8 @@
 ﻿namespace AcconAPI.Application.Models.DTOs.Response.ClientPage;
 
-public class GetClientGalleryDTOs
+public class GetClientNewsPopularResponseDTOs
 {
+    public string Url { get; set; }
     public string Title { get; set; }
-    public string Photo { get; set; }
+
 }

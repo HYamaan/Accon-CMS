@@ -109,10 +109,32 @@ public class UpdateGalleryCommandHandler : IRequestHandler<UpdateGalleryCommandR
             var gallery = await _galleryRepository.GetWhere(ux => ux.Id == request.Id)
                 .Include(ux => ux.GalleryPhoto)
                 .FirstOrDefaultAsync(cancellationToken);
+
             if (gallery == null)
             {
                 return ResponseModel<UpdateGalleryCommandResponse>.Fail("Gallery not found");
             }
+
+            if (request.Photo != null)
+            {
+                if (!await _fileCheckHelper.CheckImageFormat(request.Photo))
+                {
+                    return ResponseModel<UpdateGalleryCommandResponse>.Fail("Photo is not img");
+                }
+                var updateGallerImage = await _storageService.UploadAsync("files", request.Photo);
+                var galleryImage = new GalleryPhoto()
+                {
+                    Path = updateGallerImage.pathOrContainerName,
+                    FileName = updateGallerImage.fileName,
+                    Storage = _storageService.StorageName
+                };
+                gallery.GalleryPhoto = galleryImage;
+            }
+
+            gallery.Title = request.Title;
+            gallery.IsVisible = request.VisiblePlace;
+            _galleryRepository.Update(gallery);
+            await _galleryRepository.SaveAsync();
 
             return ResponseModel<UpdateGalleryCommandResponse>.Success();
         }

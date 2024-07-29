@@ -1,6 +1,9 @@
-﻿namespace AcconAPI.Application.Features.Queries.ClientPages.PrivacyPage;
+﻿using AcconAPI.Domain.Common;
+using MediatR;
 
-public class PrivacyClientPageQueryRequest
+namespace AcconAPI.Application.Features.Queries.ClientPages.PrivacyPage;
+
+public class PrivacyClientPageQueryRequest : IRequest<ResponseModel<PrivacyClientPageQueryResponse>>
 {
     
 }

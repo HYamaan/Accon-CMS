@@ -1,6 +1,9 @@
-﻿namespace AcconAPI.Application.Features.Queries.ClientPages.TermsPage;
+﻿using AcconAPI.Domain.Common;
+using MediatR;
 
-public class TermsClientPageQueryRequest
+namespace AcconAPI.Application.Features.Queries.ClientPages.TermsPage;
+
+public class TermsClientPageQueryRequest : IRequest<ResponseModel<TermsClientPageQueryResponse>>
 {
     
 }

@@ -18,7 +18,7 @@ public class UpdateServiceCommandRequestValidator : AbstractValidator<UpdateServ
 
         RuleFor(x => x.Content)
             .NotEmpty().WithMessage("Content is required.")
-            .MaximumLength(500).WithMessage("Content cannot be longer than 500 characters.");
+            .MinimumLength(100).WithMessage("Content cannot be longer than 100 characters.");
 
         RuleFor(x => x.Photo)
             .NotNull().WithMessage("Photo is required.");
@@ -42,6 +42,6 @@ public class UpdateServiceContentCommandRequestValidator : AbstractValidator<Upd
 
         RuleFor(x => x.Content)
             .NotEmpty().WithMessage("Content is required.")
-            .MaximumLength(500).WithMessage("Content cannot be longer than 500 characters.");
+            .MinimumLength(100).WithMessage("Content cannot be longer than 100 characters.");
     }
 }

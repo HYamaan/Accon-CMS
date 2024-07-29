@@ -23,6 +23,7 @@ public class TestimonialClientPageQueryHandler:IRequestHandler<TestimonialClient
                 .Include(x => x.Testimonials)
                 .ThenInclude(x => x.Photo)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
             if (testimonialPage == null)
                 return ResponseModel<TestimonialClientPageQueryResponse>.Fail("Testimonial page not found");
 
@@ -30,8 +31,9 @@ public class TestimonialClientPageQueryHandler:IRequestHandler<TestimonialClient
                 .Select(x => new GetClientTestimonialPageResponseDTOs()
                 {
                     Name = x.Name,
-                    Position = x.Company,
-                    Description = x.Comment,
+                    Designation = x.Designation,
+                    Company = x.Company,
+                    Comment = x.Comment,
                     Photo = x.Photo?.Path
                 }).ToList();
 
