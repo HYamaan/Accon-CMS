@@ -24,11 +24,12 @@ public class GeneralContentQueryHandler:IRequestHandler<GeneralContentQueryReque
     public async Task<ResponseModel<GeneralContentQueryResponse>> Handle(GeneralContentQueryRequest request, CancellationToken cancellationToken)
     {
        var generalContent = await _generalContentRepository.GetAll().FirstOrDefaultAsync();
-       var footerAdressIcon = await _footerAdressIconRepository.GetAll().FirstOrDefaultAsync();
-       var footerPhoneIcon = await _footerPhoneIconRepository.GetAll().FirstOrDefaultAsync();
-       var footerMailIcon = await _footerWorkingHourIconRepository.GetAll().FirstOrDefaultAsync();
+       var footerAdressIcon = await _footerAdressIconRepository.GetAll().OrderByDescending(x => x.CreatedDate).FirstOrDefaultAsync();
+       var footerPhoneIcon = await _footerPhoneIconRepository.GetAll().OrderByDescending(x => x.CreatedDate).FirstOrDefaultAsync();
+       var footerMailIcon = await _footerWorkingHourIconRepository.GetAll().OrderByDescending(x => x.CreatedDate).FirstOrDefaultAsync();
 
-       var response = new GeneralContentQueryResponse()
+
+        var response = new GeneralContentQueryResponse()
        {
            AboutUs = generalContent?.FooterAboutUs,
            Address = generalContent?.FooterAdress,

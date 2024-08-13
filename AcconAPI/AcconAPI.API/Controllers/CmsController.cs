@@ -4,6 +4,7 @@ using AcconAPI.Application.Features.Queries.ClientPages.ContactPage;
 using AcconAPI.Application.Features.Queries.ClientPages.FaqPage;
 using AcconAPI.Application.Features.Queries.ClientPages.GalleryPage;
 using AcconAPI.Application.Features.Queries.ClientPages.HomePage;
+using AcconAPI.Application.Features.Queries.ClientPages.LayoutClientPage;
 using AcconAPI.Application.Features.Queries.ClientPages.NewsClientContentPage;
 using AcconAPI.Application.Features.Queries.ClientPages.NewsPage;
 using AcconAPI.Application.Features.Queries.ClientPages.PrivacyPage;
@@ -32,6 +33,13 @@ namespace AcconAPI.API.Controllers
         public async Task<IActionResult> ContactPageMail([FromBody] ContactPageMailCommandRequest request)
         {
             var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetLayout()
+        {
+            var response = await _mediator.Send(new LayoutClientPageQueryRequest());
             return Ok(response);
         }
 
