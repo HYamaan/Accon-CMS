@@ -19,6 +19,7 @@ const Card = ({ data, baseUrl }) => {
             <LazyLoadImage
                 alt={data.title}
                 src={data.photo}
+                effect="blur"
                 className="services-photo"
             />
             <div className="services-text">

@@ -8,8 +8,6 @@ const Faq = ({faqData}) => {
         import('bootstrap/dist/js/bootstrap.bundle.min.js');
     }, []);
 
-
-    console.log("faqData", faqData);
     if(faqData === undefined || faqData === null){
         return (
             <div className="faq-section">

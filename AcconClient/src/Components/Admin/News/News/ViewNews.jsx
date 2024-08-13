@@ -163,6 +163,7 @@ const ViewNews = () => {
                                             <LazyLoadImage
                                                 src={`/${sum.photo}`}
                                                 alt={sum.photo}
+                                                effect="blur"
                                                 className="slider-table-image"
                                             />
                                         </Td>
@@ -170,6 +171,7 @@ const ViewNews = () => {
                                             <LazyLoadImage
                                                 src={`/${sum.banner}`}
                                                 alt={sum.banner}
+                                                effect="blur"
                                                 className="slider-table-banner-image"
                                             />
                                         </Td>

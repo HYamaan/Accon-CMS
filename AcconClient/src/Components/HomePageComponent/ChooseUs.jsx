@@ -12,6 +12,7 @@ const ChooseUs = ({whyChooseUs}) => {
         <div className="choose-item-row">
             <div className="col-md-6">
                 <LazyLoadImage
+                    effect="blur"
                     alt={whyChooseUs.mainPhoto}
                     src={`/${whyChooseUs.mainPhoto}`}
                     className="choose-left"
@@ -19,6 +20,7 @@ const ChooseUs = ({whyChooseUs}) => {
             </div>
             <div className="col-md-6 choose-right">
                 <LazyLoadImage
+                    effect="blur"
                     alt={whyChooseUs.itemBackground}
                     src={`/${whyChooseUs.itemBackground}`}
                     className="choose-right-bg"
@@ -26,9 +28,10 @@ const ChooseUs = ({whyChooseUs}) => {
                 <div className="choose-item">
                     <ul>
                         {whyChooseUs?.whyChooseUsItems.map((item,index)=>(
-                            <li key={item.Id}>
+                            <li key={item.id}>
                             <div className="choose-icon">
                                 <LazyLoadImage
+                                    effect="blur"
                                     alt={item.photo}
                                     src={`/${item.photo}`}
                                 />

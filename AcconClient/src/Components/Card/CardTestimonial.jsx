@@ -18,6 +18,7 @@ const CardTestimonial = ({data}) => {
                 </div>
                 <div className="testimonial-photo">
                     <LazyLoadImage
+                        effect="blur"
                         src={`/${data.photo}`}
                         alt={data.photo}
                     />

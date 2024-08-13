@@ -94,7 +94,10 @@ const AddPartner = (props) => {
                                 <span className="col-md-2">Existing Photo</span>
                                 <div className="col-md-10">
                                     <div className="panel-website-icon-show">
-                                        <LazyLoadImage src={existPhoto} />
+                                        <LazyLoadImage
+                                            src={existPhoto}
+                                            effect="blur"
+                                        />
                                     </div>
                                 </div>
                             </div>

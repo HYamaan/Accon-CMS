@@ -30,7 +30,7 @@ const AddFaq = () => {
             }
         }
         getRouterSlider();
-    }, [router.query.id]);
+    }, [router.query]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

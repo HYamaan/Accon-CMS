@@ -87,6 +87,7 @@ const AboutPageInfo = () => {
                 <div className="col-md-9">
                     <div className="panel-website-icon-show">
                         <LazyLoadImage
+                            effect="blur"
                             src={existingLogo}
                         />
                     </div>

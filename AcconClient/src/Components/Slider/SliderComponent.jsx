@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useState,useMemo,memo} from "react";
 import Slider from "react-slick";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {useRouter} from "next/router";
-import {sliderData} from "@/data/homeSliderJson";
+
 
 function SampleNextArrow(props) {
     const {className, style, onClick} = props;
@@ -48,6 +48,7 @@ const SliderComponent = ({slider}) => {
     const router = useRouter();
     const [currentSlide, setCurrentSlide] = useState(0);
 
+    console.log("slider", slider);
     const settings = {
         dots: false,
         lazyLoad: true,
@@ -70,9 +71,15 @@ const SliderComponent = ({slider}) => {
         <div className="slider-section">
             <div className="slider-container">
                 <Slider {...settings}>
-                    {slider.map((slide, index) => (
+                    {slider?.map((slide, index) => (
                         <div key={index} className="slider-section">
-                            <LazyLoadImage src={`/${slide.path}`} alt={slide.path} />
+                            <LazyLoadImage
+                                src={`/${slide.path}`}
+                                alt={slide.path}
+                                effect="blur"
+                                priority="true"
+                                threshold={0}
+                            />
                             <div className={`slider-text ${getAnimateClass(index)}`}>
                                 <h3>{slide.heading}</h3>
                                 <p>{slide.content}</p>
@@ -99,4 +106,4 @@ const SliderComponent = ({slider}) => {
     );
 };
 
-export default SliderComponent;
+export default React.memo(SliderComponent);

@@ -8,7 +8,7 @@ import {ImGooglePlus} from "react-icons/im";
 import Link from "next/link";
 import {useRouter} from "next/router";
 
-const Header = () => {
+const Header = ({data}) => {
     const router = useRouter();
     const [isFixed, setIsFixed] = useState(false);
     const [isChanged, setIsChanged] = useState(false);
@@ -126,6 +126,7 @@ const Header = () => {
                                 alt="logo"
                                 src={"/logo.png"}
                                 className="nav-logo"
+                                effect="blur"
                                 onClick={() => router.push('/')}
                             />
 

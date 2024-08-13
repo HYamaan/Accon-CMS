@@ -93,6 +93,7 @@ const ViewPortfolio = () => {
                                     <LazyLoadImage
                                         src={"/slider-1.jpg"}
                                         alt={"slider-1.jpg"}
+                                        effect="blur"
                                         className="slider-table-image"
                                     />
                                 </Td>

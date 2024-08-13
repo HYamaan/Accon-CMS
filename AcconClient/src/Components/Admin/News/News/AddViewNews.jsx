@@ -228,6 +228,8 @@ const AddViewNews = () => {
                                         <div className="panel-website-icon-show">
                                             <LazyLoadImage
                                                 src={existPhoto}
+                                                alt={existPhoto}
+                                                effect="blur"
                                             />
                                         </div>
                                     </div>
@@ -251,6 +253,7 @@ const AddViewNews = () => {
                                         <div className="panel-website-icon-show">
                                             <LazyLoadImage
                                                 src={existBanner}
+                                                effect="blur"
                                             />
                                         </div>
                                     </div>

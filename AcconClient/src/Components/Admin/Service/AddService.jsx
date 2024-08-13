@@ -148,7 +148,10 @@ const AddService = () => {
                                 <span className="col-md-2">Existing Photo</span>
                                 <div className="col-md-10">
                                     <div className="panel-website-icon-show">
-                                        <LazyLoadImage src={existingPhoto}/>
+                                        <LazyLoadImage
+                                            src={existingPhoto}
+                                            effect="blur"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +170,10 @@ const AddService = () => {
                                 <span className="col-md-2">Existing Photo</span>
                                 <div className="col-md-10">
                                     <div className="panel-website-icon-show">
-                                        <LazyLoadImage src={existingBanner}/>
+                                        <LazyLoadImage
+                                            src={existingBanner}
+                                            effect="blur"
+                                        />
                                     </div>
                                 </div>
                             </div>

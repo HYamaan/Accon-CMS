@@ -3,7 +3,7 @@ import {LazyLoadImage} from "react-lazy-load-image-component";
 import Link from "next/link";
 import {recentPostJson} from "@/data/recentPostJson";
 
-const Footer = () => {
+const Footer = ({data}) => {
     const [popularProject, setPopularProject] = useState([]);
     const [latestProject, setLatestProject] = useState([]);
 
@@ -23,18 +23,14 @@ const Footer = () => {
                         <ul>
                             <li>
                                 <LazyLoadImage
-                                    alt="footer_address_icon.png"
-                                    src={"/footer_address_icon.png"}
+                                    effect="blur"
+                                    alt={data?.adressIcon}
+                                    src={`/${data?.adressIcon}`}
                                 />
                             </li>
                             <li>
                                 <h4>Address</h4>
-                                <p>
-                                    Lane A21, ABC Steet,
-                                </p>
-                                <p>
-                                    NewYork, USA.
-                                </p>
+                                <p dangerouslySetInnerHTML={{__html: data?.address.replace(/\n/g, '<br />')}}/>
                             </li>
                         </ul>
                     </div>
@@ -44,16 +40,14 @@ const Footer = () => {
                         <ul>
                             <li>
                                 <LazyLoadImage
-                                    alt="footer_phone_icon.png"
-                                    src={"/footer_phone_icon.png"}
+                                    effect="blur"
+                                    alt={data?.phoneIcon}
+                                    src={`/${data?.phoneIcon}`}
                                 />
                             </li>
                             <li>
                                 <h4>Call Us</h4>
-                                <p>
-                                    111-222-3333
-                                </p>
-                                <p>111-222-4444</p>
+                                <p dangerouslySetInnerHTML={{__html: data?.phone.replace(/\n/g, '<br />')}}/>
                             </li>
                         </ul>
                     </div>
@@ -63,16 +57,14 @@ const Footer = () => {
                         <ul>
                             <li>
                                 <LazyLoadImage
+                                    effect="blur"
                                     alt="footer_working_hour_icon.png"
-                                    src={"/footer_working_hour_icon.png"}
+                                    src={`/${data?.workingHoursIcon}`}
                                 />
                             </li>
                             <li>
                                 <h4>Working Hours</h4>
-                                <p>
-                                    Monday-Friday (9:00 AM - 5:00 PM)
-                                </p>
-                                <p>Saturday and Sunday: Off</p>
+                                <p dangerouslySetInnerHTML={{__html: data?.workingHours.replace(/\n/g, '<br />')}}/>
                             </li>
                         </ul>
                     </div>
@@ -85,28 +77,26 @@ const Footer = () => {
                 <div className="row">
                     <div className="col-sm-6 col-md-3 col-lg-3 footer-col ">
                         <h3>About</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aspernatur culpa cumque, dolores
-                            eligendi facilis fugit libero quibusdam vitae. Ab alias at iure libero minima molestiae
-                            optio, provident sapiente voluptate?</p>
+                        <p dangerouslySetInnerHTML={{__html: data?.aboutUs.replace(/\n/g, '<br />')}}/>
+                    </div>
+                    <div className="col-sm-6 col-md-3 col-lg-3 footer-col">
+                        {/*<h3>Popular News</h3>*/}
+                        {/*{*/}
+                        {/*    popularProject.map((item, index) => (*/}
+                        {/*        <div className="news-item" key={index}>*/}
+                        {/*            <div className="news-title">*/}
+                        {/*                <Link href={`news/${item.url}`} target="_blank">*/}
+                        {/*                    {item.title}*/}
+                        {/*                </Link>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*    ))*/}
+                        {/*}*/}
                     </div>
                     <div className="col-sm-6 col-md-3 col-lg-3 footer-col">
                         <h3>Latest News</h3>
-                        {
-                            latestProject.map((item, index) => (
-                                <div className="news-item" key={index}>
-                                    <div className="news-title">
-                                        <Link href={`news/${item.url}`} target="_blank">
-                                            {item.title}
-                                        </Link>
-                                    </div>
-                                </div>
-                            ))
-                        }
-                    </div>
-                    <div className="col-sm-6 col-md-3 col-lg-3 footer-col">
-                        <h3>Popular News</h3>
-                        {
-                            popularProject.map((item, index) => (
+                        {data?.latestNews.length > 0 &&
+                            data?.latestNews.map((item, index) => (
                                 <div className="news-item" key={index}>
                                     <div className="news-title">
                                         <Link href={`news/${item.url}`} target="_blank">
@@ -128,7 +118,7 @@ const Footer = () => {
                         </div>
                         <div className="news-item">
                             <div className="news-title">
-                                <Link href="/terms-and-conditions" >
+                                <Link href="/terms-and-conditions">
                                     Terms and Conditions
                                 </Link>
                             </div>
@@ -148,9 +138,7 @@ const Footer = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-md-12 copyright-text">
-                      <p>
-                          &#169; Copyright 2024. All Rights Reserved.
-                      </p>
+                        <p dangerouslySetInnerHTML={{__html: data?.copyRight}}></p>
                     </div>
                 </div>
             </div>

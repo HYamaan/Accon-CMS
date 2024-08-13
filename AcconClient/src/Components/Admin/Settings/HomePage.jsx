@@ -299,7 +299,6 @@ const HomePage = () => {
             Counter4Value: counterSettings.counter4Value,
             Status: Boolean(counterSettings.status)
         }
-        console.log("data", data)
         const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Settings/UpdateHomePageSettings`, data);
         if (result.data.succeeded) {
             toast.success("Counter Settings updated successfully");

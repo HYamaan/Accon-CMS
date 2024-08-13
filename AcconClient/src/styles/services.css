@@ -7,6 +7,16 @@
     clear: both;
 
 }
+.banner-slider span{
+    height: 100%;
+    width: 100%;
+}
+.banner-slider span img{
+    height: 100%;
+    width: 100%;
+    overflow:hidden;
+}
+
 
 .bg {
     position: absolute;

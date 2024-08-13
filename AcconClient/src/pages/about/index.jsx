@@ -12,19 +12,25 @@ const Index = ({ pageInformation, ogImage, siteUrl, structuredData }) => {
         <>
             <Head>
                 <title>{siteTitle}</title>
-                <meta name="description" content={pageInformation.metaDescription} />
-                <meta name="keywords" content={pageInformation.metaKeywords} />
-                <meta property="og:title" content={pageInformation.metaTitle} />
-                <meta property="og:description" content={pageInformation.metaDescription} />
-                <meta property="og:image" content={ogImage} />
-                <meta property="og:url" content={siteUrl} />
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={siteTitle} />
-                <meta name="twitter:description" content={pageInformation.metaDescription} />
-                <meta name="twitter:image" content={ogImage} />
-                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+                <meta name="description" content={pageInformation.metaDescription}/>
+                <meta name="keywords" content={pageInformation.metaKeywords}/>
+                <meta property="og:title" content={pageInformation.metaTitle}/>
+                <meta property="og:description" content={pageInformation.metaDescription}/>
+                <meta property="og:image" content={ogImage}/>
+                <meta property="og:url" content={siteUrl}/>
+                <meta name="twitter:card" content="summary_large_image"/>
+                <meta name="twitter:title" content={siteTitle}/>
+                <meta name="twitter:description" content={pageInformation.metaDescription}/>
+                <meta name="twitter:image" content={ogImage}/>
+                <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(structuredData)}}/>
             </Head>
-            <div className="banner-slider" style={{ backgroundImage: "url(banner_service.jpg)" }}>
+            <div className="banner-slider">
+                <LazyLoadImage
+                    src="banner_service.jpg"
+                    alt="Banner"
+                    effect="opacity"
+                    className="banner-image"
+                />
                 <div className="bg"></div>
                 <div className="banner-text">
                     <h1>{pageInformation.title}</h1>
@@ -37,7 +43,8 @@ const Index = ({ pageInformation, ogImage, siteUrl, structuredData }) => {
                             <LazyLoadImage
                                 src={`/${pageInformation.photo}`}
                                 alt={pageInformation.photo}
-                                effect="blur"
+                                effect="opacity"
+                                priority="true"
                                 width="100%"
                                 className={"about-main-image"}
                             />
@@ -45,7 +52,7 @@ const Index = ({ pageInformation, ogImage, siteUrl, structuredData }) => {
                     </div>
                     <div className="row">
                         <div className="col-md-12">
-                            <div dangerouslySetInnerHTML={{ __html: pageInformation.content }} />
+                            <div dangerouslySetInnerHTML={{__html: pageInformation.content}}/>
                         </div>
                     </div>
                 </div>
@@ -55,7 +62,7 @@ const Index = ({ pageInformation, ogImage, siteUrl, structuredData }) => {
                     <div className="col-md-6 col-sm-6">
                         <div className="about-mission">
                             <div className="mission-icon">
-                                <FaStar />
+                                <FaStar/>
                             </div>
                             <h3>{pageInformation.missionTitle}</h3>
                             {pageInformation.missionContent}
@@ -64,7 +71,7 @@ const Index = ({ pageInformation, ogImage, siteUrl, structuredData }) => {
                     <div className="col-md-6 col-sm-6">
                         <div className="about-mission">
                             <div className="mission-icon">
-                                <FaHeart />
+                                <FaHeart/>
                             </div>
                             <h3>{pageInformation.visionTitle}</h3>
                             <p>{pageInformation.visionContent}</p>
@@ -78,7 +85,7 @@ const Index = ({ pageInformation, ogImage, siteUrl, structuredData }) => {
 
 export default Index;
 
-export const getServerSideProps = async ({ req }) => {
+export const getServerSideProps = async ({req}) => {
     const protocol = req.headers['x-forwarded-proto'] || 'http';
     const host = req.headers.host;
     const siteUrl = `${protocol}://${host}/about`;

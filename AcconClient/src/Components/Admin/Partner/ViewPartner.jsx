@@ -161,6 +161,7 @@ const ViewPartner = () => {
                                             <LazyLoadImage
                                                 src={`/${sum.photo}`}
                                                 alt={sum.photo}
+                                                effect="blur"
                                                 className="slider-table-image"
                                             />
                                         </Td>

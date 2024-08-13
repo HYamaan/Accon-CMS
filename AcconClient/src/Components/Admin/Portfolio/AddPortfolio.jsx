@@ -193,7 +193,10 @@ const AddPortfolio = (props) => {
                                 <div className="col-md-10 row">
                                     {photos.map((photo, index) => (
                                         <div key={index} className="panel-website-icon-show">
-                                            <LazyLoadImage src={`/${photo.name}`} />
+                                            <LazyLoadImage
+                                                src={`/${photo.name}`}
+                                                effect="blur"
+                                            />
                                             <div
                                                 className="ms-3 px-3 py-2 rounded-2 bg-danger text-white"
                                                 onClick={() => handleRemovePhoto(index)}

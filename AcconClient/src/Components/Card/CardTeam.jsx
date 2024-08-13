@@ -8,6 +8,7 @@ const CardTeam = ({data}) => {
     return <>
         <div className="team-item">
             <LazyLoadImage
+                effect="blur"
                 alt={data.photo}
                 src={`/${data.photo}`}
                 className="team-photo"

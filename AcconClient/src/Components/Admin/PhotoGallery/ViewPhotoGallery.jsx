@@ -160,6 +160,7 @@ const ViewPhotoGallery = () => {
                                         <LazyLoadImage
                                             src={`/${item.photo}`}
                                             alt="Gallery Photo"
+                                            effect="blur"
                                             className="slider-table-image"
                                         />
                                     </Td>

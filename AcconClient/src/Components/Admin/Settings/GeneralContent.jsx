@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {FaArrowAltCircleRight} from "react-icons/fa";
-import {generateGUID} from "@/lib/generateGUID";
 import UploadLogoComponent from "@/Components/Ui/UploadLogoComponent";
 import axios from "axios";
 import {toast} from "react-toastify";
@@ -70,6 +68,10 @@ const GeneralContent = () => {
 
     const handleSubmitAdressIcon = async () => {
         var formData = new FormData();
+        if(footerAddressIcon === null){
+            toast.error("Please select a file");
+            return;
+        }
         formData.append('Photo', footerAddressIcon);
         const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Settings/UpdateAdressIcon`, formData);
         if (result.data.succeeded) {
@@ -82,6 +84,10 @@ const GeneralContent = () => {
 
     const handleSubmitPhoneIcon = async () => {
         var formData = new FormData();
+        if(footerPhoneIcon === null){
+            toast.error("Please select a file");
+            return;
+        }
         formData.append('Photo', footerPhoneIcon);
         const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Settings/UpdatePhoneIcon`, formData);
         if (result.data.succeeded) {
@@ -92,6 +98,10 @@ const GeneralContent = () => {
         }
     }
     const handleSubmitWorkingHourIcon = async () => {
+        if(footerWorkingHourIcon === null){
+            toast.error("Please select a file");
+            return;
+        }
         var formData = new FormData();
         formData.append('Photo', footerWorkingHourIcon);
         const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Settings/UpdateWorkingHourIcon`, formData);

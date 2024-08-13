@@ -4,8 +4,7 @@ import PortFolioFilter from "@/Components/NotHeader/PortfolioFilter";
 
 
 const PortFolio = ({portfolios}) => {
-
-    if(portfolios.isPublished === false){
+    if(portfolios?.isPublished === false){
         return null;
     }
 
