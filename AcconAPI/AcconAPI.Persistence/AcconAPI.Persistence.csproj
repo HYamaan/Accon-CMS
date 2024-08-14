@@ -30,4 +30,8 @@
     <ProjectReference Include="..\AcconAPI.Application\AcconAPI.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

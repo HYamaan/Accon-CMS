@@ -1,4 +1,6 @@
-﻿using AcconAPI.Application.Features.Commands.ContactPage.ContactPageMail;
+﻿using AcconAPI.Application.Features.Commands.Auth.UserLogin;
+using AcconAPI.Application.Features.Commands.ContactPage.ContactPageMail;
+using AcconAPI.Application.Features.Queries.AdminPages.LoginPage;
 using AcconAPI.Application.Features.Queries.ClientPages.AboutPage;
 using AcconAPI.Application.Features.Queries.ClientPages.ContactPage;
 using AcconAPI.Application.Features.Queries.ClientPages.FaqPage;
@@ -28,6 +30,23 @@ namespace AcconAPI.API.Controllers
         {
             _mediator = mediator;
         }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Login([FromBody] UserLoginCommandRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetLoginImages()
+        {
+            var response = await _mediator.Send(new LoginPageQueryRequest());
+            return Ok(response);
+        }
+
+
+
 
         [HttpPost("contact")]
         public async Task<IActionResult> ContactPageMail([FromBody] ContactPageMailCommandRequest request)

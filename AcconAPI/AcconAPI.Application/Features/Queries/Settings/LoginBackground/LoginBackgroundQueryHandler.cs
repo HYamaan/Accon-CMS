@@ -16,7 +16,7 @@ public class LoginBackgroundQueryHandler:IRequestHandler<LoginBackgroundQueryReq
 
     public async Task<ResponseModel<LoginBackgroundQueryResponse>> Handle(LoginBackgroundQueryRequest request, CancellationToken cancellationToken)
     {
-        var result= await _loginBackgroundRepository.GetAll().FirstOrDefaultAsync();
+        var result= await _loginBackgroundRepository.GetAll().OrderByDescending(x => x.CreatedDate).FirstOrDefaultAsync();
 
         if (result == null)
         {

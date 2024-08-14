@@ -21,8 +21,8 @@ public class LogoQueryHandler:IRequestHandler<LogoQueryRequest, ResponseModel<Lo
     {
         try
         {
-            var adminLogo = await _adminLogoRepository.GetAll().FirstOrDefaultAsync();
-            var webSiteLogo = await _webSiteLogoRepository.GetAll().FirstOrDefaultAsync();
+            var adminLogo = await _adminLogoRepository.GetAll().OrderByDescending(x=>x.CreatedDate).FirstOrDefaultAsync();
+            var webSiteLogo = await _webSiteLogoRepository.GetAll().OrderByDescending(x => x.CreatedDate).FirstOrDefaultAsync();
 
             var response = new LogoQueryResponse
             {

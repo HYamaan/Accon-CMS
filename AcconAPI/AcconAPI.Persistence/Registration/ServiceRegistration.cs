@@ -1,9 +1,11 @@
 ﻿
+using AcconAPI.Application.Abstraction;
 using AcconAPI.Application.Repository;
 using AcconAPI.Domain.Auth;
 using AcconAPI.Persistence.Context;
 using AcconAPI.Persistence.Extension;
 using AcconAPI.Persistence.Repository;
+using AcconAPI.Persistence.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +17,7 @@ public static class ServiceRegistration
 {
     public static void AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
+
         services.AddDbContext<AcconAPIDbContext>(options => options.UseNpgsql(configuration["ConnectionStrings:PostgreSQL"]));
         services.AddIdentity<AppUser, AppRole>(options =>
             {
@@ -32,5 +35,7 @@ public static class ServiceRegistration
         services.AddSwaggerOpenAPI();
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+        services.AddScoped<ITokenHandler, TokenHandler>();
     }
 }

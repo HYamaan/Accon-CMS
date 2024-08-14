@@ -1,4 +1,5 @@
 using AcconAPI.Application;
+using AcconAPI.Application.Abstraction;
 using AcconAPI.Infastructure;
 using AcconAPI.Infastructure.Services.Storage.Local;
 using AcconAPI.Persistence.Registration;
@@ -11,6 +12,7 @@ builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddStorage<LocalStorage>();
+
 
 builder.Services.AddCors(options =>
 {

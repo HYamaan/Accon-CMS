@@ -20,6 +20,7 @@ using AcconAPI.Domain.Entities.SocialMedia;
 using AcconAPI.Domain.Entities.TeamMember;
 using AcconAPI.Domain.Entities.Testimonial;
 using AcconAPI.Domain.Entities.WhyChooseUs;
+using AcconAPI.Persistence.Seeds;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using File = AcconAPI.Domain.Entities.File.File;
@@ -59,6 +60,7 @@ public class AcconAPIDbContext : IdentityDbContext<AppUser, AppRole, string>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        modelBuilder.Seed();
 
         // Discriminator column ayarı
         modelBuilder.Entity<File>()

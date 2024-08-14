@@ -16,7 +16,7 @@ public class FaviconQueryHandler:IRequestHandler<FaviconQueryRequest, ResponseMo
 
     public async Task<ResponseModel<FaviconQueryResponse>> Handle(FaviconQueryRequest request, CancellationToken cancellationToken)
     {
-        var result = await _faviconRepositorty.GetAll().FirstOrDefaultAsync();
+        var result = await _faviconRepositorty.GetAll().OrderByDescending(x=>x.CreatedDate).FirstOrDefaultAsync();
         if (result == null)
         {
             return ResponseModel<FaviconQueryResponse>.Fail("Favicon not found");
