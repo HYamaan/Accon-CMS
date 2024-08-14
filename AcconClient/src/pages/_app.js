@@ -8,26 +8,34 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
 import { Provider } from "react-redux";
 import store from "@/redux/store";
-
+import { getCookie } from 'cookies-next';
+import Login from "@/Components/Admin/LoginPage/Login";
 export default function App({ Component, pageProps }) {
     const router = useRouter();
     const isAdminRoute = router.pathname.startsWith('/admin');
-
+    const adminToken = getCookie('accessToken');
     const getLayout = (page) => {
-        if (isAdminRoute) {
+        if ((adminToken === null || adminToken == undefined) && isAdminRoute) {
+            return <>
+                <Login/>
+                <ToastContainer/>
+            </>
+        }
+        else if (isAdminRoute) {
             return (
                 <AdminLayout>
                     {page}
                     <ToastContainer />
                 </AdminLayout>
             );
-        }
+        }else{
         return (
             <Layout>
                 {page}
                 <ToastContainer />
             </Layout>
         );
+        }
     };
 
     return (

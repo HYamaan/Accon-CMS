@@ -1,0 +1,70 @@
+.login-page{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+.login-background{
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+}
+
+.login-box{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 800px;
+}
+.login-logo{
+   height: 3.5rem;
+    margin-bottom: 2rem;
+    object-fit: contain;
+    width: 100%;
+}
+.login-box-body{
+    background: #fff;
+    padding: 20px;
+    border-top: 0;
+    color: #666;
+    border-radius: 4px;
+}
+.login-box-msg{
+    margin: 0;
+    text-align: center;
+    padding: 0 20px 20px 20px;
+    font-family: Arial, sans-serif !important;
+    font-size: 18px;
+}
+.login-box-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.login-box-form input{
+    outline: none;
+    width: 250px;
+    padding: 5px 10px;
+    border: 1px solid #d2d6de;
+    border-radius: 5px;
+}
+.login-box-form input:focus{
+    border-color: #007bff;
+}
+.login-box-form .login-button{
+    width: 250px;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 600;
+}
+.login-box-form .login-button:hover{
+    background: #0056b3;
+    border-color: #0056b3;
+}

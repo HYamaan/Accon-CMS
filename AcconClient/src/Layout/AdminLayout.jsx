@@ -1,6 +1,16 @@
+
 import React from 'react';
-import AdminHeader from "@/Components/Layout/Header/AdminHeader";
-import AdminFooter from "@/Components/Layout/Footer/AdminFooter";
+import dynamic from "next/dynamic";
+
+const AdminHeader = dynamic(() =>
+    import('@/Components/Layout/Header/AdminHeader'), {
+    ssr: false
+});
+
+const AdminFooter = dynamic(() =>
+    import('@/Components/Layout/Footer/AdminFooter'), {
+    ssr: false
+});
 
 const AdminLayout = ({children}) => {
     return <>
